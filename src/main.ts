@@ -7,6 +7,7 @@ var initiator = quickfix.initiator;
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { fixClient } from '../quickfix_examples/initiator';
+import { AppService } from 'dist/src/app.service';
 async function startFixClient() {
   let order = {
         header: {
@@ -38,15 +39,15 @@ async function startFixClient() {
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
+  const appService=app.get(AppService);
   let message = await startFixClient().then(async (order)=>{
-    await fixClient.send(order,()=>{
+    await fixClient.send(order, () => {
       console.log("order sent .....",order);
+      appService.setQuickfixClient(fixClient);
       process.stdin.resume();
     });
   });
   
-
   await app.listen(3000);
 }
 
