@@ -7,7 +7,7 @@ var initiator = quickfix.initiator;
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { fixClient } from '../quickfix_examples/initiator';
-import { AppService } from 'dist/src/app.service';
+import { AppService } from './app.service';
 async function startFixClient() {
   let order = {
         header: {
