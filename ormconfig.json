@@ -1,0 +1,10 @@
+{
+    "type": "mysql",
+    "host": "192.168.33.88",
+    "port": 3306,
+    "username": "dinodbadmin",
+    "password": "dinodbadmin",
+    "database": "quickfix",
+    "entities": ["src/**/*.entity{.ts,.js}"],
+    "synchronize": true
+}

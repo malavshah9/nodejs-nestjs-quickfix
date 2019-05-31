@@ -6,6 +6,5 @@ import { AppService } from 'src/app.service';
   controllers: [QuickfixControllerController],
   providers: [ AppService ]
 })
-export class QuickfixApiModule {
-  
+export class QuickfixApiModule { 
 }
