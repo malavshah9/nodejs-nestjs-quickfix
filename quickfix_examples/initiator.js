@@ -31,6 +31,7 @@ var fixClient = new initiator(
   onLogon: function(sessionID) {
     console.log("onLogon called");
     // fixClient.emit('onLogon', common.stats(fixClient, sessionID));
+    //Done 
   },
   onLogout: function(sessionID) {
     console.log("onLogout called");
