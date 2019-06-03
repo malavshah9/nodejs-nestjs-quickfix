@@ -8,6 +8,11 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { fixClient } from '../quickfix_examples/initiator';
 import { AppService } from './app.service';
+import { TradePriceConditionGrp } from './DTO/TradePriceConditionGrp.dto';
+var obj = new TradePriceConditionGrp();
+obj.NoTradePriceConditions = 1234;
+obj.TradePriceCondition = 2;
+obj.convertToTags();
 async function startFixClient() {
   let order = {
     header: {
