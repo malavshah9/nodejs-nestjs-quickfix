@@ -9,16 +9,12 @@ import { AppModule } from './app.module';
 import { fixClient } from '../quickfix_examples/initiator';
 import { AppService } from './app.service';
 import { TradePriceConditionGrp } from './DTO/TradePriceConditionGrp.dto';
-var obj = new TradePriceConditionGrp();
-obj.NoTradePriceConditions = 1234;
-obj.TradePriceCondition = 2;
-obj.convertToTags();
 async function startFixClient() {
   let order = {
     header: {
       8: 'FIXT.1.1',
       35: 'D',
-      49: "INITIATOR",
+      49: "INITIATOR3",
       56: "ACCEPTOR"
     },
     tags: {
@@ -53,7 +49,7 @@ async function bootstrap() {
     });
   });
 
-  await app.listen(3000);
+  await app.listen(3001);
 }
 
 bootstrap();
