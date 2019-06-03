@@ -6,17 +6,18 @@ var path = require('path');
 var initiator = quickfix.initiator;
 import { Controller, Post } from '@nestjs/common';
 import { AppService } from 'src/app.service';
+import { TCR_class } from 'src/DTO/TCR_class.dto';
 
 @Controller('sendtcr')
 export class QuickfixControllerController {
     constructor(protected appService: AppService) { }
     @Post()
     async sendTCRReport() {
-        let order = {
+      let order = {
             header: {
               8: 'FIXT.1.1',
               35: 'D',
-              49: "INITIATOR",
+              49: "INITIATOR3",
               56: "ACCEPTOR"
             },
             tags: {

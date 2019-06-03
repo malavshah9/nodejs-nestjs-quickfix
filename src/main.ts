@@ -18,7 +18,7 @@ async function startFixClient() {
     header: {
       8: 'FIXT.1.1',
       35: 'D',
-      49: "INITIATOR",
+      49: "INITIATOR3",
       56: "ACCEPTOR"
     },
     tags: {
@@ -53,7 +53,7 @@ async function bootstrap() {
     });
   });
 
-  await app.listen(3000);
+  await app.listen(3001);
 }
 
 bootstrap();
