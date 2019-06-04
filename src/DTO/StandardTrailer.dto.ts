@@ -1,7 +1,7 @@
 export class StandardTrailer
 {
     CheckSum : string;
-    convertToTags()
+    converter()
     {
         var obj = {
             tags: {}
