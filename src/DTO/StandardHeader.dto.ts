@@ -1,5 +1,8 @@
+var PropertiesReader = require('properties-reader');
+
 export class StandardHeader
 {
+<<<<<<< HEAD
     BeginString : string;
     BodyLength : number;
     MsgType : string;
@@ -16,6 +19,20 @@ export class StandardHeader
         this.SenderCompID = SenderComp;
         this.TargetCompID = TargetC;
         this.MsgSeqNum = MsgSeq;
+=======
+    BeginString:string;
+    BodyLength:number;
+    MsgType:string;
+    SenderCompID:string;
+    TargetCompID:string;
+    MsgSeqNum:number;
+    PossDupFlag?:boolean;
+    PreviouslyReported?:boolean;
+    PossResend?:boolean;
+    SendingTime:string;
+    constructor(){
+        
+>>>>>>> 0417b58b533c43c93c304a256ddfab0ad8da827f
     }
     converter() {
         var obj = {

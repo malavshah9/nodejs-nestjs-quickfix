@@ -47,7 +47,7 @@ var fixServer = new fixAcceptor(
       // fixClient.emit('fromAdmin', common.stats(fixClient, sessionID, message));
     },
     fromApp: function(message, sessionID) {
-      console.log("fromApp called");
+      console.log("fromApp called",message);
       // fixClient.emit('fromApp', common.stats(fixClient, sessionID, message));
     }
   }, {
