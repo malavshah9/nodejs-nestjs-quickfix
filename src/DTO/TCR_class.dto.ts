@@ -137,8 +137,11 @@ export class TCR_class
                 return obj;
         }
         converter(){
+                var obj={
+                        tags:{}
+                };
                 if(this.TradeID!=undefined){
-
+                        obj.tags["1003"]=this.TradeID;
                 }
                 if(this.SecondaryTradeID!=undefined){
 
@@ -190,7 +193,7 @@ export class TCR_class
                         }
                 }
                 if(this.VenueType!=undefined){
-                        
+
                 }
                 
 
