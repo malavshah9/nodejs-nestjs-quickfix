@@ -11,7 +11,7 @@ import { AppService } from './app.service';
 import { TradePriceConditionGrp } from './DTO/TradePriceConditionGrp.dto';
 import { TCR_class } from './DTO/TCR_class.dto';
 async function startFixClient() {
-  var TCRReport=new TCR_class()
+ 
   let order = {
     header: {
       8: 'FIXT.1.1',

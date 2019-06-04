@@ -1,14 +1,14 @@
 export class StandardTrailer
 {
-    CheckSum:string;
+    CheckSum : string;
     convertToTags()
     {
-        var obj={
-            tags:
-            {
-                "10":this.CheckSum
-            }
+        var obj = {
+            tags: {}
         };
+        if (this.CheckSum != undefined) {
+            obj.tags["10"] = this.CheckSum;
+        }
         return obj;
     }
 }
