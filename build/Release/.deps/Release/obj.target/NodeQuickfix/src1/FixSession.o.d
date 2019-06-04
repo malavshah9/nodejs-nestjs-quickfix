@@ -1,18 +1,24 @@
-cmd_Release/obj.target/NodeQuickfix/src1/FixSession.o := g++ '-DNODE_GYP_MODULE_NAME=NodeQuickfix' '-DUSING_UV_SHARED=1' '-DUSING_V8_SHARED=1' '-DV8_DEPRECATION_WARNINGS=1' '-D_LARGEFILE_SOURCE' '-D_FILE_OFFSET_BITS=64' '-DBUILDING_NODE_EXTENSION' -I/usr/include/nodejs/include/node -I/usr/include/nodejs/src -I/usr/include/nodejs/deps/uv/include -I/usr/include/nodejs/deps/v8/include -I../node_modules/nan -I/usr/local/include -I/usr/local/include/quickfix  -fPIC -pthread -Wall -Wextra -Wno-unused-parameter -m64 -fexceptions -std=c++11 -O3 -fno-omit-frame-pointer -std=gnu++0x -fexceptions -MMD -MF ./Release/.deps/Release/obj.target/NodeQuickfix/src1/FixSession.o.d.raw   -c -o Release/obj.target/NodeQuickfix/src1/FixSession.o ../src1/FixSession.cpp
+cmd_Release/obj.target/NodeQuickfix/src1/FixSession.o := g++ '-DNODE_GYP_MODULE_NAME=NodeQuickfix' '-DUSING_UV_SHARED=1' '-DUSING_V8_SHARED=1' '-DV8_DEPRECATION_WARNINGS=1' '-D_LARGEFILE_SOURCE' '-D_FILE_OFFSET_BITS=64' '-DBUILDING_NODE_EXTENSION' -I/home/development/.node-gyp/10.15.3/include/node -I/home/development/.node-gyp/10.15.3/src -I/home/development/.node-gyp/10.15.3/deps/openssl/config -I/home/development/.node-gyp/10.15.3/deps/openssl/openssl/include -I/home/development/.node-gyp/10.15.3/deps/uv/include -I/home/development/.node-gyp/10.15.3/deps/zlib -I/home/development/.node-gyp/10.15.3/deps/v8/include -I../node_modules/nan -I/usr/local/include -I/usr/local/include/quickfix  -fPIC -pthread -Wall -Wextra -Wno-unused-parameter -m64 -fexceptions -std=c++11 -O3 -fno-omit-frame-pointer -std=gnu++1y -fexceptions -MMD -MF ./Release/.deps/Release/obj.target/NodeQuickfix/src1/FixSession.o.d.raw   -c -o Release/obj.target/NodeQuickfix/src1/FixSession.o ../src1/FixSession.cpp
 Release/obj.target/NodeQuickfix/src1/FixSession.o: ../src1/FixSession.cpp \
- ../src1/FixSession.h /usr/include/nodejs/deps/v8/include/v8.h \
- /usr/include/nodejs/deps/v8/include/v8-version.h \
- /usr/include/nodejs/deps/v8/include/v8config.h \
- /usr/include/nodejs/src/node.h /usr/include/nodejs/src/node_version.h \
- ../node_modules/nan/nan.h /usr/include/nodejs/src/node_version.h \
- /usr/include/nodejs/deps/uv/include/uv.h \
- /usr/include/nodejs/deps/uv/include/uv-errno.h \
- /usr/include/nodejs/deps/uv/include/uv-version.h \
- /usr/include/nodejs/deps/uv/include/uv-unix.h \
- /usr/include/nodejs/deps/uv/include/uv-threadpool.h \
- /usr/include/nodejs/deps/uv/include/uv-linux.h \
- /usr/include/nodejs/src/node_buffer.h /usr/include/nodejs/src/node.h \
- /usr/include/nodejs/src/node_object_wrap.h \
+ ../src1/FixSession.h \
+ /home/development/.node-gyp/10.15.3/include/node/v8.h \
+ /home/development/.node-gyp/10.15.3/include/node/v8-version.h \
+ /home/development/.node-gyp/10.15.3/include/node/v8config.h \
+ /home/development/.node-gyp/10.15.3/include/node/node.h \
+ /home/development/.node-gyp/10.15.3/include/node/v8.h \
+ /home/development/.node-gyp/10.15.3/include/node/v8-platform.h \
+ /home/development/.node-gyp/10.15.3/include/node/node_version.h \
+ ../node_modules/nan/nan.h \
+ /home/development/.node-gyp/10.15.3/include/node/node_version.h \
+ /home/development/.node-gyp/10.15.3/include/node/uv.h \
+ /home/development/.node-gyp/10.15.3/include/node/uv/errno.h \
+ /home/development/.node-gyp/10.15.3/include/node/uv/version.h \
+ /home/development/.node-gyp/10.15.3/include/node/uv/unix.h \
+ /home/development/.node-gyp/10.15.3/include/node/uv/threadpool.h \
+ /home/development/.node-gyp/10.15.3/include/node/uv/linux.h \
+ /home/development/.node-gyp/10.15.3/include/node/node_buffer.h \
+ /home/development/.node-gyp/10.15.3/include/node/node.h \
+ /home/development/.node-gyp/10.15.3/include/node/node_object_wrap.h \
  ../node_modules/nan/nan_callbacks.h \
  ../node_modules/nan/nan_callbacks_12_inl.h \
  ../node_modules/nan/nan_maybe_43_inl.h \
@@ -28,22 +34,24 @@ Release/obj.target/NodeQuickfix/src1/FixSession.o: ../src1/FixSession.cpp \
  ../src1/FixEvent.h ../src1/FixLoginResponse.h
 ../src1/FixSession.cpp:
 ../src1/FixSession.h:
-/usr/include/nodejs/deps/v8/include/v8.h:
-/usr/include/nodejs/deps/v8/include/v8-version.h:
-/usr/include/nodejs/deps/v8/include/v8config.h:
-/usr/include/nodejs/src/node.h:
-/usr/include/nodejs/src/node_version.h:
+/home/development/.node-gyp/10.15.3/include/node/v8.h:
+/home/development/.node-gyp/10.15.3/include/node/v8-version.h:
+/home/development/.node-gyp/10.15.3/include/node/v8config.h:
+/home/development/.node-gyp/10.15.3/include/node/node.h:
+/home/development/.node-gyp/10.15.3/include/node/v8.h:
+/home/development/.node-gyp/10.15.3/include/node/v8-platform.h:
+/home/development/.node-gyp/10.15.3/include/node/node_version.h:
 ../node_modules/nan/nan.h:
-/usr/include/nodejs/src/node_version.h:
-/usr/include/nodejs/deps/uv/include/uv.h:
-/usr/include/nodejs/deps/uv/include/uv-errno.h:
-/usr/include/nodejs/deps/uv/include/uv-version.h:
-/usr/include/nodejs/deps/uv/include/uv-unix.h:
-/usr/include/nodejs/deps/uv/include/uv-threadpool.h:
-/usr/include/nodejs/deps/uv/include/uv-linux.h:
-/usr/include/nodejs/src/node_buffer.h:
-/usr/include/nodejs/src/node.h:
-/usr/include/nodejs/src/node_object_wrap.h:
+/home/development/.node-gyp/10.15.3/include/node/node_version.h:
+/home/development/.node-gyp/10.15.3/include/node/uv.h:
+/home/development/.node-gyp/10.15.3/include/node/uv/errno.h:
+/home/development/.node-gyp/10.15.3/include/node/uv/version.h:
+/home/development/.node-gyp/10.15.3/include/node/uv/unix.h:
+/home/development/.node-gyp/10.15.3/include/node/uv/threadpool.h:
+/home/development/.node-gyp/10.15.3/include/node/uv/linux.h:
+/home/development/.node-gyp/10.15.3/include/node/node_buffer.h:
+/home/development/.node-gyp/10.15.3/include/node/node.h:
+/home/development/.node-gyp/10.15.3/include/node/node_object_wrap.h:
 ../node_modules/nan/nan_callbacks.h:
 ../node_modules/nan/nan_callbacks_12_inl.h:
 ../node_modules/nan/nan_maybe_43_inl.h:
