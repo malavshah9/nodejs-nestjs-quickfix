@@ -32,17 +32,14 @@ CFLAGS_C_Debug :=
 
 # Flags passed to only C++ files.
 CFLAGS_CC_Debug := \
-	-std=gnu++1y \
+	-std=gnu++0x \
 	-fexceptions
 
 INCS_Debug := \
-	-I/home/development/.node-gyp/10.15.3/include/node \
-	-I/home/development/.node-gyp/10.15.3/src \
-	-I/home/development/.node-gyp/10.15.3/deps/openssl/config \
-	-I/home/development/.node-gyp/10.15.3/deps/openssl/openssl/include \
-	-I/home/development/.node-gyp/10.15.3/deps/uv/include \
-	-I/home/development/.node-gyp/10.15.3/deps/zlib \
-	-I/home/development/.node-gyp/10.15.3/deps/v8/include \
+	-I/usr/include/nodejs/include/node \
+	-I/usr/include/nodejs/src \
+	-I/usr/include/nodejs/deps/uv/include \
+	-I/usr/include/nodejs/deps/v8/include \
 	-I$(srcdir)/node_modules/nan \
 	-I/usr/local/include \
 	-I/usr/local/include/quickfix
@@ -74,17 +71,14 @@ CFLAGS_C_Release :=
 
 # Flags passed to only C++ files.
 CFLAGS_CC_Release := \
-	-std=gnu++1y \
+	-std=gnu++0x \
 	-fexceptions
 
 INCS_Release := \
-	-I/home/development/.node-gyp/10.15.3/include/node \
-	-I/home/development/.node-gyp/10.15.3/src \
-	-I/home/development/.node-gyp/10.15.3/deps/openssl/config \
-	-I/home/development/.node-gyp/10.15.3/deps/openssl/openssl/include \
-	-I/home/development/.node-gyp/10.15.3/deps/uv/include \
-	-I/home/development/.node-gyp/10.15.3/deps/zlib \
-	-I/home/development/.node-gyp/10.15.3/deps/v8/include \
+	-I/usr/include/nodejs/include/node \
+	-I/usr/include/nodejs/src \
+	-I/usr/include/nodejs/deps/uv/include \
+	-I/usr/include/nodejs/deps/v8/include \
 	-I$(srcdir)/node_modules/nan \
 	-I/usr/local/include \
 	-I/usr/local/include/quickfix

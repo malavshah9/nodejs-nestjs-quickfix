@@ -59,7 +59,6 @@ export class instrument
     //             "40054":this.StreamGrp.StreamNotional,
     //             "40055":this.StreamGrp.StreamCurrency
     //         }
-            
     //     };
     //     return obj;
     // }

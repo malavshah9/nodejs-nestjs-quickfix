@@ -1,0 +1,4 @@
+//config.gypi
+
+//"nodedir": "/home/development/.node-gyp/10.15.3",
+  //  "standalone_static_library": 1,
