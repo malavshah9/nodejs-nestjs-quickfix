@@ -136,4 +136,66 @@ export class TCR_class
                 };
                 return obj;
         }
+        converter(){
+                var obj={
+                        tags:{}
+                };
+                if(this.TradeID!=undefined){
+                        obj.tags["1003"]=this.TradeID;
+                }
+                if(this.SecondaryTradeID!=undefined){
+
+                }
+                if(this.PackageID!=undefined){
+
+                }
+                if(this.TradeNumber!=undefined){
+
+                }
+                if(this.TradeReportType!=undefined){
+
+                }
+                if(this.TrdType!=undefined){
+
+                }
+                if(this.TrdSubType!=undefined){
+
+                }
+                if(this.SecondaryTrdType!=undefined){
+
+                }
+                if(this.TradePriceConditionGrp!=undefined){
+                        if(this.TradePriceConditionGrp.NoTradePriceConditions!=undefined){
+
+                        }
+                        if(this.TradePriceConditionGrp.TradePriceCondition!=undefined){
+
+                        }
+                }
+                if(this.TotNumTradeReports){
+
+                }
+                if(this.PriceType){
+
+                }
+                if(this.RootParties!=undefined){
+                        if(this.RootParties.NoRootPartyIDs!=undefined){
+
+                        }
+                        if(this.RootParties.RootPartyID!=undefined){
+
+                        }
+                        if(this.RootParties.RootPartyIDSource!=undefined){
+
+                        }
+                        if(this.RootParties.RootPartyRole!=undefined){
+
+                        }
+                }
+                if(this.VenueType!=undefined){
+
+                }
+                
+
+        }
 }
