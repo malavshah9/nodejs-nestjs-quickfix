@@ -32,7 +32,7 @@ export class TCR_class
 
         LastQty:number;
         LastPx:number;
-        Currency:number;
+        Currency:string;
         LastMkt:string;
         TradeDate:string;
         TransactTime:string;
@@ -45,7 +45,7 @@ export class TCR_class
         RegulatoryReportType:number;
         
         constructor(TradeId:string, TradeReportType:number,PriceType:number,RootParties:RootParties,VenueType:string
-                   ,instrument:instrument,LastQty:number,LastPx:number,Currency:number,LastMkt:string,
+                   ,instrument:instrument,LastQty:number,LastPx:number,Currency:string,LastMkt:string,
                    TradeDate:string,TransactTime:string, TrdCapRptSideGrp:TrdCapRptSideGrp,
                    ClearingIntention:number,RegulatoryReportType:number)
         {

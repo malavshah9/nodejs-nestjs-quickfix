@@ -10,7 +10,13 @@ export class StandardHeader
     PreviouslyReported?:boolean;
     PossResend?:boolean;
     SendingTime:string;
-
+    constructor(Begins:string,BodyL:number,MsgT:string,SenderComp:string,TargetC:string,MsgSeq:number){
+        this.BeginString=Begins;
+        this.BodyLength=BodyL;
+        this.SenderCompID=SenderComp;
+        this.TargetCompID=TargetC;
+        this.MsgSeqNum=MsgSeq;
+    }
     convertToTags()
     {
         var obj={
