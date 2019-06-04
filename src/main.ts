@@ -9,7 +9,9 @@ import { AppModule } from './app.module';
 import { fixClient } from '../quickfix_examples/initiator';
 import { AppService } from './app.service';
 import { TradePriceConditionGrp } from './DTO/TradePriceConditionGrp.dto';
+import { TCR_class } from './DTO/TCR_class.dto';
 async function startFixClient() {
+  var TCRReport=new TCR_class()
   let order = {
     header: {
       8: 'FIXT.1.1',
@@ -42,14 +44,16 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const appService = app.get(AppService);
   let message = await startFixClient().then(async (order) => {
-    await fixClient.send(order, () => {
-      console.log("order sent .....", order);
-      appService.setQuickfixClient(fixClient);
+    appService.setQuickfixClient(fixClient);
       process.stdin.resume();
-    });
+    // await fixClient.send(order, () => {
+    //   console.log("order sent .....", order);
+    //   appService.setQuickfixClient(fixClient);
+    //   process.stdin.resume();
+    // });
   });
 
-  await app.listen(3001);
+  await app.listen(3000);
 }
 
 bootstrap();
