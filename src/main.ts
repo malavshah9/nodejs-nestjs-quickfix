@@ -10,13 +10,13 @@ import { fixClient } from '../quickfix_examples/initiator';
 import { AppService } from './app.service';
 import { TradePriceConditionGrp } from './DTO/TradePriceConditionGrp.dto';
 import { TCR_class } from './DTO/TCR_class.dto';
+import { StandardHeader } from './DTO/StandardHeader.dto';
 async function startFixClient() {
-  var TCRReport=new TCR_class()
   let order = {
     header: {
       8: 'FIXT.1.1',
       35: 'D',
-      49: "INITIATOR3",
+      49: "INITIATOR",
       56: "ACCEPTOR"
     },
     tags: {
@@ -44,13 +44,13 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const appService = app.get(AppService);
   let message = await startFixClient().then(async (order) => {
-    appService.setQuickfixClient(fixClient);
+    // appService.setQuickfixClient(fixClient);
+      // process.stdin.resume();
+    await fixClient.send(order, () => {
+      console.log("order sent .....", order);
+      appService.setQuickfixClient(fixClient);
       process.stdin.resume();
-    // await fixClient.send(order, () => {
-    //   console.log("order sent .....", order);
-    //   appService.setQuickfixClient(fixClient);
-    //   process.stdin.resume();
-    // });
+    });
   });
 
   await app.listen(3000);
