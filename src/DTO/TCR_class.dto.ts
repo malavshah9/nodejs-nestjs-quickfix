@@ -33,7 +33,7 @@ export class TCR_class
 
         LastQty:number;
         LastPx:number;
-        Currency:string;
+        Currency:any;
         LastMkt:string;
         TradeDate:string;
         TransactTime:string;
@@ -48,237 +48,235 @@ export class TCR_class
         
 
 
-//     constructor(TradeId : string, TradeReportType : number, PriceType : number, RootParties : RootParties, VenueType : string, instrument : instrument, LastQty : number, LastPx : number, Currency : string, LastMkt : string, TradeDate : string, TransactTime : string, TrdCapRptSideGrp : TrdCapRptSideGrp, ClearingIntention : number, RegulatoryReportType : number)
-//     {
-//         this.TradeID = TradeId;
-//         this.TradeReportType = TradeReportType;
-//         this.PriceType = PriceType;
+    constructor(TradeId : string, TradeReportType : number, PriceType : number, RootParties : RootParties, VenueType : string, instrument : instrument, LastQty : number, LastPx : number, Currency : any, LastMkt : string, TradeDate : string, TransactTime : string, TrdCapRptSideGrp : TrdCapRptSideGrp, ClearingIntention : number, RegulatoryReportType : number)
+    {
+        this.TradeID = TradeId;
+        this.TradeReportType = TradeReportType;
+        this.PriceType = PriceType;
 
-//         this.RootParties = RootParties;
+        this.RootParties = RootParties;
 
-//         this.VenueType = VenueType;
+        this.VenueType = VenueType;
 
-//         this.instrument = instrument;
+        this.instrument = instrument;
 
-//         this.LastQty = LastQty;
-//         this.LastPx = LastPx;
-//         this.Currency = Currency;
-//         this.LastMkt = LastMkt;
-//         this.TradeDate = TradeDate;
-//         this.TransactTime = TransactTime;
-//         this.TrdCapRptSideGrp = TrdCapRptSideGrp;
-//         this.ClearingIntention = ClearingIntention;
-//         this.RegulatoryReportType = RegulatoryReportType;
-//     }
-constructor()
-{
+        this.LastQty = LastQty;
+        this.LastPx = LastPx;
+        this.Currency = Currency;
+        this.LastMkt = LastMkt;
+        this.TradeDate = TradeDate;
+        this.TransactTime = TransactTime;
+        this.TrdCapRptSideGrp = TrdCapRptSideGrp;
+        this.ClearingIntention = ClearingIntention;
+        this.RegulatoryReportType = RegulatoryReportType;
+    }
+// constructor()
+// {
         
-}
+// }
     converter() {
-        var obj = {
-            tags: {}
-        };
+        var obj = {};
         if (this.TradeID != undefined) {
-            obj.tags["1003"] = this.TradeID;
+            obj["1003"] = this.TradeID;
         }
         if (this.SecondaryTradeID != undefined) {
-            obj.tags["1040"] = this.SecondaryTradeID;
+            obj["1040"] = this.SecondaryTradeID;
         }
         if (this.PackageID != undefined) {
-            obj.tags["2489"] = this.PackageID;
+            obj["2489"] = this.PackageID;
         }
         if (this.TradeNumber != undefined) {
-            obj.tags["2490"] = this.TradeNumber;
+            obj["2490"] = this.TradeNumber;
         }
         if (this.TradeReportType != undefined) {
-            obj.tags["856"] = this.TradeReportType;
+            obj["856"] = this.TradeReportType;
         }
         if (this.TrdType != undefined) {
-            obj.tags["828"] = this.TrdType;
+            obj["828"] = this.TrdType;
         }
         if (this.TrdSubType != undefined) {
-            obj.tags["829"] = this.TrdSubType;
+            obj["829"] = this.TrdSubType;
         }
         if (this.SecondaryTrdType != undefined) {
-            obj.tags["855"] = this.SecondaryTrdType;
+            obj["855"] = this.SecondaryTrdType;
         }
         if (this.TradePriceConditionGrp != undefined) {
             if (this.TradePriceConditionGrp.NoTradePriceConditions != undefined) {
-                obj.tags["1838"] = this.TradePriceConditionGrp.NoTradePriceConditions;
+                obj["1838"] = this.TradePriceConditionGrp.NoTradePriceConditions;
             }
             if (this.TradePriceConditionGrp.TradePriceCondition != undefined) {
-                obj.tags["1839"] = this.TradePriceConditionGrp.TradePriceCondition;
+                obj["1839"] = this.TradePriceConditionGrp.TradePriceCondition;
             }
         }
         if (this.TotNumTradeReports) {
-            obj.tags["748"] = this.TotNumTradeReports;
+            obj["748"] = this.TotNumTradeReports;
         }
         if (this.PriceType) {
-            obj.tags["423"] = this.PriceType;
+            obj["423"] = this.PriceType;
         }
         if (this.RootParties != undefined) {
             if (this.RootParties.NoRootPartyIDs != undefined) {
-                obj.tags["1116"] = this.RootParties.NoRootPartyIDs;
+                obj["1116"] = this.RootParties.NoRootPartyIDs;
             }
             if (this.RootParties.RootPartyID != undefined) {
-                obj.tags["1117"] = this.RootParties.RootPartyID;
+                obj["1117"] = this.RootParties.RootPartyID;
             }
             if (this.RootParties.RootPartyIDSource != undefined) {
-                obj.tags["1118"] = this.RootParties.RootPartyIDSource;
+                obj["1118"] = this.RootParties.RootPartyIDSource;
             }
             if (this.RootParties.RootPartyRole != undefined) {
-                obj.tags["1119"] = this.RootParties.RootPartyRole;
+                obj["1119"] = this.RootParties.RootPartyRole;
             }
         }
         if (this.VenueType != undefined) {
-            obj.tags["1430"] = this.VenueType;
+            obj["1430"] = this.VenueType;
         }
         if (this.instrument != undefined) {
 
             if (this.instrument.Symbol != undefined) {
-                obj.tags["55"] = this.instrument.Symbol;
+                obj["55"] = this.instrument.Symbol;
             }
             if (this.instrument.SecurityID != undefined) {
-                obj.tags["48"] = this.instrument.SecurityID;
+                obj["48"] = this.instrument.SecurityID;
             }
             if (this.instrument.SecurityIDSource != undefined) {
-                obj.tags["22"] = this.instrument.SecurityIDSource;
+                obj["22"] = this.instrument.SecurityIDSource;
             }
             if (this.instrument.SecAltIDGrp != undefined) {
                 if (this.instrument.SecAltIDGrp.NoSecurityAltID != undefined) {
-                    obj.tags["454"] = this.instrument.SecAltIDGrp.NoSecurityAltID;
+                    obj["454"] = this.instrument.SecAltIDGrp.NoSecurityAltID;
                 }
                 if (this.instrument.SecAltIDGrp.SecurityAltID != undefined) {
-                    obj.tags["455"] = this.instrument.SecAltIDGrp.SecurityAltID;
+                    obj["455"] = this.instrument.SecAltIDGrp.SecurityAltID;
                 }
                 if (this.instrument.SecAltIDGrp.SecurityAltIDSource != undefined) {
-                    obj.tags["456"] = this.instrument.SecAltIDGrp.SecurityAltIDSource;
+                    obj["456"] = this.instrument.SecAltIDGrp.SecurityAltIDSource;
                 }
             }
             if (this.instrument.MaturityDate != undefined) {
-                obj.tags["541"] = this.instrument.MaturityDate;
+                obj["541"] = this.instrument.MaturityDate;
             }
             if (this.instrument.AssetClass != undefined) {
-                obj.tags["1938"] = this.instrument.AssetClass;
+                obj["1938"] = this.instrument.AssetClass;
             }
             if (this.instrument.AssetSubClass != undefined) {
-                obj.tags["1939"] = this.instrument.AssetSubClass;
+                obj["1939"] = this.instrument.AssetSubClass;
             }
             if (this.instrument.AssetType != undefined) {
-                obj.tags["1940"] = this.instrument.AssetType;
+                obj["1940"] = this.instrument.AssetType;
             }
             if (this.instrument.SecondaryAssetGrp != undefined) {
                 if (this.instrument.SecondaryAssetGrp.NoSecondaryAssetClasses != undefined) {
-                    obj.tags["1976"] = this.instrument.SecondaryAssetGrp.NoSecondaryAssetClasses;
+                    obj["1976"] = this.instrument.SecondaryAssetGrp.NoSecondaryAssetClasses;
                 }
                 if (this.instrument.SecondaryAssetGrp.SecondaryAssetClass != undefined) {
-                    obj.tags["1977"] = this.instrument.SecondaryAssetGrp.SecondaryAssetClass;
+                    obj["1977"] = this.instrument.SecondaryAssetGrp.SecondaryAssetClass;
                 }
                 if (this.instrument.SecondaryAssetGrp.SecondaryAssetSubClass != undefined) {
-                    obj.tags["1978"] = this.instrument.SecondaryAssetGrp.SecondaryAssetSubClass;
+                    obj["1978"] = this.instrument.SecondaryAssetGrp.SecondaryAssetSubClass;
                 }
                 if (this.instrument.SecondaryAssetGrp.SecondaryAssetType != undefined) {
-                    obj.tags["1979"] = this.instrument.SecondaryAssetGrp.SecondaryAssetType;
+                    obj["1979"] = this.instrument.SecondaryAssetGrp.SecondaryAssetType;
                 }
             }
             if (this.instrument.ContractMultiplier != undefined) {
-                obj.tags["231"] = this.instrument.ContractMultiplier;
+                obj["231"] = this.instrument.ContractMultiplier;
             }
             if (this.instrument.UnitOfMeasure != undefined) {
-                obj.tags["996"] = this.instrument.UnitOfMeasure;
+                obj["996"] = this.instrument.UnitOfMeasure;
             }
             if (this.instrument.UnitOfMeasureQty != undefined) {
-                obj.tags["1147"] = this.instrument.UnitOfMeasureQty;
+                obj["1147"] = this.instrument.UnitOfMeasureQty;
             }
             if (this.instrument.UnitOfMeasureCurrency != undefined) {
-                obj.tags["1716"] = this.instrument.UnitOfMeasureCurrency;
+                obj["1716"] = this.instrument.UnitOfMeasureCurrency;
             }
             if (this.instrument.PutOrCall != undefined) {
-                obj.tags["201"] = this.instrument.PutOrCall;
+                obj["201"] = this.instrument.PutOrCall;
             }
             if (this.instrument.StreamGrp != undefined) {
                 if (this.instrument.StreamGrp.StreamNotional != undefined) {
-                    obj.tags["40054"] = this.instrument.StreamGrp.StreamNotional;
+                    obj["40054"] = this.instrument.StreamGrp.StreamNotional;
                 }
                 if (this.instrument.StreamGrp.StreamCurrency != undefined) {
-                    obj.tags["40055"] = this.instrument.StreamGrp.StreamCurrency;
+                    obj["40055"] = this.instrument.StreamGrp.StreamCurrency;
                 }
             }
 
         }
         if (this.LastQty != undefined) {
-            obj.tags["32"] = this.LastQty;
+            obj["32"] = this.LastQty;
         }
         if (this.LastPx != undefined) {
-            obj.tags["31"] = this.LastPx;
+            obj["31"] = this.LastPx;
         }
         if (this.Currency != undefined) {
-            obj.tags["15"] = this.Currency;
+            obj["15"] = this.Currency;
         }
         if (this.LastMkt != undefined) {
-            obj.tags["30"] = this.LastMkt;
+            obj["30"] = this.LastMkt;
         }
         if (this.TradeDate != undefined) {
-            obj.tags["75"] = this.TradeDate;
+            obj["75"] = this.TradeDate;
         }
         if (this.TransactTime != undefined) {
-            obj.tags["60"] = this.TransactTime;
+            obj["60"] = this.TransactTime;
         }
         if (this.TrdRegTimestamps != undefined) {
             if (this.TrdRegTimestamps.NoTrdRegTimestamps != undefined) {
-                obj.tags["768"] = this.TrdRegTimestamps.NoTrdRegTimestamps;
+                obj["768"] = this.TrdRegTimestamps.NoTrdRegTimestamps;
             }
             if (this.TrdRegTimestamps.TrdRegTimestamp != undefined) {
-                obj.tags["769"] = this.TrdRegTimestamps.TrdRegTimestamp;
+                obj["769"] = this.TrdRegTimestamps.TrdRegTimestamp;
             }
             if (this.TrdRegTimestamps.TrdRegTimestampType != undefined) {
-                obj.tags["770"] = this.TrdRegTimestamps.TrdRegTimestampType;
+                obj["770"] = this.TrdRegTimestamps.TrdRegTimestampType;
             }
 
         }
         if (this.TrdCapRptSideGrp != undefined) {
             if (this.TrdCapRptSideGrp.NoSides != undefined) {
-                obj.tags["552"] = this.TrdCapRptSideGrp.NoSides;
+                obj["552"] = this.TrdCapRptSideGrp.NoSides;
             }
             if (this.TrdCapRptSideGrp.Side != undefined) {
-                obj.tags["54"] = this.TrdCapRptSideGrp.Side;
+                obj["54"] = this.TrdCapRptSideGrp.Side;
             }
             if (this.TrdCapRptSideGrp.LastCapacity != undefined) {
-                obj.tags["29"] = this.TrdCapRptSideGrp.LastCapacity;
+                obj["29"] = this.TrdCapRptSideGrp.LastCapacity;
             }
             if (this.TrdCapRptSideGrp.Parties != undefined) {
                 if (this.TrdCapRptSideGrp.Parties.NoPartyIDs != undefined) {
-                    obj.tags["453"] = this.TrdCapRptSideGrp.Parties.NoPartyIDs;
+                    obj["453"] = this.TrdCapRptSideGrp.Parties.NoPartyIDs;
                 }
                 if (this.TrdCapRptSideGrp.Parties.PartyID != undefined) {
-                    obj.tags["448"] = this.TrdCapRptSideGrp.Parties.PartyID;
+                    obj["448"] = this.TrdCapRptSideGrp.Parties.PartyID;
                 }
                 if (this.TrdCapRptSideGrp.Parties.PartyIDSource != undefined) {
-                    obj.tags["447"] = this.TrdCapRptSideGrp.Parties.PartyIDSource;
+                    obj["447"] = this.TrdCapRptSideGrp.Parties.PartyIDSource;
                 }
                 if (this.TrdCapRptSideGrp.Parties.PartyRole != undefined) {
-                    obj.tags["452"] = this.TrdCapRptSideGrp.Parties.PartyRole;
+                    obj["452"] = this.TrdCapRptSideGrp.Parties.PartyRole;
                 }
 
             }
         }
         if (this.TrdRegPublicationGrp != undefined) {
             if (this.TrdRegPublicationGrp.NoTrdRegPublications != undefined) {
-                obj.tags["2668"] = this.TrdRegPublicationGrp.NoTrdRegPublications;
+                obj["2668"] = this.TrdRegPublicationGrp.NoTrdRegPublications;
             }
             if (this.TrdRegPublicationGrp.TrdRegPublicationType != undefined) {
-                obj.tags["2669"] = this.TrdRegPublicationGrp.TrdRegPublicationType;
+                obj["2669"] = this.TrdRegPublicationGrp.TrdRegPublicationType;
             }
             if (this.TrdRegPublicationGrp.TrdRegPublicationReason != undefined) {
-                obj.tags["2670"] = this.TrdRegPublicationGrp.TrdRegPublicationReason;
+                obj["2670"] = this.TrdRegPublicationGrp.TrdRegPublicationReason;
             }
         }
 
         if (this.ClearingIntention != undefined) {
-            obj.tags["1924"] = this.ClearingIntention;
+            obj["1924"] = this.ClearingIntention;
         }
         if (this.RegulatoryReportType != undefined) {
-            obj.tags["1934"] = this.RegulatoryReportType
+            obj["1934"] = this.RegulatoryReportType
         }
         return obj;
     }

@@ -12,10 +12,7 @@ import { TradePriceConditionGrp } from './DTO/TradePriceConditionGrp.dto';
 import { TCR_class } from './DTO/TCR_class.dto';
 import { StandardHeader } from './DTO/StandardHeader.dto';
 async function startFixClient() {
-<<<<<<< HEAD
  
-=======
->>>>>>> 0417b58b533c43c93c304a256ddfab0ad8da827f
   let order = {
     header: {
       8: 'FIXT.1.1',
