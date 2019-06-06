@@ -1702,6 +1702,7 @@
    <field name='VenueType' required='N' />
    <field name='MarketSegmentID' required='N' />
    <field name='MarketID' required='N' />
+   <field name='ClearingIntention' required='N'/>
   </message>
   <message name='OrderMassStatusRequest' msgcat='app' msgtype='AF'>
    <field name='MassStatusReqID' required='Y' />
@@ -9747,6 +9748,10 @@
    <value enum='A' description='ADD' />
    <value enum='D' description='DELETE' />
    <value enum='M' description='MODIFY' />
+  </field>
+  <field number='1924' name='ClearingIntention' type='INT'>
+   <value enum='0' description='DO_NOT_INTEND_TO_CLEAR' />
+   <value enum='1' description='INTEND_TO_CLEAR' />
   </field>
   <field number='1396' name='MarketSegmentDesc' type='STRING' />
   <field number='1397' name='EncodedMktSegmDescLen' type='LENGTH' />
