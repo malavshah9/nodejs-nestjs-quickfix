@@ -47,6 +47,14 @@ var fixServer = new fixAcceptor(
       // fixClient.emit('fromAdmin', common.stats(fixClient, sessionID, message));
     },
     fromApp: function(message, sessionID) {
+      if(message.groups!=undefined){
+        for(element in message.groups)
+          {
+            console.log("Group name: ",element);
+            console.log("Object: ",message.groups[element]);
+          }
+      }
+      
       console.log("fromApp called",message);
       // fixClient.emit('fromApp', common.stats(fixClient, sessionID, message));
     }

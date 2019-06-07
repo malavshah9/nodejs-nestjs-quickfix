@@ -43,29 +43,60 @@ export class QuickfixControllerController {
             '32': 12,
             '48': '0X1213',
             '552':  1,
-            '54': '1',
             '55': 'BAC',
             '60': '20190605-15:43:07.189',
             '75': '20190605',
             '423': '1',
             '856': 0,
             '1003': '1xsasdfdf',
-            '1116': 1,
-            '1117': 12,
-            '1118': 'G',
-            '1119': 3,
-            '1430': 'E',
+            '1116': 2,
+            // '1117': 12,
+            // '1118': 'G',
+            // '1119': 3,
             '1924': 1,
             '1934': 11
            },
-          // groups:[{
-          //   'index':552,
-          //   'delim':54,
-          //   'entries':[{54:'1'}]
-          // }]
+          groups:[{
+            'index':552,
+            'delim':54,
+            'entries':[{54:'1'},{54:'2'}]
+          },
+        {
+          'index':1116,
+          'delim':1117,
+          'entries':[{
+            '1117': 12,
+            '1118': 'G',
+            '1119': 3
+          },
+        {
+          '1117': 10,
+          '1118': 'E',
+          '1119': 3 
+        }]
+        }]
        };
       console.log(obj);
-      // let order = {
+      if(obj.groups!=undefined){
+        for(let ele in obj.groups){
+          console.log("Group name: ",ele);
+          console.log("Object: ",obj.groups[ele]);
+        }
+      }
+        await this.appService.getQuickfixClient().then(async (quickfixClient)=>{
+            await quickfixClient.send(obj, () => {
+                console.log("TCR sent .....",obj);
+              });
+        });
+        return 'Sending TCR Report';
+    }
+}
+
+
+
+
+//*****************Sample Order */
+  // let order = {
       //       header: {
       //         8: 'FIXT.1.1',
       //         35: 'D',
@@ -85,11 +116,3 @@ export class QuickfixControllerController {
       //         423: 6
       //       }
       //     };
-        await this.appService.getQuickfixClient().then(async (quickfixClient)=>{
-            await quickfixClient.send(obj, () => {
-                console.log("TCR sent .....",obj);
-              });
-        });
-        return 'Sending TCR Report';
-    }
-}
