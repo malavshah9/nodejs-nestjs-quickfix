@@ -4,9 +4,11 @@ import {instrument} from "./Instrument.dto";
 import {TrdRegTimestamps} from "./TrdRegTimestamps.dto";
 import {TrdCapRptSideGrp} from "./TrdCapRptSideGrp.dto";
 import {TrdRegPublicationGrp} from "./TrdRegPublicationGrp.dto";
+import { temp } from "./temp.dto";
 
 export class TCR_class
 {
+    temp:temp;
     TradeID : string;
     SecondaryTradeID?: string;
     PackageID?: string;
@@ -19,11 +21,13 @@ export class TCR_class
        
         
         TradePriceConditionGrp?:TradePriceConditionGrp; //Group
+        NoTradePriceConditions?:number;
         
         TotNumTradeReports?:number;
         PriceType:number;
         
-        RootParties:RootParties; //Group
+        RootParties:RootParties[]; //Group
+        NoRootPartyIDs:number;
 
         VenueType:string;
 
@@ -39,8 +43,13 @@ export class TCR_class
         TransactTime:string;
 
         TrdRegTimestamps?:TrdRegTimestamps; //Group
-        TrdCapRptSideGrp:TrdCapRptSideGrp; //Group
+        NoTrdRegTimestamps?:number;
+
+        TrdCapRptSideGrp:TrdCapRptSideGrp[]; //Group
+        NoSides:number;
+
         TrdRegPublicationGrp?:TrdRegPublicationGrp //Group
+        NoTrdRegPublications?:number;
 
         ClearingIntention:number;
         RegulatoryReportType:number;
@@ -48,13 +57,14 @@ export class TCR_class
         
 
 
-    constructor(TradeId : string, TradeReportType : number, PriceType : number, RootParties : RootParties, VenueType : string, instrument : instrument, LastQty : number, LastPx : number, Currency : any, LastMkt : string, TradeDate : string, TransactTime : string, TrdCapRptSideGrp : TrdCapRptSideGrp, ClearingIntention : number, RegulatoryReportType : number)
+    constructor(TradeId : string, TradeReportType : number, PriceType : number,NoRootPartyIDs:number, RootParties : RootParties[], VenueType : string, instrument : instrument, LastQty : number, LastPx : number, Currency : any, LastMkt : string, TradeDate : string, TransactTime : string,NoSides:number, TrdCapRptSideGrp : TrdCapRptSideGrp[], ClearingIntention : number, RegulatoryReportType : number)
     {
         this.TradeID = TradeId;
         this.TradeReportType = TradeReportType;
         this.PriceType = PriceType;
 
         this.RootParties = RootParties;
+        this.NoRootPartyIDs=NoRootPartyIDs;
 
         this.VenueType = VenueType;
 
@@ -67,6 +77,8 @@ export class TCR_class
         this.TradeDate = TradeDate;
         this.TransactTime = TransactTime;
         this.TrdCapRptSideGrp = TrdCapRptSideGrp;
+        this.NoSides=NoSides;
+
         this.ClearingIntention = ClearingIntention;
         this.RegulatoryReportType = RegulatoryReportType;
     }
@@ -74,11 +86,21 @@ export class TCR_class
 // {
         
 // }
+
     converter() {
-        var obj = {};
+        // var obj = {
+        //     groups:{
+        //         index:{},
+        //         delim:{},
+        //         entries:{}
+        //         }
+        // };
+        var obj={
+            groups:[]
+        };
         if (this.TradeID != undefined) {
             obj["1003"] = this.TradeID;
-        }
+        } 
         if (this.SecondaryTradeID != undefined) {
             obj["1040"] = this.SecondaryTradeID;
         }
@@ -101,8 +123,8 @@ export class TCR_class
             obj["855"] = this.SecondaryTrdType;
         }
         if (this.TradePriceConditionGrp != undefined) {
-            if (this.TradePriceConditionGrp.NoTradePriceConditions != undefined) {
-                obj["1838"] = this.TradePriceConditionGrp.NoTradePriceConditions;
+            if (this.NoTradePriceConditions != undefined) {
+                obj["1838"] = this.NoTradePriceConditions;
             }
             if (this.TradePriceConditionGrp.TradePriceCondition != undefined) {
                 obj["1839"] = this.TradePriceConditionGrp.TradePriceCondition;
@@ -114,25 +136,37 @@ export class TCR_class
         if (this.PriceType) {
             obj["423"] = this.PriceType;
         }
-        if (this.RootParties != undefined) {
-            if (this.RootParties.NoRootPartyIDs != undefined) {
-                obj["1116"] = this.RootParties.NoRootPartyIDs;
+        if (this.NoRootPartyIDs != 0) {
+            if(this.NoRootPartyIDs==this.RootParties.length){
+                obj["1116"]=this.NoRootPartyIDs;
+                var anotherobj={};
+                anotherobj["index"]=1116;
+                anotherobj["delim"]=1117;
+                var ls=[];
+                this.RootParties.forEach(element => {
+                    let temp={};
+                    if (element.RootPartyID != undefined) {
+                        temp["1117"] = element.RootPartyID;
+                    }
+                    if (element.RootPartyIDSource != undefined) {
+                        temp["1118"] = element.RootPartyIDSource;
+                    }
+                    if (element.RootPartyRole != undefined) {
+                        temp["1119"] = element.RootPartyRole;
+                    }  
+                    ls.push(temp);
+                });
+                anotherobj['entries']=ls;
+                obj.groups.push(anotherobj);
             }
-            if (this.RootParties.RootPartyID != undefined) {
-                obj["1117"] = this.RootParties.RootPartyID;
-            }
-            if (this.RootParties.RootPartyIDSource != undefined) {
-                obj["1118"] = this.RootParties.RootPartyIDSource;
-            }
-            if (this.RootParties.RootPartyRole != undefined) {
-                obj["1119"] = this.RootParties.RootPartyRole;
+            else{
+                console.log("Invalid RootParties in the package.");
             }
         }
         if (this.VenueType != undefined) {
             obj["1430"] = this.VenueType;
         }
         if (this.instrument != undefined) {
-
             if (this.instrument.Symbol != undefined) {
                 obj["55"] = this.instrument.Symbol;
             }
@@ -143,8 +177,8 @@ export class TCR_class
                 obj["22"] = this.instrument.SecurityIDSource;
             }
             if (this.instrument.SecAltIDGrp != undefined) {
-                if (this.instrument.SecAltIDGrp.NoSecurityAltID != undefined) {
-                    obj["454"] = this.instrument.SecAltIDGrp.NoSecurityAltID;
+                if (this.instrument.NoSecurityAltID != undefined) {
+                    obj["454"] = this.instrument.NoSecurityAltID;
                 }
                 if (this.instrument.SecAltIDGrp.SecurityAltID != undefined) {
                     obj["455"] = this.instrument.SecAltIDGrp.SecurityAltID;
@@ -166,8 +200,8 @@ export class TCR_class
                 obj["1940"] = this.instrument.AssetType;
             }
             if (this.instrument.SecondaryAssetGrp != undefined) {
-                if (this.instrument.SecondaryAssetGrp.NoSecondaryAssetClasses != undefined) {
-                    obj["1976"] = this.instrument.SecondaryAssetGrp.NoSecondaryAssetClasses;
+                if (this.instrument.NoSecondaryAssetClasses != undefined) {
+                    obj["1976"] = this.instrument.NoSecondaryAssetClasses;
                 }
                 if (this.instrument.SecondaryAssetGrp.SecondaryAssetClass != undefined) {
                     obj["1977"] = this.instrument.SecondaryAssetGrp.SecondaryAssetClass;
@@ -223,8 +257,8 @@ export class TCR_class
             obj["60"] = this.TransactTime;
         }
         if (this.TrdRegTimestamps != undefined) {
-            if (this.TrdRegTimestamps.NoTrdRegTimestamps != undefined) {
-                obj["768"] = this.TrdRegTimestamps.NoTrdRegTimestamps;
+            if (this.NoTrdRegTimestamps != undefined) {
+                obj["768"] = this.NoTrdRegTimestamps;
             }
             if (this.TrdRegTimestamps.TrdRegTimestamp != undefined) {
                 obj["769"] = this.TrdRegTimestamps.TrdRegTimestamp;
@@ -235,8 +269,8 @@ export class TCR_class
 
         }
         if (this.TrdCapRptSideGrp != undefined) {
-            if (this.TrdCapRptSideGrp.NoSides != undefined) {
-                obj["552"] = this.TrdCapRptSideGrp.NoSides;
+            if (this.NoSides != undefined) {
+                obj["552"] = this.NoSides;
             }
             if (this.TrdCapRptSideGrp.Side != undefined) {
                 obj["54"] = this.TrdCapRptSideGrp.Side;
@@ -245,8 +279,8 @@ export class TCR_class
                 obj["29"] = this.TrdCapRptSideGrp.LastCapacity;
             }
             if (this.TrdCapRptSideGrp.Parties != undefined) {
-                if (this.TrdCapRptSideGrp.Parties.NoPartyIDs != undefined) {
-                    obj["453"] = this.TrdCapRptSideGrp.Parties.NoPartyIDs;
+                if (this.TrdCapRptSideGrp.NoPartyIDs != undefined) {
+                    obj["453"] = this.TrdCapRptSideGrp.NoPartyIDs;
                 }
                 if (this.TrdCapRptSideGrp.Parties.PartyID != undefined) {
                     obj["448"] = this.TrdCapRptSideGrp.Parties.PartyID;
@@ -261,8 +295,8 @@ export class TCR_class
             }
         }
         if (this.TrdRegPublicationGrp != undefined) {
-            if (this.TrdRegPublicationGrp.NoTrdRegPublications != undefined) {
-                obj["2668"] = this.TrdRegPublicationGrp.NoTrdRegPublications;
+            if (this.NoTrdRegPublications != undefined) {
+                obj["2668"] = this.NoTrdRegPublications;
             }
             if (this.TrdRegPublicationGrp.TrdRegPublicationType != undefined) {
                 obj["2669"] = this.TrdRegPublicationGrp.TrdRegPublicationType;
