@@ -12,11 +12,13 @@ import { instrument } from 'src/DTO/Instrument.dto';
 import { TrdCapRptSideGrp } from 'src/DTO/TrdCapRptSideGrp.dto';
 import { StandardHeader } from '../../DTO/StandardHeader.dto';
 import { HeaderServiceService } from 'src/common-services/header-service/header-service.service';
-
+import { TcrServiceService } from 'src/common-services/tcr-service/tcr-service.service';
 @Controller('sendtcr')
 export class QuickfixControllerController {
     TCRHeader:any;
-    constructor(protected appService: AppService,protected headerService:HeaderServiceService) { }
+    constructor(protected appService: AppService,protected headerService:HeaderServiceService,protected tcrService:TcrServiceService) { 
+      
+    }
 
     @Post()
     async sendTCRReport() {
@@ -76,13 +78,14 @@ export class QuickfixControllerController {
         }]
         }]
        };
-      console.log(obj);
-      if(obj.groups!=undefined){
-        for(let ele in obj.groups){
-          console.log("Group name: ",ele);
-          console.log("Object: ",obj.groups[ele]);
-        }
-      }
+      // console.log(obj);
+      console.log("TCRReport Made from Service",this.tcrService.getTCRReportDemoObj());
+      // if(obj.groups!=undefined){
+      //   for(let ele in obj.groups){
+      //     console.log("Group name: ",ele);
+      //     console.log("Object: ",obj.groups[ele]);
+      //   }
+      // }
         await this.appService.getQuickfixClient().then(async (quickfixClient)=>{
             await quickfixClient.send(obj, () => {
                 console.log("TCR sent .....",obj);

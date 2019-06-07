@@ -2,8 +2,8 @@
     "telemetry.machineId": "4d369e8d3298d444adfbdfa23023f8b132d72859a82acf83e6b2c7bb688f84be",
     "openedPathsList": {
         "workspaces3": [
-            "file:///opt/lampp/htdocs/Riya_Foods",
-            "file:///home/malav/Desktop/gateway/nest_project_final/final-project"
+            "file:///home/malav/Desktop/gateway/nest_project_final/final-project",
+            "file:///opt/lampp/htdocs/Riya_Foods"
         ],
         "files2": []
     },
@@ -50,23 +50,24 @@
                                     "id": "openRecentFolder",
                                     "uri": {
                                         "$mid": 1,
-                                        "external": "file:///opt/lampp/htdocs/Riya_Foods",
-                                        "path": "/opt/lampp/htdocs/Riya_Foods",
-                                        "scheme": "file"
-                                    },
-                                    "enabled": true,
-                                    "label": "/opt/lampp/htdocs/Riya_Foods"
-                                },
-                                {
-                                    "id": "openRecentFolder",
-                                    "uri": {
-                                        "$mid": 1,
+                                        "fsPath": "/home/malav/Desktop/gateway/nest_project_final/final-project",
                                         "external": "file:///home/malav/Desktop/gateway/nest_project_final/final-project",
                                         "path": "/home/malav/Desktop/gateway/nest_project_final/final-project",
                                         "scheme": "file"
                                     },
                                     "enabled": true,
                                     "label": "~/Desktop/gateway/nest_project_final/final-project"
+                                },
+                                {
+                                    "id": "openRecentFolder",
+                                    "uri": {
+                                        "$mid": 1,
+                                        "external": "file:///opt/lampp/htdocs/Riya_Foods",
+                                        "path": "/opt/lampp/htdocs/Riya_Foods",
+                                        "scheme": "file"
+                                    },
+                                    "enabled": true,
+                                    "label": "/opt/lampp/htdocs/Riya_Foods"
                                 },
                                 {
                                     "id": "vscode.menubar.separator"
@@ -176,8 +177,7 @@
                     },
                     {
                         "id": "workbench.action.closeFolder",
-                        "label": "Close &&Folder",
-                        "enabled": false
+                        "label": "Close &&Folder"
                     },
                     {
                         "id": "workbench.action.closeWindow",
@@ -543,8 +543,7 @@
                 "items": [
                     {
                         "id": "workbench.action.navigateBack",
-                        "label": "&&Back",
-                        "enabled": false
+                        "label": "&&Back"
                     },
                     {
                         "id": "workbench.action.navigateForward",
@@ -553,8 +552,7 @@
                     },
                     {
                         "id": "workbench.action.navigateToLastEditLocation",
-                        "label": "&&Last Edit Location",
-                        "enabled": false
+                        "label": "&&Last Edit Location"
                     },
                     {
                         "id": "vscode.menubar.separator"
@@ -826,8 +824,7 @@
                     },
                     {
                         "id": "workbench.action.terminal.split",
-                        "label": "&&Split Terminal",
-                        "enabled": false
+                        "label": "&&Split Terminal"
                     },
                     {
                         "id": "vscode.menubar.separator"
@@ -1027,8 +1024,8 @@
                 "userSettingsLabel": "ctrl+k f"
             },
             "workbench.action.closeWindow": {
-                "label": "Ctrl+Shift+W",
-                "userSettingsLabel": "ctrl+shift+w"
+                "label": "Ctrl+W",
+                "userSettingsLabel": "ctrl+w"
             },
             "workbench.action.quit": {
                 "label": "Ctrl+Q",
@@ -1180,9 +1177,8 @@
                 "userSettingsLabel": "ctrl+shift+f"
             },
             "workbench.view.scm": {
-                "label": "Ctrl+Shift+G G",
-                "isNative": false,
-                "userSettingsLabel": "ctrl+shift+g g"
+                "label": "Ctrl+Shift+G",
+                "userSettingsLabel": "ctrl+shift+g"
             },
             "workbench.view.debug": {
                 "label": "Ctrl+Shift+D",
