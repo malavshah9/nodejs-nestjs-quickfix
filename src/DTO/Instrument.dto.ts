@@ -8,7 +8,7 @@ export class instrument
     SecurityID:string;
     SecurityIDSource:string;
 
-    SecAltIDGrp?:SecAltIDGrp; // Group
+    SecAltIDGrp?:SecAltIDGrp[]; // Group
     NoSecurityAltID?:number;
 
 
@@ -17,7 +17,7 @@ export class instrument
     AssetSubClass?:number;
     AssetType?:string;
 
-    SecondaryAssetGrp?:SecondaryAssetGrp; // Group
+    SecondaryAssetGrp?:SecondaryAssetGrp[]; // Group
     NoSecondaryAssetClasses?:number;
 
     ContractMultiplier?:number;

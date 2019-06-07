@@ -4,11 +4,8 @@ import {instrument} from "./Instrument.dto";
 import {TrdRegTimestamps} from "./TrdRegTimestamps.dto";
 import {TrdCapRptSideGrp} from "./TrdCapRptSideGrp.dto";
 import {TrdRegPublicationGrp} from "./TrdRegPublicationGrp.dto";
-import { temp } from "./temp.dto";
-
 export class TCR_class
 {
-    temp:temp;
     TradeID : string;
     SecondaryTradeID?: string;
     PackageID?: string;
@@ -42,13 +39,13 @@ export class TCR_class
         TradeDate:string;
         TransactTime:string;
 
-        TrdRegTimestamps?:TrdRegTimestamps; //Group
+        TrdRegTimestamps?:TrdRegTimestamps[]; //Group
         NoTrdRegTimestamps?:number;
 
         TrdCapRptSideGrp:TrdCapRptSideGrp[]; //Group
         NoSides:number;
 
-        TrdRegPublicationGrp?:TrdRegPublicationGrp //Group
+        TrdRegPublicationGrp?:TrdRegPublicationGrp[]; //Group
         NoTrdRegPublications?:number;
 
         ClearingIntention:number;
@@ -177,15 +174,27 @@ export class TCR_class
                 obj["22"] = this.instrument.SecurityIDSource;
             }
             if (this.instrument.SecAltIDGrp != undefined) {
-                if (this.instrument.NoSecurityAltID != undefined) {
+                if (this.instrument.NoSecurityAltID != undefined && this.instrument.NoSecurityAltID>0) 
+                {
                     obj["454"] = this.instrument.NoSecurityAltID;
+                    var anotherobj={};
+                    anotherobj["index"]=454;
+                    anotherobj["delim"]=455;
+                    var ls=[];
+                    this.instrument.SecAltIDGrp.forEach(element => {
+                        let temp={};
+                        if (element.SecurityAltID != undefined) {
+                            temp["455"] = element.SecurityAltID;
+                        }
+                        if (element.SecurityAltIDSource != undefined) {
+                            temp["456"] = element.SecurityAltIDSource;
+                        }
+                        ls.push(temp);
+                    });
+                    anotherobj['entries']=ls;
+                     obj.groups.push(anotherobj);
                 }
-                if (this.instrument.SecAltIDGrp.SecurityAltID != undefined) {
-                    obj["455"] = this.instrument.SecAltIDGrp.SecurityAltID;
-                }
-                if (this.instrument.SecAltIDGrp.SecurityAltIDSource != undefined) {
-                    obj["456"] = this.instrument.SecAltIDGrp.SecurityAltIDSource;
-                }
+                
             }
             if (this.instrument.MaturityDate != undefined) {
                 obj["541"] = this.instrument.MaturityDate;
@@ -200,18 +209,33 @@ export class TCR_class
                 obj["1940"] = this.instrument.AssetType;
             }
             if (this.instrument.SecondaryAssetGrp != undefined) {
-                if (this.instrument.NoSecondaryAssetClasses != undefined) {
+                if (this.instrument.NoSecondaryAssetClasses != undefined && this.instrument.NoSecondaryAssetClasses>0) {
                     obj["1976"] = this.instrument.NoSecondaryAssetClasses;
+                    var anotherobj={};
+                    anotherobj["index"]=1976;
+                    anotherobj["delim"]=1977;
+                    var ls=[];
+                    this.instrument.SecondaryAssetGrp.forEach(element => {
+                        var temp={};
+                        if (element.SecondaryAssetClass != undefined) {
+                            temp["1977"] = element.SecondaryAssetClass;
+                        }
+                        if (element.SecondaryAssetSubClass != undefined) {
+                            temp["1978"] = element.SecondaryAssetSubClass;
+                        }
+                        if (element.SecondaryAssetType != undefined) {
+                            temp["1979"] = element.SecondaryAssetType;
+                        }    
+                        ls.push(temp);
+                    });
+                    anotherobj['entries']=ls;
+                    obj.groups.push(anotherobj);
                 }
-                if (this.instrument.SecondaryAssetGrp.SecondaryAssetClass != undefined) {
-                    obj["1977"] = this.instrument.SecondaryAssetGrp.SecondaryAssetClass;
+                else
+                {
+                    console.log("Invalid NoSecondaryAssetGrp");
                 }
-                if (this.instrument.SecondaryAssetGrp.SecondaryAssetSubClass != undefined) {
-                    obj["1978"] = this.instrument.SecondaryAssetGrp.SecondaryAssetSubClass;
-                }
-                if (this.instrument.SecondaryAssetGrp.SecondaryAssetType != undefined) {
-                    obj["1979"] = this.instrument.SecondaryAssetGrp.SecondaryAssetType;
-                }
+                
             }
             if (this.instrument.ContractMultiplier != undefined) {
                 obj["231"] = this.instrument.ContractMultiplier;
@@ -259,13 +283,24 @@ export class TCR_class
         if (this.TrdRegTimestamps != undefined) {
             if (this.NoTrdRegTimestamps != undefined) {
                 obj["768"] = this.NoTrdRegTimestamps;
+                var anotherobj={};
+                anotherobj["index"]=768;
+                anotherobj["delim"]=769;
+                var ls=[];
+                this.TrdRegTimestamps.forEach(element => {
+                    let temp={};
+                    if (element.TrdRegTimestamp != undefined) {
+                        temp["769"] = element.TrdRegTimestamp;
+                    }
+                    if (element.TrdRegTimestampType != undefined) {
+                        temp["770"] = element.TrdRegTimestampType;
+                    }
+                    ls.push(temp);
+                });
+                anotherobj['entries']=ls;
+                obj.groups.push(anotherobj);
             }
-            if (this.TrdRegTimestamps.TrdRegTimestamp != undefined) {
-                obj["769"] = this.TrdRegTimestamps.TrdRegTimestamp;
-            }
-            if (this.TrdRegTimestamps.TrdRegTimestampType != undefined) {
-                obj["770"] = this.TrdRegTimestamps.TrdRegTimestampType;
-            }
+            
 
         }
         if (this.TrdCapRptSideGrp != undefined) {
@@ -295,15 +330,30 @@ export class TCR_class
             }
         }
         if (this.TrdRegPublicationGrp != undefined) {
-            if (this.NoTrdRegPublications != undefined) {
+            if (this.NoTrdRegPublications != undefined && this.NoTrdRegPublications>0) {
                 obj["2668"] = this.NoTrdRegPublications;
+                var anotherobj={};
+                anotherobj["index"]=2668;
+                anotherobj["delim"]=2669;
+                var ls=[];
+                this.TrdRegPublicationGrp.forEach(element => {
+                    let temp={};
+                    if (element.TrdRegPublicationType != undefined) {
+                        temp["2669"] = element.TrdRegPublicationType;
+                    }
+                    if (element.TrdRegPublicationReason != undefined) {
+                        temp["2670"] = element.TrdRegPublicationReason;
+                    }
+                    ls.push(temp);
+                });
+                anotherobj['entries']=ls;
+                obj.groups.push(anotherobj);
             }
-            if (this.TrdRegPublicationGrp.TrdRegPublicationType != undefined) {
-                obj["2669"] = this.TrdRegPublicationGrp.TrdRegPublicationType;
+            else
+            {
+                console.log("Invalid NoTrdRegPublication");
             }
-            if (this.TrdRegPublicationGrp.TrdRegPublicationReason != undefined) {
-                obj["2670"] = this.TrdRegPublicationGrp.TrdRegPublicationReason;
-            }
+            
         }
 
         if (this.ClearingIntention != undefined) {
