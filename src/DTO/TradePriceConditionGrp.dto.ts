@@ -1,6 +1,5 @@
 export class TradePriceConditionGrp
 {
-        NoTradePriceConditions?:number;
         TradePriceCondition?:number;
         // convertToTags(){
         //     var obj={

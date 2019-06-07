@@ -13,7 +13,7 @@ export class StandardHeader
     PossResend?:boolean;
     SendingTime:string;
     constructor(){
-        
+         
     }
     converter() {
         var obj = {};

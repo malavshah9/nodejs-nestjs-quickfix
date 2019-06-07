@@ -1,6 +1,6 @@
 export class SecondaryAssetGrp
 {
-    NoSecondaryAssetClasses?:number;
+  
     SecondaryAssetClass?:number;
     SecondaryAssetSubClass?:number;
     SecondaryAssetType?:string;
