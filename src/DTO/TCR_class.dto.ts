@@ -1,72 +1,54 @@
-import {TradePriceConditionGrp} from "./TradePriceConditionGrp.dto";
-import {RootParties} from "./RootParties.dto";
-import {instrument} from "./Instrument.dto";
-import {TrdRegTimestamps} from "./TrdRegTimestamps.dto";
-import {TrdCapRptSideGrp} from "./TrdCapRptSideGrp.dto";
-import {TrdRegPublicationGrp} from "./TrdRegPublicationGrp.dto";
-export class TCR_class
-{
-    TradeID : string;
+import { TradePriceConditionGrp } from "./TradePriceConditionGrp.dto";
+import { RootParties } from "./RootParties.dto";
+import { instrument } from "./Instrument.dto";
+import { TrdRegTimestamps } from "./TrdRegTimestamps.dto";
+import { TrdCapRptSideGrp } from "./TrdCapRptSideGrp.dto";
+import { TrdRegPublicationGrp } from "./TrdRegPublicationGrp.dto";
+import { groups } from "./groups.dto";
+
+export class TCR_class {
+    TradeID: string;
     SecondaryTradeID?: string;
     PackageID?: string;
     TradeNumber?: number;
-    TradeReportType : number;
+    TradeReportType: number;
     TrdRptStatus?: number;
     TrdType?: number;
     TrdSubType?: number;
     SecondaryTrdType?: number;
-       
-        
-        TradePriceConditionGrp?:TradePriceConditionGrp; //Group
-        NoTradePriceConditions?:number;
-        
-        TotNumTradeReports?:number;
-        PriceType:number;
-        
-        RootParties:RootParties[]; //Group
-        NoRootPartyIDs:number;
-
-        VenueType:string;
-
-        instrument:instrument; //Group
-
-        QtyType?:number;
-
-        LastQty:number;
-        LastPx:number;
-        Currency:any;
-        LastMkt:string;
-        TradeDate:string;
-        TransactTime:string;
-
-        TrdRegTimestamps?:TrdRegTimestamps[]; //Group
-        NoTrdRegTimestamps?:number;
-
-        TrdCapRptSideGrp:TrdCapRptSideGrp[]; //Group
-        NoSides:number;
-
-        TrdRegPublicationGrp?:TrdRegPublicationGrp[]; //Group
-        NoTrdRegPublications?:number;
-
-        ClearingIntention:number;
-        RegulatoryReportType:number;
-        
-        
-
-
-    constructor(TradeId : string, TradeReportType : number, PriceType : number,NoRootPartyIDs:number, RootParties : RootParties[], VenueType : string, instrument : instrument, LastQty : number, LastPx : number, Currency : any, LastMkt : string, TradeDate : string, TransactTime : string,NoSides:number, TrdCapRptSideGrp : TrdCapRptSideGrp[], ClearingIntention : number, RegulatoryReportType : number)
-    {
+    TradePriceConditionGrp?: TradePriceConditionGrp[]; //Group  --
+    NoTradePriceConditions?: number;        //--
+    TotNumTradeReports?: number;
+    PriceType: string;
+    RootParties: RootParties[]; //Group     --
+    NoRootPartyIDs: number;                 //--
+    VenueType: string;
+    instrument: instrument; //Group 
+    QtyType?: number;
+    LastQty: number;
+    LastPx: number;
+    Currency: any;
+    LastMkt: string;
+    TradeDate: string;
+    TransactTime: string;
+    TrdRegTimestamps?: TrdRegTimestamps[]; //Group
+    NoTrdRegTimestamps?: number             //--
+    TrdCapRptSideGrp: TrdCapRptSideGrp[]; //Group
+    NoSides: number;                        //--
+    TrdRegPublicationGrp?: TrdRegPublicationGrp[]; //Group
+    NoTrdRegPublications?: number;          //--
+    ClearingIntention: number;
+    RegulatoryReportType: number;
+    tagObj:any;
+    tagGrp:any[]=[];
+    constructor(TradeId: string, TradeReportType: number, PriceType: string, NoRootPartyIDs: number, RootParties: RootParties[], VenueType: string, instrument: instrument, LastQty: number, LastPx: number, Currency: any, LastMkt: string, TradeDate: string, TransactTime: string, NoSides: number, TrdCapRptSideGrp: TrdCapRptSideGrp[], ClearingIntention: number, RegulatoryReportType: number) {
         this.TradeID = TradeId;
         this.TradeReportType = TradeReportType;
         this.PriceType = PriceType;
-
         this.RootParties = RootParties;
-        this.NoRootPartyIDs=NoRootPartyIDs;
-
+        this.NoRootPartyIDs = NoRootPartyIDs;
         this.VenueType = VenueType;
-
         this.instrument = instrument;
-
         this.LastQty = LastQty;
         this.LastPx = LastPx;
         this.Currency = Currency;
@@ -74,30 +56,94 @@ export class TCR_class
         this.TradeDate = TradeDate;
         this.TransactTime = TransactTime;
         this.TrdCapRptSideGrp = TrdCapRptSideGrp;
-        this.NoSides=NoSides;
-
+        this.NoSides = NoSides;
         this.ClearingIntention = ClearingIntention;
         this.RegulatoryReportType = RegulatoryReportType;
     }
-// constructor()
-// {
-        
-// }
-
-    converter() {
-        // var obj = {
-        //     groups:{
-        //         index:{},
-        //         delim:{},
-        //         entries:{}
-        //         }
-        // };
-        var obj={
-            groups:[]
-        };
+    getGroups(){
+        if(this.NoTradePriceConditions!=undefined && this.TradePriceConditionGrp!=undefined){
+            if(this.NoTradePriceConditions!=this.TradePriceConditionGrp.length){
+                console.log("Error in making Group of NoTradePriceCondition.");
+            }
+            else{
+                let obj:groups;
+                obj.index=1838;
+                obj.delim=1839;
+                let TradePriceConditionGrpList=[];
+                this.TradePriceConditionGrp.forEach(element => {
+                    TradePriceConditionGrpList.push(element.convertToTags());
+                });
+                obj.entries=TradePriceConditionGrpList;
+                this.tagGrp.push(obj);
+            }
+        }
+        if(this.NoRootPartyIDs!=undefined && this.RootParties!=undefined){
+            if(this.NoRootPartyIDs==this.RootParties.length){
+                let obj:groups;
+                obj.index=1116;
+                obj.delim=1117;
+                let RootPartiesList=[];
+                this.RootParties.forEach(element => {
+                    RootPartiesList.push(element.convertToTags());
+                });
+                obj.entries=RootPartiesList;
+                this.tagGrp.push(obj);
+            }
+            else{
+                console.log("Error in making group of RootParties.");
+            }
+        }
+        if(this.NoTrdRegTimestamps!=undefined && this.TrdRegTimestamps!=undefined){
+            if(this.NoTrdRegTimestamps==this.TrdRegTimestamps.length){
+                let obj:groups;
+                obj.index=768;
+                obj.delim=769;
+                let TrdRegTimestampsList=[];
+                this.TrdRegTimestamps.forEach(element=>{
+                    TrdRegTimestampsList.push(element.convertToTags());
+                });
+                obj.entries=TrdRegTimestampsList;
+                this.tagGrp.push(obj);
+            }
+            else{
+                console.log("Error in making group of TrdRegTimestamps.");
+            }
+        }
+        if(this.NoSides!=undefined && this.TrdCapRptSideGrp!=undefined){
+            if(this.NoSides==this.TrdCapRptSideGrp.length){
+                let obj:groups;
+                obj.index=552;
+                obj.delim=54;
+                obj.entries=this.TrdCapRptSideGrp;
+                this.tagGrp.push(obj);
+            }
+            else{
+                console.log("Error in making group of TrdCapRptSideGrp.");
+            }
+        }
+        if(this.NoTrdRegPublications!=undefined && this.TrdRegPublicationGrp!=undefined){
+            if(this.NoTrdRegPublications==this.TrdRegPublicationGrp.length){
+                let obj:groups;
+                obj.index=2668;
+                obj.delim=2669;
+                let TrdRegPublicationGrpList=[];
+                this.TrdRegPublicationGrp.forEach(element=>{
+                    TrdRegPublicationGrpList.push(element.convertToTags());
+                });
+                obj.entries=TrdRegPublicationGrpList;
+                this.tagGrp.push(obj);
+            }
+            else{
+                console.log("Error in making group of TrdRegPublicationGrp.");
+            }
+        }
+        return this.tagGrp;
+    }
+    getTags() {
+        var obj = {};
         if (this.TradeID != undefined) {
             obj["1003"] = this.TradeID;
-        } 
+        }
         if (this.SecondaryTradeID != undefined) {
             obj["1040"] = this.SecondaryTradeID;
         }
@@ -119,12 +165,12 @@ export class TCR_class
         if (this.SecondaryTrdType != undefined) {
             obj["855"] = this.SecondaryTrdType;
         }
-        if (this.TradePriceConditionGrp != undefined) {
-            if (this.NoTradePriceConditions != undefined) {
-                obj["1838"] = this.NoTradePriceConditions;
+        if (this.TradePriceConditionGrp != undefined && this.NoTradePriceConditions!=undefined) {
+            if(this.TradePriceConditionGrp.length==this.NoTradePriceConditions){
+                obj["1838"]=this.NoTradePriceConditions;
             }
-            if (this.TradePriceConditionGrp.TradePriceCondition != undefined) {
-                obj["1839"] = this.TradePriceConditionGrp.TradePriceCondition;
+            else{
+                console.log("Error in TradePriceConditionGrp");
             }
         }
         if (this.TotNumTradeReports) {
@@ -133,30 +179,11 @@ export class TCR_class
         if (this.PriceType) {
             obj["423"] = this.PriceType;
         }
-        if (this.NoRootPartyIDs != 0) {
-            if(this.NoRootPartyIDs==this.RootParties.length){
+        if (this.NoRootPartyIDs != undefined && this.NoRootPartyIDs != 0) {
+            if (this.NoRootPartyIDs == this.RootParties.length) {
                 obj["1116"]=this.NoRootPartyIDs;
-                var anotherobj={};
-                anotherobj["index"]=1116;
-                anotherobj["delim"]=1117;
-                var ls=[];
-                this.RootParties.forEach(element => {
-                    let temp={};
-                    if (element.RootPartyID != undefined) {
-                        temp["1117"] = element.RootPartyID;
-                    }
-                    if (element.RootPartyIDSource != undefined) {
-                        temp["1118"] = element.RootPartyIDSource;
-                    }
-                    if (element.RootPartyRole != undefined) {
-                        temp["1119"] = element.RootPartyRole;
-                    }  
-                    ls.push(temp);
-                });
-                anotherobj['entries']=ls;
-                obj.groups.push(anotherobj);
             }
-            else{
+            else {
                 console.log("Invalid RootParties in the package.");
             }
         }
@@ -174,27 +201,15 @@ export class TCR_class
                 obj["22"] = this.instrument.SecurityIDSource;
             }
             if (this.instrument.SecAltIDGrp != undefined) {
-                if (this.instrument.NoSecurityAltID != undefined && this.instrument.NoSecurityAltID>0) 
-                {
+                if (this.instrument.NoSecurityAltID != undefined) {
                     obj["454"] = this.instrument.NoSecurityAltID;
-                    var anotherobj={};
-                    anotherobj["index"]=454;
-                    anotherobj["delim"]=455;
-                    var ls=[];
-                    this.instrument.SecAltIDGrp.forEach(element => {
-                        let temp={};
-                        if (element.SecurityAltID != undefined) {
-                            temp["455"] = element.SecurityAltID;
-                        }
-                        if (element.SecurityAltIDSource != undefined) {
-                            temp["456"] = element.SecurityAltIDSource;
-                        }
-                        ls.push(temp);
-                    });
-                    anotherobj['entries']=ls;
-                     obj.groups.push(anotherobj);
                 }
-                
+                if (this.instrument.SecAltIDGrp.SecurityAltID != undefined) {
+                    obj["455"] = this.instrument.SecAltIDGrp.SecurityAltID;
+                }
+                if (this.instrument.SecAltIDGrp.SecurityAltIDSource != undefined) {
+                    obj["456"] = this.instrument.SecAltIDGrp.SecurityAltIDSource;
+                }
             }
             if (this.instrument.MaturityDate != undefined) {
                 obj["541"] = this.instrument.MaturityDate;
@@ -209,33 +224,18 @@ export class TCR_class
                 obj["1940"] = this.instrument.AssetType;
             }
             if (this.instrument.SecondaryAssetGrp != undefined) {
-                if (this.instrument.NoSecondaryAssetClasses != undefined && this.instrument.NoSecondaryAssetClasses>0) {
+                if (this.instrument.NoSecondaryAssetClasses != undefined) {
                     obj["1976"] = this.instrument.NoSecondaryAssetClasses;
-                    var anotherobj={};
-                    anotherobj["index"]=1976;
-                    anotherobj["delim"]=1977;
-                    var ls=[];
-                    this.instrument.SecondaryAssetGrp.forEach(element => {
-                        var temp={};
-                        if (element.SecondaryAssetClass != undefined) {
-                            temp["1977"] = element.SecondaryAssetClass;
-                        }
-                        if (element.SecondaryAssetSubClass != undefined) {
-                            temp["1978"] = element.SecondaryAssetSubClass;
-                        }
-                        if (element.SecondaryAssetType != undefined) {
-                            temp["1979"] = element.SecondaryAssetType;
-                        }    
-                        ls.push(temp);
-                    });
-                    anotherobj['entries']=ls;
-                    obj.groups.push(anotherobj);
                 }
-                else
-                {
-                    console.log("Invalid NoSecondaryAssetGrp");
+                if (this.instrument.SecondaryAssetGrp.SecondaryAssetClass != undefined) {
+                    obj["1977"] = this.instrument.SecondaryAssetGrp.SecondaryAssetClass;
                 }
-                
+                if (this.instrument.SecondaryAssetGrp.SecondaryAssetSubClass != undefined) {
+                    obj["1978"] = this.instrument.SecondaryAssetGrp.SecondaryAssetSubClass;
+                }
+                if (this.instrument.SecondaryAssetGrp.SecondaryAssetType != undefined) {
+                    obj["1979"] = this.instrument.SecondaryAssetGrp.SecondaryAssetType;
+                }
             }
             if (this.instrument.ContractMultiplier != undefined) {
                 obj["231"] = this.instrument.ContractMultiplier;
@@ -280,80 +280,30 @@ export class TCR_class
         if (this.TransactTime != undefined) {
             obj["60"] = this.TransactTime;
         }
-        if (this.TrdRegTimestamps != undefined) {
-            if (this.NoTrdRegTimestamps != undefined) {
+        if (this.TrdRegTimestamps != undefined && this.NoTrdRegTimestamps != undefined) {
+            if (this.NoRootPartyIDs==this.TrdRegTimestamps.length) {
                 obj["768"] = this.NoTrdRegTimestamps;
-                var anotherobj={};
-                anotherobj["index"]=768;
-                anotherobj["delim"]=769;
-                var ls=[];
-                this.TrdRegTimestamps.forEach(element => {
-                    let temp={};
-                    if (element.TrdRegTimestamp != undefined) {
-                        temp["769"] = element.TrdRegTimestamp;
-                    }
-                    if (element.TrdRegTimestampType != undefined) {
-                        temp["770"] = element.TrdRegTimestampType;
-                    }
-                    ls.push(temp);
-                });
-                anotherobj['entries']=ls;
-                obj.groups.push(anotherobj);
             }
-            
+            else{
+                console.log("Error in NoRootPartyIDs");
+            }
 
         }
-        if (this.TrdCapRptSideGrp != undefined) {
-            if (this.NoSides != undefined) {
-                obj["552"] = this.NoSides;
-            }
-            if (this.TrdCapRptSideGrp.Side != undefined) {
-                obj["54"] = this.TrdCapRptSideGrp.Side;
-            }
-            if (this.TrdCapRptSideGrp.LastCapacity != undefined) {
-                obj["29"] = this.TrdCapRptSideGrp.LastCapacity;
-            }
-            if (this.TrdCapRptSideGrp.Parties != undefined) {
-                if (this.TrdCapRptSideGrp.NoPartyIDs != undefined) {
-                    obj["453"] = this.TrdCapRptSideGrp.NoPartyIDs;
-                }
-                if (this.TrdCapRptSideGrp.Parties.PartyID != undefined) {
-                    obj["448"] = this.TrdCapRptSideGrp.Parties.PartyID;
-                }
-                if (this.TrdCapRptSideGrp.Parties.PartyIDSource != undefined) {
-                    obj["447"] = this.TrdCapRptSideGrp.Parties.PartyIDSource;
-                }
-                if (this.TrdCapRptSideGrp.Parties.PartyRole != undefined) {
-                    obj["452"] = this.TrdCapRptSideGrp.Parties.PartyRole;
-                }
-
-            }
+        if (this.NoSides != undefined && this.TrdCapRptSideGrp.length!=undefined) {
+           if(this.NoSides==this.TrdCapRptSideGrp.length){
+                obj["552"]=this.NoSides;
+           }
+           else{
+                console.log("Error in NoRootPartyIDs");
+           }
         }
-        if (this.TrdRegPublicationGrp != undefined) {
-            if (this.NoTrdRegPublications != undefined && this.NoTrdRegPublications>0) {
+        if (this.TrdRegPublicationGrp != undefined && this.NoTrdRegPublications!=undefined) {
+            if (this.NoTrdRegPublications ==this.TrdRegPublicationGrp.length) {
                 obj["2668"] = this.NoTrdRegPublications;
-                var anotherobj={};
-                anotherobj["index"]=2668;
-                anotherobj["delim"]=2669;
-                var ls=[];
-                this.TrdRegPublicationGrp.forEach(element => {
-                    let temp={};
-                    if (element.TrdRegPublicationType != undefined) {
-                        temp["2669"] = element.TrdRegPublicationType;
-                    }
-                    if (element.TrdRegPublicationReason != undefined) {
-                        temp["2670"] = element.TrdRegPublicationReason;
-                    }
-                    ls.push(temp);
-                });
-                anotherobj['entries']=ls;
-                obj.groups.push(anotherobj);
             }
-            else
-            {
-                console.log("Invalid NoTrdRegPublication");
+            else{
+                console.log("Error in NoTrdRegPublications");
             }
-            
         }
 
         if (this.ClearingIntention != undefined) {
@@ -362,6 +312,6 @@ export class TCR_class
         if (this.RegulatoryReportType != undefined) {
             obj["1934"] = this.RegulatoryReportType
         }
-        return obj;
+        this.tagObj=obj;
     }
 }

@@ -94,6 +94,7 @@ throw( FIX::DoNotSend )
 void FixApplication::fromApp( const FIX::Message& message, const FIX::SessionID& sessionID )
 	throw( FIX::FieldNotFound, FIX::IncorrectDataFormat, FIX::IncorrectTagValue, FIX::UnsupportedMessageType )
 {
+	std::cout<<(message)<<std::endl;
 	FixApplication::dispatchEvent(std::string("fromApp"), message, sessionID);
 }
 
