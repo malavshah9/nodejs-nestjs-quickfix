@@ -1,47 +1,35 @@
-import { Parties } from "./Parties.dto";
+import {Parties} from "./Parties.dto";
+import {groups} from "./groups.dto";
+import {listenerCount} from "cluster";
 
 export class TrdCapRptSideGrp
 {
-    Side:string;
-    Parties?:Parties[]; //Group
-    LastCapacity?:string;
-    NoPartyIDs?:number;
-    
-    constructor(Side:string)
-    {
-        this.Side=Side;
-    }
-    getGroups(){
-        let obj={
-            index: 0,
-            delim: 0,
-            entries: []
-        };
-        obj["54"]=this.Side;
-        if(this.NoPartyIDs!=undefined && this.NoPartyIDs!=0){
-            if(this.NoPartyIDs==this.Parties.length) {
-                obj["453"]=this.Parties.length;
-                obj.index=453;
-                obj.delim=448;
-                this.Parties.forEach(element => {
-                    let temp;
-                    if (element.PartyID != undefined){
-                        temp["448"]=element.PartyID;
-                    }
-                    if (element.PartyIDSource != undefined){
-                        temp["447"]=element.PartyID;
-                    }
-                    if (element.PartyRole != undefined){
-                        temp["452"]=element.PartyID;
-                    }
-                    obj.entries.push(temp);
-                });
-                // return obj;
-            }
-            else{
-                console.log("Invalid TrdCapRptSideGrp in the package.")
-            }
+    Side : string;
+    Parties?: Parties[]; //Group
+    LastCapacity?: string;
+    NoPartyIDs?: number;
+
+    convertToTags() {
+        var obj : {};
+        if (this.Side != undefined) {
+            obj["54"] = this.Side;
         }
+        if (this.LastCapacity != undefined) {
+            obj["29"] = this.LastCapacity;
+        }
+        if (this.NoPartyIDs != undefined && this.NoPartyIDs == this.Parties.length) {
+            obj["453"] = this.NoPartyIDs;
+            let tobj : groups;
+            tobj.index = 453;
+            tobj.delim = 448;
+            var partyList = [];
+            this.Parties.forEach(elemet => {
+                    partyList.push(elemet.convertToTags());
+                });
+            tobj.entries = partyList;
+            obj["groups"] = tobj;
+        }
+
         return obj;
     }
 }
