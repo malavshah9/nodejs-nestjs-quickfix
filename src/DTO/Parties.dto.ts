@@ -6,7 +6,7 @@ export class Parties
 
     convertToTags()
     {
-        var obj : {};
+        var obj = {};
         if (this.PartyID != undefined) {
             obj["448"] = this.PartyID;
         }
@@ -16,6 +16,7 @@ export class Parties
         if (this.PartyRole != undefined) {
             obj["452"] = this.PartyRole;
         }
+        console.log(obj);
         return obj;
     }
 }

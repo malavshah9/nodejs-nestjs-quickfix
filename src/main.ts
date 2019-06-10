@@ -45,13 +45,13 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const appService = app.get(AppService);
   let message = await startFixClient().then(async (order) => {
-    // appService.setQuickfixClient(fixClient);
-      // process.stdin.resume();
-    await fixClient.send(order, () => {
-      console.log("order sent .....", order);
-      appService.setQuickfixClient(fixClient);
+    appService.setQuickfixClient(fixClient);
       process.stdin.resume();
-    });
+    // await fixClient.send(order, () => {
+    //   console.log("order sent .....", order);
+    //   appService.setQuickfixClient(fixClient);
+    //   process.stdin.resume();
+    // });
   });
 
   await app.listen(3000);

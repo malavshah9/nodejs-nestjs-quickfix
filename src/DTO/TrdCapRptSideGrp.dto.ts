@@ -8,28 +8,55 @@ export class TrdCapRptSideGrp
     Parties?: Parties[]; //Group
     LastCapacity?: string;
     NoPartyIDs?: number;
-
-    convertToTags() {
-        var obj : {};
+    constructor(public side:string){
+        this.Side=side;
+    }
+    convertTags(){
+        var obj = {};
         if (this.Side != undefined) {
             obj["54"] = this.Side;
         }
         if (this.LastCapacity != undefined) {
             obj["29"] = this.LastCapacity;
         }
-        if (this.NoPartyIDs != undefined && this.NoPartyIDs == this.Parties.length) {
-            obj["453"] = this.NoPartyIDs;
-            let tobj : groups;
-            tobj.index = 453;
-            tobj.delim = 448;
-            var partyList = [];
-            this.Parties.forEach(elemet => {
-                    partyList.push(elemet.convertToTags());
-                });
-            tobj.entries = partyList;
-            obj["groups"] = tobj;
+        if (this.NoPartyIDs != undefined && this.Parties!=undefined) {
+            if(this.NoPartyIDs==this.Parties.length)
+            {
+                console.log("inside if of this.NoPartIDs ",this.NoPartyIDs);
+                obj["453"] = this.NoPartyIDs;
+            }
+            else{
+                console.log("Error in NoPartyIds in TrdCapRptSideGrp");
+            }
         }
-
         return obj;
     }
+    convertGroups(){
+        var obj_t:any[]=[];
+        if (this.NoPartyIDs != undefined && this.Parties!=undefined) {
+            if(this.NoPartyIDs==this.Parties.length)
+            {
+                var element_grp={};
+                element_grp["index"]=453;
+                element_grp["delim"]=447;
+                var parties_list=[];
+                this.Parties.forEach(element => {
+                    parties_list.push(element.convertToTags());
+                });
+                element_grp["entries"]=parties_list;
+                obj_t.push(element_grp);
+            }
+            else{
+                console.log("Error in NoPartyIds in TrdCapRptSideGrp");
+            }
+        }
+        return obj_t;
+    }
+    convertToTags() {
+            var obj_final={
+                tags:this.convertTags(),
+                groups:this.convertGroups()
+            };
+            return obj_final;
+        }
 }

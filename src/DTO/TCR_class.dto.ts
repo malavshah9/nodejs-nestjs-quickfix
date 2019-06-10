@@ -41,13 +41,13 @@ export class TCR_class {
     RegulatoryReportType: number;
     tagObj:any;
     tagGrp:any[]=[];
-    constructor(TradeId: string, TradeReportType: number, PriceType: string, NoRootPartyIDs: number, RootParties: RootParties[], VenueType: string, instrument: instrument, LastQty: number, LastPx: number, Currency: any, LastMkt: string, TradeDate: string, TransactTime: string, NoSides: number, TrdCapRptSideGrp: TrdCapRptSideGrp[], ClearingIntention: number, RegulatoryReportType: number) {
+    constructor(TradeId: string, TradeReportType: number, PriceType: string, NoRootPartyIDs: number, RootParties: RootParties[], instrument: instrument, LastQty: number, LastPx: number, Currency: any, LastMkt: string, TradeDate: string, TransactTime: string, NoSides: number, TrdCapRptSideGrp: TrdCapRptSideGrp[], ClearingIntention: number, RegulatoryReportType: number) {
         this.TradeID = TradeId;
         this.TradeReportType = TradeReportType;
         this.PriceType = PriceType;
         this.RootParties = RootParties;
         this.NoRootPartyIDs = NoRootPartyIDs;
-        this.VenueType = VenueType;
+        // this.VenueType = VenueType;
         this.instrument = instrument;
         this.LastQty = LastQty;
         this.LastPx = LastPx;
@@ -61,81 +61,110 @@ export class TCR_class {
         this.RegulatoryReportType = RegulatoryReportType;
     }
     getGroups(){
-        if(this.NoTradePriceConditions!=undefined && this.TradePriceConditionGrp!=undefined){
-            if(this.NoTradePriceConditions!=this.TradePriceConditionGrp.length){
-                console.log("Error in making Group of NoTradePriceCondition.");
-            }
-            else{
-                let obj:groups;
-                obj.index=1838;
-                obj.delim=1839;
-                let TradePriceConditionGrpList=[];
-                this.TradePriceConditionGrp.forEach(element => {
-                    TradePriceConditionGrpList.push(element.convertToTags());
-                });
-                obj.entries=TradePriceConditionGrpList;
-                this.tagGrp.push(obj);
-            }
-        }
-        if(this.NoRootPartyIDs!=undefined && this.RootParties!=undefined){
-            if(this.NoRootPartyIDs==this.RootParties.length){
-                let obj:groups;
-                obj.index=1116;
-                obj.delim=1117;
-                let RootPartiesList=[];
-                this.RootParties.forEach(element => {
-                    RootPartiesList.push(element.convertToTags());
-                });
-                obj.entries=RootPartiesList;
-                this.tagGrp.push(obj);
-            }
-            else{
-                console.log("Error in making group of RootParties.");
-            }
-        }
-        if(this.NoTrdRegTimestamps!=undefined && this.TrdRegTimestamps!=undefined){
-            if(this.NoTrdRegTimestamps==this.TrdRegTimestamps.length){
-                let obj:groups;
-                obj.index=768;
-                obj.delim=769;
-                let TrdRegTimestampsList=[];
-                this.TrdRegTimestamps.forEach(element=>{
-                    TrdRegTimestampsList.push(element.convertToTags());
-                });
-                obj.entries=TrdRegTimestampsList;
-                this.tagGrp.push(obj);
-            }
-            else{
-                console.log("Error in making group of TrdRegTimestamps.");
-            }
-        }
         if(this.NoSides!=undefined && this.TrdCapRptSideGrp!=undefined){
             if(this.NoSides==this.TrdCapRptSideGrp.length){
-                let obj:groups;
-                obj.index=552;
-                obj.delim=54;
+                // let obj:groups;
+                // obj.index=552;
+                // obj.delim=54;
                 let TrdCapRptSideGrpList=[];
                 this.TrdCapRptSideGrp.forEach(element=>{
                     TrdCapRptSideGrpList.push(element.convertToTags());
                 });
-                obj.entries=TrdCapRptSideGrpList;
-                this.tagGrp.push(obj);
+                // obj.entries=TrdCapRptSideGrpList;
+                var temp={
+                    index:552,
+                    delim:54,
+                    entries:TrdCapRptSideGrpList
+                };
+                this.tagGrp.push(temp);
             }
             else{
                 console.log("Error in making group of TrdCapRptSideGrp.");
             }
         }
+
+        if(this.NoTrdRegTimestamps!=undefined && this.TrdRegTimestamps!=undefined){
+            if(this.NoTrdRegTimestamps==this.TrdRegTimestamps.length){
+                // let obj:groups;
+                // obj.index=768;
+                // obj.delim=769;
+                let TrdRegTimestampsList=[];
+                this.TrdRegTimestamps.forEach(element=>{
+                    TrdRegTimestampsList.push(element.convertToTags());
+                });
+                // obj.entries=TrdRegTimestampsList;
+                var temp={
+                    index:768,
+                    delim:769,
+                    entries:TrdRegTimestampsList
+                };
+                this.tagGrp.push(temp);
+            }
+            else{
+                console.log("Error in making group of TrdRegTimestamps.");
+            }
+        }
+        
+        if(this.NoRootPartyIDs!=undefined && this.RootParties!=undefined){
+            if(this.NoRootPartyIDs==this.RootParties.length){
+                // let obj:groups;
+                // obj.index=1116;
+                // obj.delim=1117;
+                let RootPartiesList=[];
+                this.RootParties.forEach(element => {
+                    RootPartiesList.push(element.convertToTags());
+                });
+                // obj.entries=RootPartiesList;
+                var temp={
+                    index:1116,
+                    delim:1117,
+                    entries:RootPartiesList
+                };
+                this.tagGrp.push(temp);
+            }
+            else{
+                console.log("Error in making group of RootParties.");
+            }
+        }
+        if(this.NoTradePriceConditions!=undefined && this.TradePriceConditionGrp!=undefined){
+            if(this.NoTradePriceConditions!=this.TradePriceConditionGrp.length){
+                console.log("Error in making Group of NoTradePriceCondition.");
+            }
+            else{
+                // let obj:groups={};
+                // obj.index=1838;
+                // obj.delim=1839;
+                let TradePriceConditionGrpList=[];
+                this.TradePriceConditionGrp.forEach(element => {
+                    TradePriceConditionGrpList.push(element.convertToTags());
+                });
+                // obj.entries=TradePriceConditionGrpList;
+                var temp={
+                    index:1838,
+                    delim:1839,
+                    entries:TradePriceConditionGrpList
+                };
+
+                this.tagGrp.push(temp);
+            }
+        }
+        
         if(this.NoTrdRegPublications!=undefined && this.TrdRegPublicationGrp!=undefined){
             if(this.NoTrdRegPublications==this.TrdRegPublicationGrp.length){
-                let obj:groups;
-                obj.index=2668;
-                obj.delim=2669;
+                // let obj:groups;
+                // obj.index=2668;
+                // obj.delim=2669;
                 let TrdRegPublicationGrpList=[];
                 this.TrdRegPublicationGrp.forEach(element=>{
                     TrdRegPublicationGrpList.push(element.convertToTags());
                 });
-                obj.entries=TrdRegPublicationGrpList;
-                this.tagGrp.push(obj);
+                // obj.entries=TrdRegPublicationGrpList;
+                var temp={
+                    index:2668,
+                    delim:2669,
+                    entries:TrdRegPublicationGrpList
+                };
+                this.tagGrp.push(temp);
             }
             else{
                 console.log("Error in making group of TrdRegPublicationGrp.");
@@ -317,5 +346,6 @@ export class TCR_class {
             obj["1934"] = this.RegulatoryReportType
         }
         this.tagObj=obj;
+        return obj;
     }
 }

@@ -43,15 +43,15 @@ public:
 		Local<v8::String> tagsKey = Nan::New<v8::String>("tags").ToLocalChecked();
 
 		if(msg->Has(tagsKey)) {
-
+			// std::cout << "tags found here "<< std::endl;
 			Local<v8::Object> tags = Local<v8::Object>::Cast(msg->Get(tagsKey));
 
 			Local<v8::Array> msgTags = tags->GetPropertyNames();
 
 			for(int i=0; i < (int)msgTags->Length(); i++) {
 				String::Utf8Value value(tags->Get(msgTags->Get(i))->ToString());
-
-
+					
+				// std::cout << "tags found here in for loop "<< msgTags->Get(i)->Int32Value() <<std::endl;
 				map->setField(
 						msgTags->Get(i)->Int32Value(),
 						std::string(*value)
