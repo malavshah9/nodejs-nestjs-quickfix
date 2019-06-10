@@ -114,7 +114,11 @@ export class TCR_class {
                 let obj:groups;
                 obj.index=552;
                 obj.delim=54;
-                obj.entries=this.TrdCapRptSideGrp;
+                let TrdCapRptSideGrpList=[];
+                this.TrdCapRptSideGrp.forEach(element=>{
+                    TrdCapRptSideGrpList.push(element.convertToTags());
+                });
+                obj.entries=TrdCapRptSideGrpList;
                 this.tagGrp.push(obj);
             }
             else{
