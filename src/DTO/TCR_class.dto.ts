@@ -191,75 +191,75 @@ export class TCR_class {
             obj["1430"] = this.VenueType;
         }
         if (this.instrument != undefined) {
-            if (this.instrument.Symbol != undefined) {
-                obj["55"] = this.instrument.Symbol;
-            }
-            if (this.instrument.SecurityID != undefined) {
-                obj["48"] = this.instrument.SecurityID;
-            }
-            if (this.instrument.SecurityIDSource != undefined) {
-                obj["22"] = this.instrument.SecurityIDSource;
-            }
-            if (this.instrument.SecAltIDGrp != undefined) {
-                if (this.instrument.NoSecurityAltID != undefined) {
-                    obj["454"] = this.instrument.NoSecurityAltID;
-                }
-                if (this.instrument.SecAltIDGrp.SecurityAltID != undefined) {
-                    obj["455"] = this.instrument.SecAltIDGrp.SecurityAltID;
-                }
-                if (this.instrument.SecAltIDGrp.SecurityAltIDSource != undefined) {
-                    obj["456"] = this.instrument.SecAltIDGrp.SecurityAltIDSource;
-                }
-            }
-            if (this.instrument.MaturityDate != undefined) {
-                obj["541"] = this.instrument.MaturityDate;
-            }
-            if (this.instrument.AssetClass != undefined) {
-                obj["1938"] = this.instrument.AssetClass;
-            }
-            if (this.instrument.AssetSubClass != undefined) {
-                obj["1939"] = this.instrument.AssetSubClass;
-            }
-            if (this.instrument.AssetType != undefined) {
-                obj["1940"] = this.instrument.AssetType;
-            }
-            if (this.instrument.SecondaryAssetGrp != undefined) {
-                if (this.instrument.NoSecondaryAssetClasses != undefined) {
-                    obj["1976"] = this.instrument.NoSecondaryAssetClasses;
-                }
-                if (this.instrument.SecondaryAssetGrp.SecondaryAssetClass != undefined) {
-                    obj["1977"] = this.instrument.SecondaryAssetGrp.SecondaryAssetClass;
-                }
-                if (this.instrument.SecondaryAssetGrp.SecondaryAssetSubClass != undefined) {
-                    obj["1978"] = this.instrument.SecondaryAssetGrp.SecondaryAssetSubClass;
-                }
-                if (this.instrument.SecondaryAssetGrp.SecondaryAssetType != undefined) {
-                    obj["1979"] = this.instrument.SecondaryAssetGrp.SecondaryAssetType;
-                }
-            }
-            if (this.instrument.ContractMultiplier != undefined) {
-                obj["231"] = this.instrument.ContractMultiplier;
-            }
-            if (this.instrument.UnitOfMeasure != undefined) {
-                obj["996"] = this.instrument.UnitOfMeasure;
-            }
-            if (this.instrument.UnitOfMeasureQty != undefined) {
-                obj["1147"] = this.instrument.UnitOfMeasureQty;
-            }
-            if (this.instrument.UnitOfMeasureCurrency != undefined) {
-                obj["1716"] = this.instrument.UnitOfMeasureCurrency;
-            }
-            if (this.instrument.PutOrCall != undefined) {
-                obj["201"] = this.instrument.PutOrCall;
-            }
-            if (this.instrument.StreamGrp != undefined) {
-                if (this.instrument.StreamGrp.StreamNotional != undefined) {
-                    obj["40054"] = this.instrument.StreamGrp.StreamNotional;
-                }
-                if (this.instrument.StreamGrp.StreamCurrency != undefined) {
-                    obj["40055"] = this.instrument.StreamGrp.StreamCurrency;
-                }
-            }
+            // if (this.instrument.Symbol != undefined) {
+            //     obj["55"] = this.instrument.Symbol;
+            // }
+            // if (this.instrument.SecurityID != undefined) {
+            //     obj["48"] = this.instrument.SecurityID;
+            // }
+            // if (this.instrument.SecurityIDSource != undefined) {
+            //     obj["22"] = this.instrument.SecurityIDSource;
+            // }
+            // if (this.instrument.SecAltIDGrp != undefined) {
+            //     if (this.instrument.NoSecurityAltID != undefined) {
+            //         obj["454"] = this.instrument.NoSecurityAltID;
+            //     }
+            //     if (this.instrument.SecAltIDGrp.SecurityAltID != undefined) {
+            //         obj["455"] = this.instrument.SecAltIDGrp.SecurityAltID;
+            //     }
+            //     if (this.instrument.SecAltIDGrp.SecurityAltIDSource != undefined) {
+            //         obj["456"] = this.instrument.SecAltIDGrp.SecurityAltIDSource;
+            //     }
+            // }
+            // if (this.instrument.MaturityDate != undefined) {
+            //     obj["541"] = this.instrument.MaturityDate;
+            // }
+            // if (this.instrument.AssetClass != undefined) {
+            //     obj["1938"] = this.instrument.AssetClass;
+            // }
+            // if (this.instrument.AssetSubClass != undefined) {
+            //     obj["1939"] = this.instrument.AssetSubClass;
+            // }
+            // if (this.instrument.AssetType != undefined) {
+            //     obj["1940"] = this.instrument.AssetType;
+            // }
+            // if (this.instrument.SecondaryAssetGrp != undefined) {
+            //     if (this.instrument.NoSecondaryAssetClasses != undefined) {
+            //         obj["1976"] = this.instrument.NoSecondaryAssetClasses;
+            //     }
+            //     if (this.instrument.SecondaryAssetGrp.SecondaryAssetClass != undefined) {
+            //         obj["1977"] = this.instrument.SecondaryAssetGrp.SecondaryAssetClass;
+            //     }
+            //     if (this.instrument.SecondaryAssetGrp.SecondaryAssetSubClass != undefined) {
+            //         obj["1978"] = this.instrument.SecondaryAssetGrp.SecondaryAssetSubClass;
+            //     }
+            //     if (this.instrument.SecondaryAssetGrp.SecondaryAssetType != undefined) {
+            //         obj["1979"] = this.instrument.SecondaryAssetGrp.SecondaryAssetType;
+            //     }
+            // }
+            // if (this.instrument.ContractMultiplier != undefined) {
+            //     obj["231"] = this.instrument.ContractMultiplier;
+            // }
+            // if (this.instrument.UnitOfMeasure != undefined) {
+            //     obj["996"] = this.instrument.UnitOfMeasure;
+            // }
+            // if (this.instrument.UnitOfMeasureQty != undefined) {
+            //     obj["1147"] = this.instrument.UnitOfMeasureQty;
+            // }
+            // if (this.instrument.UnitOfMeasureCurrency != undefined) {
+            //     obj["1716"] = this.instrument.UnitOfMeasureCurrency;
+            // }
+            // if (this.instrument.PutOrCall != undefined) {
+            //     obj["201"] = this.instrument.PutOrCall;
+            // }
+            // if (this.instrument.StreamGrp != undefined) {
+            //     if (this.instrument.StreamGrp.StreamNotional != undefined) {
+            //         obj["40054"] = this.instrument.StreamGrp.StreamNotional;
+            //     }
+            //     if (this.instrument.StreamGrp.StreamCurrency != undefined) {
+            //         obj["40055"] = this.instrument.StreamGrp.StreamCurrency;
+            //     }
+            // }
 
         }
         if (this.LastQty != undefined) {

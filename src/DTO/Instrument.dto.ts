@@ -2,39 +2,37 @@ import { SecAltIDGrp } from "./SecAltIDGrp.dto";
 import { SecondaryAssetGrp } from "./SecondaryAssetGrp.dto";
 import { StreamGrp } from "./StreamGrp.dto";
 
-export class instrument
-{
-    Symbol:string;
-    SecurityID:string;
-    SecurityIDSource:string;
+export class instrument {
+    Symbol: string;
+    SecurityID: string;
+    SecurityIDSource: string;
 
-    SecAltIDGrp?:SecAltIDGrp[]; // Group
-    NoSecurityAltID?:number;
-
-
-    MaturityDate?:string;
-    AssetClass?:number;
-    AssetSubClass?:number;
-    AssetType?:string;
-
-    SecondaryAssetGrp?:SecondaryAssetGrp[]; // Group
-    NoSecondaryAssetClasses?:number;
-
-    ContractMultiplier?:number;
-    UnitOfMeasure?:string;
-    UnitOfMeasureQty?:number;
-    UnitOfMeasureCurrency?:number;
-    PutOrCall?:number;
-
-    StreamGrp?:StreamGrp; //Group
+    SecAltIDGrp?: SecAltIDGrp[]; // Group
+    NoSecurityAltID?: number;
 
 
+    MaturityDate?: string;
+    AssetClass?: number;
+    AssetSubClass?: number;
+    AssetType?: string;
 
-    constructor(Symbol:string,SecurityID:string,SecurityIDSource:string)
-    {
-        this.Symbol=Symbol;
-        this.SecurityID=SecurityID;
-        this.SecurityIDSource=SecurityIDSource;
+    SecondaryAssetGrp?: SecondaryAssetGrp[]; // Group
+    NoSecondaryAssetClasses?: number;
+
+    ContractMultiplier?: number;
+    UnitOfMeasure?: string;
+    UnitOfMeasureQty?: number;
+    UnitOfMeasureCurrency?: number;
+    PutOrCall?: number;
+
+    StreamGrp?: StreamGrp; //Group
+
+
+
+    constructor(Symbol: string, SecurityID: string, SecurityIDSource: string) {
+        this.Symbol = Symbol;
+        this.SecurityID = SecurityID;
+        this.SecurityIDSource = SecurityIDSource;
     }
     // convertToTags()
     // {

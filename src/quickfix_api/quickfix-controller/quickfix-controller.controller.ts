@@ -22,15 +22,17 @@ export class QuickfixControllerController {
 
     @Post()
     async sendTCRReport() {
-      // var TCRReport=new TCR_class("1xsasdfdf",0,1,new RootParties(1,12,"G",3),"O",new instrument(
-      //   "BAC","SECURE","4"
-      // ),12,23,"CNY","SINT",dateformat(new Date(),"yyyymmdd"),dateformat(new Date(), "yyyymmdd-HH:MM:ss.l"),
-      // new TrdCapRptSideGrp(1,"1"),1,11);
-      // this.TCRHeader=this.headerService.getHeader("AE");
-      // var msg={
-      //   header:this.TCRHeader.converter(),
-      //   tags:TCRReport.converter()
-      // };
+      var TCRReport=new TCR_class("1xsasdfdf",0,1,new RootParties(1,12,"G",3),"O",new instrument(
+        "BAC","SECURE","4"
+      ),12,23,"CNY","SINT",dateformat(new Date(),"yyyymmdd"),dateformat(new Date(), "yyyymmdd-HH:MM:ss.l"),
+      new TrdCapRptSideGrp(1,"1"),1,11);
+      this.TCRHeader=this.headerService.getHeader("AE");
+      var msg={
+        header:this.TCRHeader.converter(),
+        tags:TCRReport.getTags(),
+        groups:TCRReport.getGroups()
+      };
+      console.log("msg = ",msg);
       var obj={ 
         header: 
           { '8': 'FIXT.1.1',
@@ -63,19 +65,19 @@ export class QuickfixControllerController {
             'delim':54,
             'entries':[{54:'1'},{54:'2'}]
           },
-        {
-          'index':1116,
-          'delim':1117,
-          'entries':[{
-            '1117': 12,
-            '1118': 'G',
-            '1119': 3
-          },
-        {
-          '1117': 10,
-          '1118': 'E',
-          '1119': 3 
-        }]
+          {
+            'index':1116,
+            'delim':1117,
+            'entries':[{
+              '1117': 12,
+              '1118': 'G',
+              '1119': 3
+            },
+          {
+            '1117': 10,
+            '1118': 'E',
+            '1119': 3 
+          }]
         }]
        };
       // console.log(obj);
