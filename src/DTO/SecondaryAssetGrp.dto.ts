@@ -7,8 +7,7 @@ export class SecondaryAssetGrp
     {
         var obj = {};
         if (this.SecondaryAssetClass != undefined) {
-            obj["1977"];
-            this.SecondaryAssetClass;
+            obj["1977"] = this.SecondaryAssetClass;
         }
         if (this.SecondaryAssetSubClass != undefined) {
             obj["1978"] = this.SecondaryAssetSubClass;

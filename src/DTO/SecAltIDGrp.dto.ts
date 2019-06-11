@@ -11,5 +11,6 @@ export class SecAltIDGrp
         if (this.SecurityAltIDSource != undefined) {
             obj["456"] = this.SecurityAltIDSource;
         }
+        return obj;
     }
 }
