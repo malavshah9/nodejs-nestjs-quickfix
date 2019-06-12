@@ -1,1 +1,0 @@
-cmd_Release/NodeQuickfix.node := ln -f "Release/obj.target/NodeQuickfix.node" "Release/NodeQuickfix.node" 2>/dev/null || (rm -rf "Release/NodeQuickfix.node" && cp -af "Release/obj.target/NodeQuickfix.node" "Release/NodeQuickfix.node")
