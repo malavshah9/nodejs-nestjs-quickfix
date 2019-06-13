@@ -3,6 +3,7 @@ var path = require('path');
 var common = require('./common');
 var quickfix = require('../index');
 var fixAcceptor = quickfix.acceptor;
+// var TCRAck=require('../src/DTO/TradeCaptureReportAck.dto');
 
 var logonProvider = new quickfix.logonProvider(function (logonResponse, msg, sessionId) {
   if (msg.tags[553] == 'USERNAME' && msg.tags[554] == 'PASSWORD') {
@@ -28,6 +29,28 @@ var fixServer = new fixAcceptor(
     },
     onLogon: function(sessionID) {
       console.log("onLogon called");
+      setInterval(()=>{
+        let obj = {
+          header: {
+            8: 'FIXT.1.1',
+            35: 'AR',
+            49: "ACCEPTOR",
+            56: "INITIATOR"
+          },
+          tags: {
+            1003: 10,
+            1040: 12,
+            856: 0,
+            939: 3,
+            828: 0,
+            // 1328: 'Nothing',
+            2520: 'Warning',
+          }
+        };
+        fixServer.send(obj,function(){
+          console.log("TCRAck sent",obj);
+        });
+      },10000);
       // fixClient.emit('onLogon', common.stats(fixClient, sessionID));
     },
     onLogout: function(sessionID) {

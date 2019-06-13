@@ -2,7 +2,7 @@
     "telemetry.machineId": "4d369e8d3298d444adfbdfa23023f8b132d72859a82acf83e6b2c7bb688f84be",
     "openedPathsList": {
         "workspaces3": [
-            "file:///home/malav/Desktop/gateway/nest_project_final/final-project",
+            "file:///home/malav/Desktop/nodejs-nestjs-quickfix",
             "file:///opt/lampp/htdocs/Riya_Foods"
         ],
         "files2": []
@@ -50,13 +50,13 @@
                                     "id": "openRecentFolder",
                                     "uri": {
                                         "$mid": 1,
-                                        "fsPath": "/home/malav/Desktop/gateway/nest_project_final/final-project",
-                                        "external": "file:///home/malav/Desktop/gateway/nest_project_final/final-project",
-                                        "path": "/home/malav/Desktop/gateway/nest_project_final/final-project",
+                                        "fsPath": "/home/malav/Desktop/nodejs-nestjs-quickfix",
+                                        "external": "file:///home/malav/Desktop/nodejs-nestjs-quickfix",
+                                        "path": "/home/malav/Desktop/nodejs-nestjs-quickfix",
                                         "scheme": "file"
                                     },
                                     "enabled": true,
-                                    "label": "~/Desktop/gateway/nest_project_final/final-project"
+                                    "label": "~/Desktop/nodejs-nestjs-quickfix"
                                 },
                                 {
                                     "id": "openRecentFolder",
@@ -535,7 +535,8 @@
                     },
                     {
                         "id": "breadcrumbs.toggle",
-                        "label": "Toggle &&Breadcrumbs"
+                        "label": "Toggle &&Breadcrumbs",
+                        "checked": true
                     }
                 ]
             },
@@ -992,7 +993,6 @@
             },
             "workbench.action.openSettings": {
                 "label": "Ctrl+,",
-                "isNative": false,
                 "userSettingsLabel": "ctrl+,"
             },
             "workbench.view.extensions": {
@@ -1024,8 +1024,8 @@
                 "userSettingsLabel": "ctrl+k f"
             },
             "workbench.action.closeWindow": {
-                "label": "Ctrl+W",
-                "userSettingsLabel": "ctrl+w"
+                "label": "Ctrl+Shift+W",
+                "userSettingsLabel": "ctrl+shift+w"
             },
             "workbench.action.quit": {
                 "label": "Ctrl+Q",
@@ -1069,7 +1069,6 @@
             },
             "editor.action.commentLine": {
                 "label": "Ctrl+/",
-                "isNative": false,
                 "userSettingsLabel": "ctrl+/"
             },
             "editor.action.blockComment": {
@@ -1151,12 +1150,10 @@
             },
             "workbench.action.zoomIn": {
                 "label": "Ctrl+=",
-                "isNative": false,
                 "userSettingsLabel": "ctrl+="
             },
             "workbench.action.zoomOut": {
                 "label": "Ctrl+-",
-                "isNative": false,
                 "userSettingsLabel": "ctrl+-"
             },
             "workbench.action.zoomReset": {
@@ -1195,7 +1192,6 @@
             },
             "workbench.action.terminal.toggleTerminal": {
                 "label": "Ctrl+`",
-                "isNative": false,
                 "userSettingsLabel": "ctrl+`"
             },
             "workbench.actions.view.problems": {
@@ -1208,12 +1204,10 @@
             },
             "workbench.action.navigateBack": {
                 "label": "Ctrl+Alt+-",
-                "isNative": false,
                 "userSettingsLabel": "ctrl+alt+-"
             },
             "workbench.action.navigateForward": {
                 "label": "Ctrl+Shift+-",
-                "isNative": false,
                 "userSettingsLabel": "ctrl+shift+-"
             },
             "workbench.action.navigateToLastEditLocation": {
@@ -1299,7 +1293,6 @@
             },
             "editor.action.jumpToBracket": {
                 "label": "Ctrl+Shift+\\",
-                "isNative": false,
                 "userSettingsLabel": "ctrl+shift+\\"
             },
             "editor.action.marker.nextInFiles": {
@@ -1360,12 +1353,10 @@
             },
             "workbench.action.terminal.new": {
                 "label": "Ctrl+Shift+`",
-                "isNative": false,
                 "userSettingsLabel": "ctrl+shift+`"
             },
             "workbench.action.terminal.split": {
                 "label": "Ctrl+\\",
-                "isNative": false,
                 "userSettingsLabel": "ctrl+\\"
             },
             "workbench.action.tasks.build": {
@@ -1385,7 +1376,7 @@
     },
     "theme": "vs-dark",
     "themeBackground": "#1e1e1e",
-    "pickerWorkingDir": "/opt/lampp/htdocs",
+    "pickerWorkingDir": "/home/malav/Desktop",
     "windowsState": {
         "lastActiveWindow": {
             "folder": "file:///home/malav/Desktop/gateway/nest_project_final/final-project",

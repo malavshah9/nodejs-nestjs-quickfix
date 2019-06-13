@@ -33,7 +33,7 @@ export class QuickfixControllerController {
     party_two.PartyRole=56;
     trdCapSideGrp.Parties=[party_one,party_two];
     
-    var TCRReport = new TCR_class("1xsasdfdf", 0, "1", 2, [new RootParties(12, "G", 3),new RootParties(15,"G",3)], new instrument(
+    var TCRReport = new TCR_class(15, 0, "1", 2, [new RootParties(12, "G", 3),new RootParties(15,"G",3)], new instrument(
       "BAC", "SECURE", "4"), 12, 23, "CNY", "SINT", dateformat(new Date(), "yyyymmdd"), dateformat(new Date(), "yyyymmdd-HH:MM:ss.l"), 2,
       [trdCapSideGrp,new TrdCapRptSideGrp("3")], 1, 11);
     this.TCRHeader = this.headerService.getHeader("AE");

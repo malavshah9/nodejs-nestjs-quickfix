@@ -1,16 +1,20 @@
 import { of } from "rxjs";
+import { HeaderServiceService } from "src/common-services/header-service/header-service.service";
 
 export class TradeCaptureReportAck
 {
-    TradeID : string;
-    SecondaryTradeID : string;
+    TradeID : number;
+    SecondaryTradeID : number;
     TradeReportType : number;
     TrdRptStatus : number;
     TrdType?: number;
     TradeReportRejectReason?: number;
     RejectText?: string;
     WarningText : string;
-
+    TCRHeaderService:HeaderServiceService;
+    constructor(){
+        this.TCRHeaderService=new HeaderServiceService();
+    }
     converter()
     {
         var obj = {
@@ -42,10 +46,17 @@ export class TradeCaptureReportAck
         }
         return obj;
     }
-
+    convertJSON(){
+        var obj={
+            header:this.TCRHeaderService.getHeader("AR"),
+            tags:this.converter()
+        };
+        return obj;
+    }
     convertToField(message:any)
     {
         var obj:TradeCaptureReportAck;
+        obj=new TradeCaptureReportAck();
         if(message.tags["1003"]!=undefined){
             obj.TradeID=message.tags["1003"];
         }

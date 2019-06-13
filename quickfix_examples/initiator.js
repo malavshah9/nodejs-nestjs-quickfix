@@ -3,7 +3,9 @@ var events = require('events');
 var quickfix = require('../index');
 var common = require('./common');
 var path = require('path');
+var TCRAck=require('../src/DTO/TradeCaptureReportAck.dto')
 var initiator = quickfix.initiator;
+var util=require('util');
 
 var options = {
   credentials: {
@@ -51,6 +53,13 @@ var fixClient = new initiator(
   },
   fromApp: function(message, sessionID) {
     console.log("fromApp Called");
+    if(message.header["35"]=="AR")
+    {
+      var obj=new TCRAck.TradeCaptureReportAck();
+      var mess=obj.convertToField(message);
+      console.log(mess);
+      // console.log(util.inspect(mess, {showHidden: false, depth: null}));
+    }
     // fixClient.emit('fromApp', common.stats(fixClient, sessionID, message));
   }
 }, options);

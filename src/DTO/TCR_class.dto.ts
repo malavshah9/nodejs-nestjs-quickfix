@@ -7,7 +7,7 @@ import {TrdRegPublicationGrp} from "./TrdRegPublicationGrp.dto";
 import {groups} from "./groups.dto";
 
 export class TCR_class {
-    TradeID : string;
+    TradeID : number;
     SecondaryTradeID?: string;
     PackageID?: string;
     TradeNumber?: number;
@@ -41,7 +41,7 @@ export class TCR_class {
     RegulatoryReportType : number;
     tagObj : any;
     tagGrp : any[] = [];
-    constructor(TradeId : string, TradeReportType : number, PriceType : string, NoRootPartyIDs : number, RootParties : RootParties[], instrument : instrument, LastQty : number, LastPx : number, Currency : any, LastMkt : string, TradeDate : string, TransactTime : string, NoSides : number, TrdCapRptSideGrp : TrdCapRptSideGrp[], ClearingIntention : number, RegulatoryReportType : number) {
+    constructor(TradeId : number, TradeReportType : number, PriceType : string, NoRootPartyIDs : number, RootParties : RootParties[], instrument : instrument, LastQty : number, LastPx : number, Currency : any, LastMkt : string, TradeDate : string, TransactTime : string, NoSides : number, TrdCapRptSideGrp : TrdCapRptSideGrp[], ClearingIntention : number, RegulatoryReportType : number) {
         this.TradeID = TradeId;
         this.TradeReportType = TradeReportType;
         this.PriceType = PriceType;

@@ -18,13 +18,13 @@
     "force_dynamic_crt": 0,
     "gas_version": "2.27",
     "host_arch": "x64",
-    "icu_data_in": "../../deps/icu-small/source/data/in/icudt62l.dat",
+    "icu_data_in": "../../deps/icu-small/source/data/in/icudt64l.dat",
     "icu_endianness": "l",
     "icu_gyp_path": "tools/icu/icu-generic.gyp",
     "icu_locales": "en,root",
     "icu_path": "deps/icu-small",
     "icu_small": "true",
-    "icu_ver_major": "62",
+    "icu_ver_major": "64",
     "llvm_version": 0,
     "node_byteorder": "little",
     "node_debug_lib": "false",
@@ -69,7 +69,7 @@
     "v8_typed_array_max_size_in_heap": 0,
     "v8_use_snapshot": "true",
     "want_separate_host_toolset": 0,
-    "nodedir": "/home/development/.node-gyp/10.15.3",
+    "nodedir": "/home/malav/.node-gyp/10.16.0",
     "standalone_static_library": 1
   }
 }

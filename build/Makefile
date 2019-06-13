@@ -308,8 +308,8 @@ ifeq ($(strip $(foreach prefix,$(NO_LOAD),\
 endif
 
 quiet_cmd_regen_makefile = ACTION Regenerating $@
-cmd_regen_makefile = cd $(srcdir); /usr/local/lib/node_modules/node-gyp/gyp/gyp_main.py -fmake --ignore-environment "--toplevel-dir=." -I/home/development/nodejs-nestjs-quickfix/build/config.gypi -I/usr/local/lib/node_modules/node-gyp/addon.gypi -I/home/development/.node-gyp/10.15.3/include/node/common.gypi "--depth=." "-Goutput_dir=." "--generator-output=build" "-Dlibrary=shared_library" "-Dvisibility=default" "-Dnode_root_dir=/home/development/.node-gyp/10.15.3" "-Dnode_gyp_dir=/usr/local/lib/node_modules/node-gyp" "-Dnode_lib_file=/home/development/.node-gyp/10.15.3/<(target_arch)/node.lib" "-Dmodule_root_dir=/home/development/nodejs-nestjs-quickfix" "-Dnode_engine=v8" binding.gyp
-Makefile: $(srcdir)/../../../usr/local/lib/node_modules/node-gyp/addon.gypi $(srcdir)/build/config.gypi $(srcdir)/binding.gyp $(srcdir)/../.node-gyp/10.15.3/include/node/common.gypi
+cmd_regen_makefile = cd $(srcdir); /usr/lib/node_modules/node-gyp/gyp/gyp_main.py -fmake --ignore-environment "--toplevel-dir=." -I/home/malav/Desktop/nodejs-nestjs-quickfix/build/config.gypi -I/usr/lib/node_modules/node-gyp/addon.gypi -I/home/malav/.node-gyp/10.16.0/include/node/common.gypi "--depth=." "-Goutput_dir=." "--generator-output=build" "-Dlibrary=shared_library" "-Dvisibility=default" "-Dnode_root_dir=/home/malav/.node-gyp/10.16.0" "-Dnode_gyp_dir=/usr/lib/node_modules/node-gyp" "-Dnode_lib_file=/home/malav/.node-gyp/10.16.0/<(target_arch)/node.lib" "-Dmodule_root_dir=/home/malav/Desktop/nodejs-nestjs-quickfix" "-Dnode_engine=v8" binding.gyp
+Makefile: $(srcdir)/../../.node-gyp/10.16.0/include/node/common.gypi $(srcdir)/build/config.gypi $(srcdir)/binding.gyp $(srcdir)/../../../../usr/lib/node_modules/node-gyp/addon.gypi
 	$(call do_cmd,regen_makefile)
 
 # "all" is a concatenation of the "all" targets from all the included

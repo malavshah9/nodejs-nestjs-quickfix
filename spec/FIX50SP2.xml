@@ -1702,7 +1702,8 @@
    <field name='VenueType' required='N' />
    <field name='MarketSegmentID' required='N' />
    <field name='MarketID' required='N' />
-   <field name='ClearingIntention' required='N'/>
+   <field name='ClearingIntention' required='N' />
+   <field name='RegulatoryReportType' required='N' />
   </message>
   <message name='OrderMassStatusRequest' msgcat='app' msgtype='AF'>
    <field name='MassStatusReqID' required='Y' />
@@ -2205,6 +2206,7 @@
    <field name='VenueType' required='N' />
    <field name='MarketSegmentID' required='N' />
    <field name='MarketID' required='N' />
+   <field name='WarningText' required='N' />
   </message>
   <message name='AllocationReport' msgcat='app' msgtype='AS'>
    <field name='AllocReportID' required='Y' />
@@ -9749,6 +9751,15 @@
    <value enum='D' description='DELETE' />
    <value enum='M' description='MODIFY' />
   </field>
+  <field number='1934' name='RegulatoryReportType' type='INT'>
+    <value enum='11' description='LIMITED_DETAILS_TRADE'/>
+    <value enum='13' description='DAILY_AGGREGATED_TRADE'/>
+    <value enum='12' description='VOLUME_OMISSION_TRADE'/>
+    <value enum='14' description='FOUR_WEEKS_AGGREGATION_TRADE'/>
+    <value enum='15' description='INDEFINITE_AGGREGATION_TRADE'/>
+    <value enum='16' description='VOLUME_OMISSION_TRADE_ELIGIBLE_FOR_SUBSEQUENT'/>
+    <value enum='17' description='FULL_DETAILS_OF_"LIMITED_DETAILS_TRADE"'/>
+  </field>
   <field number='1924' name='ClearingIntention' type='INT'>
    <value enum='0' description='DO_NOT_INTEND_TO_CLEAR' />
    <value enum='1' description='INTEND_TO_CLEAR' />
@@ -10012,5 +10023,6 @@
    <value enum='2' description='REJECTED' />
    <value enum='3' description='TERMINATE_UNASSIGN' />
   </field>
+  <field number='2520' name='WarningText' type='STRING' />
  </fields>
 </fix>
