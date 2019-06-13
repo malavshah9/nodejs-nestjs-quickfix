@@ -1,3 +1,5 @@
+import { of } from "rxjs";
+
 export class TradeCaptureReportAck
 {
     TradeID : string;
@@ -23,9 +25,6 @@ export class TradeCaptureReportAck
         if (this.TradeReportType != undefined) {
             obj.tags["856"] = this.TradeReportType;
         }
-        if (this.TradeReportType != undefined) {
-            obj.tags["856"] = this.TradeReportType;
-        }
         if (this.TrdRptStatus != undefined) {
             obj.tags["939"] = this.TrdRptStatus;
         }
@@ -40,6 +39,36 @@ export class TradeCaptureReportAck
         }
         if (this.WarningText != undefined) {
             obj.tags["2520"] = this.WarningText;
+        }
+        return obj;
+    }
+
+    convertToField(message:any)
+    {
+        var obj:TradeCaptureReportAck;
+        if(message.tags["1003"]!=undefined){
+            obj.TradeID=message.tags["1003"];
+        }
+        if(message.tags["1040"]!=undefined){
+            obj.SecondaryTradeID=message.tags["1040"];
+        }
+        if(message.tags["856"]!=undefined){
+            obj.TradeReportType=message.tags["856"];
+        }
+        if(message.tags["939"]!=undefined){
+            obj.TrdRptStatus=message.tags["939"];
+        }
+        if(message.tags["828"]!=undefined){
+            obj.TrdType=message.tags["828"];
+        }
+        if(message.tags["751"]!=undefined){
+            obj.TradeReportRejectReason=message.tags["751"];
+        }
+        if(message.tags["1328"]!=undefined){
+            obj.RejectText=message.tags["1328"];
+        }
+        if(message.tags["2520"]!=undefined){
+            obj.WarningText=message.tags["2520"];
         }
         return obj;
     }

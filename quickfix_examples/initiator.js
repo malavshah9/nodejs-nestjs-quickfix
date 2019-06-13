@@ -50,7 +50,7 @@ var fixClient = new initiator(
     // fixClient.emit('fromAdmin', common.stats(fixClient, sessionID, message));
   },
   fromApp: function(message, sessionID) {
-    console.log("fromApp called");
+    console.log("fromApp Called");
     // fixClient.emit('fromApp', common.stats(fixClient, sessionID, message));
   }
 }, options);
