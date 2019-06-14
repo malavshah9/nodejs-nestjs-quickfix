@@ -1,19 +1,25 @@
 import { of } from "rxjs";
 import { HeaderServiceService } from "src/common-services/header-service/header-service.service";
+import { DatabaseServiceService } from "src/database-connection/database-service/database-service.service";
+import {  getConnection } from "typeorm";
 
 export class TradeCaptureReportAck
 {
     TradeID : number;
-    SecondaryTradeID : number;
+    SecondaryTradeID : string;
     TradeReportType : number;
     TrdRptStatus : number;
     TrdType?: number;
     TradeReportRejectReason?: number;
     RejectText?: string;
     WarningText : string;
-    TCRHeaderService:HeaderServiceService;
+    TCRHeaderService:HeaderServiceService=null;
+    DatabaseService:DatabaseServiceService=null;
     constructor(){
+        if(this.TCRHeaderService==null)
         this.TCRHeaderService=new HeaderServiceService();
+        if(this.DatabaseService==null)
+        this.DatabaseService=new DatabaseServiceService(getConnection('default'));
     }
     converter()
     {
@@ -82,5 +88,12 @@ export class TradeCaptureReportAck
             obj.WarningText=message.tags["2520"];
         }
         return obj;
+    }
+    submitToDatabase(time:any,time_type:number){
+        // let databaseService=new DatabaseServiceService();
+        this.DatabaseService.insertTCRAck(this.TradeID,
+            this.SecondaryTradeID,
+            this.TrdRptStatus,
+            time,time_type,null,this.TradeReportRejectReason,this.RejectText,this.WarningText,"",0,"");
     }
 }

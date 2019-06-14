@@ -57,7 +57,8 @@ var fixClient = new initiator(
     {
       var obj=new TCRAck.TradeCaptureReportAck();
       var mess=obj.convertToField(message);
-      console.log(mess);
+      mess.submitToDatabase(new Date().toString(),1);
+      // console.log(mess);
       // console.log(util.inspect(mess, {showHidden: false, depth: null}));
     }
     // fixClient.emit('fromApp', common.stats(fixClient, sessionID, message));

@@ -1379,14 +1379,14 @@
     "pickerWorkingDir": "/home/malav/Desktop",
     "windowsState": {
         "lastActiveWindow": {
-            "folder": "file:///home/malav/Desktop/gateway/nest_project_final/final-project",
-            "backupPath": "/home/malav/Desktop/gateway/nest_project_final/final-project/Backups/c75ad6980f27d941381b3b7a319e273b",
+            "folder": "file:///home/malav/Desktop/nodejs-nestjs-quickfix",
+            "backupPath": "/home/malav/Desktop/nodejs-nestjs-quickfix/Backups/899895239f8a36e785bc0cce8c1f7571",
             "uiState": {
                 "mode": 0,
                 "x": 67,
-                "y": 55,
+                "y": 64,
                 "width": 1299,
-                "height": 713
+                "height": 704
             }
         },
         "openedWindows": []

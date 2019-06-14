@@ -11,6 +11,7 @@ import { AppService } from './app.service';
 import { TradePriceConditionGrp } from './DTO/TradePriceConditionGrp.dto';
 import { TCR_class } from './DTO/TCR_class.dto';
 import { StandardHeader } from './DTO/StandardHeader.dto';
+import { stomp_it } from './ActiveMQ/stompit_start';
 async function startFixClient() {
  
   let order = {
@@ -46,6 +47,8 @@ async function bootstrap() {
   const appService = app.get(AppService);
   let message = await startFixClient().then(async (order) => {
     appService.setQuickfixClient(fixClient);
+      //Here Starting the Stompit Server
+      stomp_it.startConnectionStompit();
       process.stdin.resume();
     // await fixClient.send(order, () => {
     //   console.log("order sent .....", order);

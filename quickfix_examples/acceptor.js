@@ -3,7 +3,6 @@ var path = require('path');
 var common = require('./common');
 var quickfix = require('../index');
 var fixAcceptor = quickfix.acceptor;
-// var TCRAck=require('../src/DTO/TradeCaptureReportAck.dto');
 
 var logonProvider = new quickfix.logonProvider(function (logonResponse, msg, sessionId) {
   if (msg.tags[553] == 'USERNAME' && msg.tags[554] == 'PASSWORD') {
@@ -20,7 +19,7 @@ function inherits(target, source) {
 }
 
 inherits(fixAcceptor, events.EventEmitter);
-
+var tradeID=0;
 var fixServer = new fixAcceptor(
   {
     onCreate: function(sessionID) {
@@ -30,6 +29,7 @@ var fixServer = new fixAcceptor(
     onLogon: function(sessionID) {
       console.log("onLogon called");
       setInterval(()=>{
+        
         let obj = {
           header: {
             8: 'FIXT.1.1',
@@ -38,7 +38,7 @@ var fixServer = new fixAcceptor(
             56: "INITIATOR"
           },
           tags: {
-            1003: 10,
+            1003: tradeID++,
             1040: 12,
             856: 0,
             939: 3,
