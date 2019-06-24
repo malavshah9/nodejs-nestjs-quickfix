@@ -142,9 +142,9 @@ NAN_METHOD(FixInitiator::send) {
 	Local<Object> message = info[0]->ToObject();
 
 	FIX::Message* fixMessage = new FIX::Message();
-	std::cout << "Messsage before js2Fix() "<< *message << std::endl;
+	// std::cout << "Messsage before js2Fix() "<< *message << std::endl;
 	FixMessageUtil::js2Fix(fixMessage, message);
-	std::cout << "Messsage before sendAsync() "<< *fixMessage << std::endl;
+	// std::cout << "Messsage before sendAsync() "<< *fixMessage << std::endl;
 	sendAsync(info, fixMessage);
 
 	return;
@@ -164,7 +164,6 @@ NAN_METHOD(FixInitiator::sendRaw) {
 
 void FixInitiator::sendAsync(const Nan::FunctionCallbackInfo<v8::Value>& info, FIX::Message* fixMessage) {
 	Nan::Callback *callback = new Nan::Callback(info[1].As<Function>());
-	std::cout << "Messsage in SendAsync "<< *fixMessage << std::endl;
 	Nan::AsyncQueueWorker(new FixSendWorker(callback, fixMessage));
 }
 

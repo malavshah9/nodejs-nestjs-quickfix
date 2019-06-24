@@ -1,6 +1,7 @@
+import { AppService } from './../app.service';
 import { of } from "rxjs";
-import { HeaderServiceService } from "src/common-services/header-service/header-service.service";
-import { DatabaseServiceService } from "src/database-connection/database-service/database-service.service";
+import { HeaderServiceService } from "../common-services/header-service/header-service.service";
+import { DatabaseServiceService } from "../database-connection/database-service/database-service.service";
 import {  getConnection } from "typeorm";
 
 export class TradeCaptureReportAck
@@ -19,7 +20,7 @@ export class TradeCaptureReportAck
         if(this.TCRHeaderService==null)
         this.TCRHeaderService=new HeaderServiceService();
         if(this.DatabaseService==null)
-        this.DatabaseService=new DatabaseServiceService(getConnection('default'));
+        this.DatabaseService=new DatabaseServiceService(getConnection('default'),this.TCRHeaderService);
     }
     converter()
     {

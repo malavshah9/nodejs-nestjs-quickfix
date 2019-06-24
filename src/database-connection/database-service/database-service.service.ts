@@ -1,36 +1,69 @@
+/*
+        Basic database connection to server configure at ormconfig.json
+*/
+import { HeaderServiceService } from './../../common-services/header-service/header-service.service';
 import { Injectable } from '@nestjs/common';
 import { EntityManager, getManager, Connection } from 'typeorm';
-
+import { TCR_class } from 'src/DTO/TCR_class.dto';
 @Injectable()
-    export class DatabaseServiceService {
+export class DatabaseServiceService {
     private readonly manager: EntityManager;
-    constructor(private readonly connection: Connection) {
+    protected quickfix_client: any;
+    constructor(private readonly connection: Connection, private headerService: HeaderServiceService) {
         this.manager = getManager(connection.name);
     }
+    /*
+        This function used to get all data from TCR_NEX;
+    */
     async getAllData() {
-        const result = await this.manager.query('select * from event_log');
+        const result = await this.manager.query('select * from TCR_NEX');
         return result;
     }
-    async insertTCRAck(
-        tradeId:number,
-        secondaryTradeId:string,
-        trdRptStatus:number,
-        time:string,
-        timeType:number,
-        trdPublishIndicatore:number,
-        trdReportRejectionReason:number,
-        rejectText:string,
-        warningText:string,
-        businessRejectRefId:string,
-        businessRejectReason:number,
-        businessRejectText:string
-    ) {
-        try{
-        const res=await this.manager.query('CALL proc_tcr_nex_submit (?,?,?,?,?,?,?,?,?,?,?,?)',[tradeId,secondaryTradeId,trdRptStatus,time,timeType,trdPublishIndicatore,trdReportRejectionReason,rejectText,warningText,businessRejectRefId,businessRejectReason,businessRejectText]);
+    /*
+        This function used to call SP name as "proc_get_iress_left_tcr_nex";
+    */
+    async getAll_iress_trade_left_TCR_NEX() {
+        const res = await this.manager.query('CALL proc_get_iress_left_tcr_nex ()');
         return res;
+    }
+    /*
+        This function used to insert TCRAck to database configured at ormconfig file.
+    */
+    async insertTCRAck(
+        tradeId: number,
+        secondaryTradeId: string,
+        trdRptStatus: number,
+        time: string,
+        timeType: number,
+        trdPublishIndicatore: number,
+        trdReportRejectionReason: number,
+        rejectText: string,
+        warningText: string,
+        businessRejectRefId: string,
+        businessRejectReason: number,
+        businessRejectText: string
+    ) {
+        try {
+            const res = await this.manager.query('CALL proc_tcr_nex_submit (?,?,?,?,?,?,?,?,?,?,?,?)', [tradeId, secondaryTradeId, trdRptStatus, time, timeType, trdPublishIndicatore, trdReportRejectionReason, rejectText, warningText, businessRejectRefId, businessRejectReason, businessRejectText]);
+            return res;
         }
-        catch(QueryFailedError){
+        catch (QueryFailedError) {
             console.log("Call to proc_tcr_nex_submit() failed because of duplication of primary key.")
         }
+    }
+    /*
+        This function used make whole message from content of TCR class.
+    */
+    async makeTCRReport(obj: TCR_class) {
+        let tcrheader = this.headerService.getHeader("AE");
+        var msg = {
+            header: tcrheader.converter(),
+            tags: obj.getTags(),
+            groups: obj.getGroups()
+        };
+        msg.tags["22"] = '4';
+        msg.tags["48"] = "0X1213";
+        msg.tags["55"] = "BAC";
+        return msg;
     }
 }

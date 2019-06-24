@@ -13,7 +13,8 @@ var options = {
     password: "PASSWORD"
   },
   ssl : true,
-  propertiesFile: path.join(__dirname, "initiator.properties")
+  propertiesFile: path.join(__dirname, "initiator.properties"),
+  storeFactory:'mysql'
 };
 
 // extend prototype
@@ -27,72 +28,32 @@ inherits(initiator, events.EventEmitter);
 var fixClient = new initiator(
 {
   onCreate: function(sessionID) {
-    console.log("onCreate called");
-    // fixClient.emit('onCreate', common.stats(fixClient, sessionID));
+    console.log(" Session created ",sessionID);
   },
   onLogon: function(sessionID) {
-    console.log("onLogon called");
-    // fixClient.emit('onLogon', common.stats(fixClient, sessionID));
-    //Done 
+    console.log(" Logged IN ",sessionID);
   },
   onLogout: function(sessionID) {
-    console.log("onLogout called");
-    // fixClient.emit('onLogout', common.stats(fixClient, sessionID));
+    console.log(" LoggedOut ",sessionID);
   },
   onLogonAttempt: function(message, sessionID) {
-    console.log("onLogonAttempt called");
-    // fixClient.emit('onLogonAttempt', common.stats(fixClient, sessionID, message));
+    console.log(" message with sequence number ",message.header["34"]," attempted logged in on session ",sessionID);
   },
   toAdmin: function(message, sessionID) {
-    console.log("toAdmin called");
-    // fixClient.emit('toAdmin', common.stats(fixClient, sessionID, message));
+    console.log(" message with sequence number ",message.header["34"]," sending message to admin on session ",sessionID);
   },
   fromAdmin: function(message, sessionID) {
-    console.log("fromAdmin called");
-    // fixClient.emit('fromAdmin', common.stats(fixClient, sessionID, message));
+    console.log(" message with sequence number ",message.header["34"]," sending message from admin on session ",sessionID);
   },
   fromApp: function(message, sessionID) {
-    console.log("fromApp Called");
-    if(message.header["35"]=="AR")
-    {
+    console.log(" message with sequence number ",message.header["34"]," received message on session ",sessionID);
+    if(message.header["35"]=="AR"){
       var obj=new TCRAck.TradeCaptureReportAck();
       var mess=obj.convertToField(message);
       mess.submitToDatabase(new Date().toString(),1);
-      // console.log(mess);
-      // console.log(util.inspect(mess, {showHidden: false, depth: null}));
     }
-    // fixClient.emit('fromApp', common.stats(fixClient, sessionID, message));
   }
 }, options);
 module.exports={
   fixClient:fixClient
 };
-// fixClient.start(function() {
-// 	console.log("FIX Initiator Started");
-//   var order = {
-//     header: {
-//       8: 'FIX.4.4',
-//       35: 'D',
-//       49: "INITIATOR",
-//       56: "ACCEPTOR"
-//     },
-//     tags: {
-//       11: "0E0Z86K00000",
-//       48: "06051GDX4",
-//       22: 1,
-//       38: 200,
-//       40: 2,
-//       54: 1,
-//       55: 'BAC',
-//       218: 100,
-//       60: df(new Date(), "yyyymmdd-HH:MM:ss.l"),
-//       423: 6
-//     }
-//   };
-
-//   fixClient.send(order, function() {
-//     console.log("Order sent!");
-//     common.printStats(fixClient);
-//     process.stdin.resume();
-//   });
-// });

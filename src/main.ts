@@ -11,7 +11,7 @@ import { AppService } from './app.service';
 import { TradePriceConditionGrp } from './DTO/TradePriceConditionGrp.dto';
 import { TCR_class } from './DTO/TCR_class.dto';
 import { StandardHeader } from './DTO/StandardHeader.dto';
-import { stomp_it } from './ActiveMQ/stompit_start';
+
 async function startFixClient() {
  
   let order = {
@@ -46,9 +46,13 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const appService = app.get(AppService);
   let message = await startFixClient().then(async (order) => {
+    console.log("----------Quickfix Client Started----------");
     appService.setQuickfixClient(fixClient);
+    // .then(()=>{
+    //   // let stom=new stomp_it();
+    //   // stom.startConnectionStompit();    
+    // });
       //Here Starting the Stompit Server
-      stomp_it.startConnectionStompit();
       process.stdin.resume();
     // await fixClient.send(order, () => {
     //   console.log("order sent .....", order);
@@ -56,7 +60,6 @@ async function bootstrap() {
     //   process.stdin.resume();
     // });
   });
-
   await app.listen(3000);
 }
 

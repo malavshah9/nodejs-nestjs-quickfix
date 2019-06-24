@@ -1,14 +1,52 @@
 import { Controller, Get } from '@nestjs/common';
 import { DatabaseServiceService } from '../database-service/database-service.service';
 import { Timestamp } from 'typeorm';
+import { TCR_class } from '../../DTO/TCR_class.dto';
+import { RootParties } from '../../DTO/RootParties.dto';
+import { instrument } from '../../DTO/Instrument.dto';
+import { AppService } from '../../app.service';
+import { HeaderServiceService } from '../../common-services/header-service/header-service.service';
+import { TrdCapRptSideGrp } from '../../DTO/TrdCapRptSideGrp.dto';
+var dateformat = require('dateformat');
 
-@Controller('databaseconnection')
+/*
+        This controller is used to define following methods
+        1.GET SERVICE : http://localhost:3000/databaseconnection
+            --   Will fetch all records from proc_get_iress_left_tcr_nex () SP and sends these records to Quickfix Client server
+                message type 35="AE" as TCR Report.
+*/
+@Controller('submitTradeToNex')
 export class DatabaseConnectionController {
-    constructor(private dbServer: DatabaseServiceService) {}
+    constructor(private dbServer: DatabaseServiceService, private appService: AppService, private headerService: HeaderServiceService) { }
     @Get()
     getAll(): any {
-        // return this.dbServer.getAllData();
-        // return this.dbServer.insertTCRAck(2,"2",3,new Date().toUTCString(),1,1,1,"Nothing","warn","12",1,"sss");
-        return this.dbServer.insertTCRAck(2,"2",3,new Date().toUTCString(),1,1,1,"Nothing","warn","12",1,"sss");
+        this.getDataSendMessage();
+        return this.dbServer.getAll_iress_trade_left_TCR_NEX();
     }
+    async getDataSendMessage() {
+        this.dbServer.getAll_iress_trade_left_TCR_NEX().then(async (data: any[]) => {
+            let mydata: any[] = data[0];
+            for (const element of mydata) {
+                let obj = new TCR_class(element.t_id, 5, "2", 1, [new RootParties(15, "G", 3)], new instrument("0", "ISIN", "4"), parseInt(element.trade_volume), parseInt(element.trade_price), "CNY", "SINT",
+                    dateformat(new Date(element.trade_date_time), "yyyymmdd")
+                    , dateformat(new Date(element.trade_date_time_GMT), "yyyymmdd-HH:MM:ss.l")
+                    , 1, [new TrdCapRptSideGrp("3")], 1, 11);
+                let tcrheader = this.headerService.getHeader("AE");
+                var msg = {
+                    header: tcrheader.converter(),
+                    tags: obj.getTags(),
+                    groups: obj.getGroups()
+                };
+                msg.tags["22"] = '4';
+                msg.tags["48"] = "0X1213";
+                msg.tags["55"] = "BAC";
+                await this.appService.getQuickfixClient().then(async (quickfixClient) => {
+                    await quickfixClient.send(msg, () => {
+                        console.log("TCR sent ...", msg);
+                    });
+                });
+            }
+        });
+    }
+
 }
