@@ -1,17 +1,19 @@
-import {TradePriceConditionGrp} from "./TradePriceConditionGrp.dto";
-import {RootParties} from "./RootParties.dto";
-import {instrument} from "./Instrument.dto";
-import {TrdRegTimestamps} from "./TrdRegTimestamps.dto";
-import {TrdCapRptSideGrp} from "./TrdCapRptSideGrp.dto";
-import {TrdRegPublicationGrp} from "./TrdRegPublicationGrp.dto";
-import {groups} from "./groups.dto";
+import { TradePriceConditionGrp } from "./TradePriceConditionGrp.dto";
+import { RootParties } from "./RootParties.dto";
+import { instrument } from "./Instrument.dto";
+import { TrdRegTimestamps } from "./TrdRegTimestamps.dto";
+import { TrdCapRptSideGrp } from "./TrdCapRptSideGrp.dto";
+import { TrdRegPublicationGrp } from "./TrdRegPublicationGrp.dto";
+import { groups } from "./groups.dto";
+import { Inject } from "@nestjs/common";
+import { MemoryMapService } from "src/memory-map-service/memory-map.service";
 
 export class TCR_class {
-    TradeID : string;
+    TradeID: string;
     SecondaryTradeID?: string;
     PackageID?: string;
     TradeNumber?: number;
-    TradeReportType : number;
+    TradeReportType: number;
     TrdRptStatus?: number;
     TrdType?: number;
     TrdSubType?: number;
@@ -19,29 +21,33 @@ export class TCR_class {
     TradePriceConditionGrp?: TradePriceConditionGrp[]; //Group  --
     NoTradePriceConditions?: number; //--
     TotNumTradeReports?: number;
-    PriceType : string;
-    RootParties : RootParties[]; //Group     --
-    NoRootPartyIDs : number; //--
-    VenueType : string;
-    instrument : instrument; //Group
+    PriceType: string;
+    RootParties: RootParties[]; //Group     --
+    NoRootPartyIDs: number; //--
+    VenueType: string;
+    instrument: instrument; //Group
     QtyType?: number;
-    LastQty : number;
-    LastPx : number;
-    Currency : any;
-    LastMkt : string;
-    TradeDate : string;
-    TransactTime : string;
+    LastQty: number;
+    LastPx: number;
+    Currency: any;
+    LastMkt: string;
+    TradeDate: string;
+    TransactTime: string;
     TrdRegTimestamps?: TrdRegTimestamps[]; //Group
     NoTrdRegTimestamps?: number //--
-    TrdCapRptSideGrp : TrdCapRptSideGrp[]; //Group
-    NoSides : number; //--
+    TrdCapRptSideGrp: TrdCapRptSideGrp[]; //Group
+    NoSides: number; //--
     TrdRegPublicationGrp?: TrdRegPublicationGrp[]; //Group
     NoTrdRegPublications?: number; //--
-    ClearingIntention : number;
-    RegulatoryReportType : number;
-    tagObj : any;
-    tagGrp : any[] = [];
-    constructor(TradeId : string, TradeReportType : number, PriceType : string, NoRootPartyIDs : number, RootParties : RootParties[], instrument : instrument, LastQty : number, LastPx : number, Currency : any, LastMkt : string, TradeDate : string, TransactTime : string, NoSides : number, TrdCapRptSideGrp : TrdCapRptSideGrp[], ClearingIntention : number, RegulatoryReportType : number) {
+    ClearingIntention: number;
+    RegulatoryReportType: number;
+    TradePublishIndicator: number
+    tagObj: any;
+    tagGrp: any[] = [];
+    @Inject('MemoryMapService')
+    private readonly memoryMapService:MemoryMapService;
+  private readonly httpClient: T;
+    constructor(TradeId: string, TradeReportType: number, PriceType: string, NoRootPartyIDs: number, RootParties: RootParties[], instrument: instrument, LastQty: number, LastPx: number, Currency: any, LastMkt: string, TradeDate: string, TransactTime: string, NoSides: number, TrdCapRptSideGrp: TrdCapRptSideGrp[], ClearingIntention: number, RegulatoryReportType: number) {
         this.TradeID = TradeId;
         this.TradeReportType = TradeReportType;
         this.PriceType = PriceType;
@@ -378,7 +384,16 @@ export class TCR_class {
         if (this.RegulatoryReportType != undefined) {
             obj["1934"] = this.RegulatoryReportType
         }
+        if (this.TradePublishIndicator != undefined) {
+            obj["1390"] = this.TradePublishIndicator;
+        }
         this.tagObj = obj;
         return obj;
+    }
+    convertToField(message){
+
+    }
+    addToMap(obj:TCR_class){
+        this.memoryMapService.UpdateMap(obj);
     }
 }

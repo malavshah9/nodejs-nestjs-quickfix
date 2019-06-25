@@ -1,3 +1,4 @@
+import { MemoryMapService } from './../memory-map-service/memory-map.service';
 import { HeaderServiceService } from './../common-services/header-service/header-service.service';
 import { RootParties } from './../DTO/RootParties.dto';
 import { Parties } from './../DTO/Parties.dto';
@@ -5,6 +6,7 @@ import { TrdCapRptSideGrp } from './../DTO/TrdCapRptSideGrp.dto';
 import { instrument } from './../DTO/Instrument.dto';
 import { TCR_class } from './../DTO/TCR_class.dto';
 import { stompit, connectParams, reconnectOptions } from './stompit_server';
+import { Inject } from '@nestjs/common';
 
 var dateformat = require('dateformat');
 var parser = require('fast-xml-parser');
@@ -14,6 +16,9 @@ var path = require('path');
 
 export class stomp_it {
     readonly connectionManager: any = new stompit.ConnectFailover([connectParams], reconnectOptions);
+    constructor(@Inject('MemoryMapService') private readonly memoryMapService: MemoryMapService) {
+
+    }
     /*
         startConnectionStompit() function will start the stompit server
         set the callback method which will be called when content in the topic were added.
@@ -60,7 +65,7 @@ export class stomp_it {
                         // process.stdout.write(chunk);
                     }
                     console.log(" quickfix_client ", quickfix_client);
-                    if (parser.validate(xml_message) === true) { 
+                    if (parser.validate(xml_message) === true) {
                         //optional (it'll return an object in case it's not valid)
                         var jsonObj = parser.parse(xml_message, options);
                         let tcr_obj = new TCR_class(jsonObj.trade_number + "", 5, "2", 1, [new RootParties(15, "G", 3)], new instrument("0", jsonObj.security_id, "4"), parseInt(jsonObj.trade_volume), parseInt(jsonObj.trade_price), jsonObj.source_currency, "SINT", dateformat(new Date(jsonObj.trade_date_time), "yyyymmdd"), dateformat(new Date(jsonObj.trade_date_time_gmt), "yyyymmdd-HH:MM:ss.l"), 1, [new TrdCapRptSideGrp("3")], 1, 11);
@@ -75,7 +80,8 @@ export class stomp_it {
                         msg.tags["22"] = '4';
                         msg.tags["48"] = "0X1213";
                         msg.tags["55"] = "BAC";
-                        console.log(" TCR Report ", msg);
+                        console.log(" TCR Report made with XML parsing ", msg);
+                        this.memoryMapService.UpdateMap(msg, false);
                         quickfix_client.send(msg, async (msg) => {
                             console.log(" TCR Report Sent ", msg);
                         });
