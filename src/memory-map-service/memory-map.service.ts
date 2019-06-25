@@ -22,13 +22,14 @@ export class MemoryMapService {
                                 2.update TCR
                                 3.update TCR to Memory Map
             */
-    UpdateMap(TCR:any){
+    UpdateMap(TCR:any,isDatabaseUpdationNeeded:boolean=true){
         if(!this.TCR_Map.has(TCR.TradeID)){
             //TCR DoestNotExist in Map than add that TCR to Map
             this.TCR_Map.set(TCR.TradeID,TCR);
         }
         else{
             var newMergedTCR:any=this.merge(TCR,this.TCR_Map.get(TCR.TradeID));
+            if(isDatabaseUpdationNeeded)
             this.databaseService.insertTCRAck(newMergedTCR.TradeID,newMergedTCR.SecondaryTradeID,newMergedTCR.TrdRptStatus,new Date().getTime().toString(),2,newMergedTCR.TradePublishIndicator,newMergedTCR.TradeReportRejectReason,newMergedTCR.RejectText,newMergedTCR.WarningText,"",0,"");
             if(newMergedTCR.TradePublishIndicator===3){
                 this.TCR_Map.remove(TCR.TradeID);

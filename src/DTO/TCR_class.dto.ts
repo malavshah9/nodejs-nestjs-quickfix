@@ -5,6 +5,8 @@ import { TrdRegTimestamps } from "./TrdRegTimestamps.dto";
 import { TrdCapRptSideGrp } from "./TrdCapRptSideGrp.dto";
 import { TrdRegPublicationGrp } from "./TrdRegPublicationGrp.dto";
 import { groups } from "./groups.dto";
+import { Inject } from "@nestjs/common";
+import { MemoryMapService } from "src/memory-map-service/memory-map.service";
 
 export class TCR_class {
     TradeID: string;
@@ -42,6 +44,9 @@ export class TCR_class {
     TradePublishIndicator: number
     tagObj: any;
     tagGrp: any[] = [];
+    @Inject('MemoryMapService')
+    private readonly memoryMapService:MemoryMapService;
+  private readonly httpClient: T;
     constructor(TradeId: string, TradeReportType: number, PriceType: string, NoRootPartyIDs: number, RootParties: RootParties[], instrument: instrument, LastQty: number, LastPx: number, Currency: any, LastMkt: string, TradeDate: string, TransactTime: string, NoSides: number, TrdCapRptSideGrp: TrdCapRptSideGrp[], ClearingIntention: number, RegulatoryReportType: number) {
         this.TradeID = TradeId;
         this.TradeReportType = TradeReportType;
@@ -384,5 +389,11 @@ export class TCR_class {
         }
         this.tagObj = obj;
         return obj;
+    }
+    convertToField(message){
+
+    }
+    addToMap(obj:TCR_class){
+        this.memoryMapService.UpdateMap(obj);
     }
 }

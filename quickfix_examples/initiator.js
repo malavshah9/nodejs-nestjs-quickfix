@@ -4,6 +4,7 @@ var quickfix = require('../index');
 var common = require('./common');
 var path = require('path');
 var TCRAck=require('../src/DTO/TradeCaptureReportAck.dto')
+var TCR_Class=require('../src/DTO/TCR_class.dto');
 var initiator = quickfix.initiator;
 var util=require('util');
 
@@ -49,6 +50,11 @@ var fixClient = new initiator(
     console.log(" message with sequence number ",message.header["34"]," received message on session ",sessionID);
     if(message.header["35"]=="AR"){
       var obj=new TCRAck.TradeCaptureReportAck();
+      var mess=obj.convertToField(message);
+      obj.addToMap(mess)
+    }
+    else if(message.header["35"]=="AE"){
+      var obj=new TCR_Class.TCR_class();
       var mess=obj.convertToField(message);
       obj.addToMap(mess)
     }

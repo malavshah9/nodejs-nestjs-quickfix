@@ -18,7 +18,7 @@ var dateformat = require('dateformat');
 */
 @Controller('submitTradeToNex')
 export class DatabaseConnectionController {
-    constructor(private dbServer: DatabaseServiceService, private appService: AppService, private headerService: HeaderServiceService,private memoryMapService:MemoryMapService) { }
+    constructor(private dbServer: DatabaseServiceService, private appService: AppService, private headerService: HeaderServiceService, private memoryMapService: MemoryMapService) { }
     @Get()
     getAll(): any {
         this.getDataSendMessage();
@@ -28,7 +28,7 @@ export class DatabaseConnectionController {
         this.dbServer.getAll_iress_trade_left_TCR_NEX().then(async (data: any[]) => {
             let mydata: any[] = data[0];
             for (const element of mydata) {
-                if (element.TrdRptStatus != 0 && element.TrdRptStatus !=3 ) {
+                if (element.TrdRptStatus != 0 && element.TrdRptStatus != 3) {
                     let obj = new TCR_class(element.t_id, 5, "2", 1, [new RootParties(15, "G", 3)], new instrument("0", "ISIN", "4"), parseInt(element.trade_volume), parseInt(element.trade_price), "CNY", "SINT",
                         dateformat(new Date(element.trade_date_time), "yyyymmdd")
                         , dateformat(new Date(element.trade_date_time_GMT), "yyyymmdd-HH:MM:ss.l")
@@ -42,7 +42,8 @@ export class DatabaseConnectionController {
                     msg.tags["22"] = '4';
                     msg.tags["48"] = "0X1213";
                     msg.tags["55"] = "BAC";
-                    this.memoryMapService.UpdateMap(msg);
+                    console.log(" TCR Report made with Database ", msg);
+                    this.memoryMapService.UpdateMap(msg, false);
                     await this.appService.getQuickfixClient().then(async (quickfixClient) => {
                         await quickfixClient.send(msg, () => {
                             console.log("TCR sent ...", msg);
@@ -51,7 +52,5 @@ export class DatabaseConnectionController {
                 }
             }
         });
-
     }
-
 }
