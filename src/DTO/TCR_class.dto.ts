@@ -46,7 +46,6 @@ export class TCR_class {
     tagGrp: any[] = [];
     @Inject('MemoryMapService')
     private readonly memoryMapService:MemoryMapService;
-  private readonly httpClient: T;
     constructor(TradeId: string, TradeReportType: number, PriceType: string, NoRootPartyIDs: number, RootParties: RootParties[], instrument: instrument, LastQty: number, LastPx: number, Currency: any, LastMkt: string, TradeDate: string, TransactTime: string, NoSides: number, TrdCapRptSideGrp: TrdCapRptSideGrp[], ClearingIntention: number, RegulatoryReportType: number) {
         this.TradeID = TradeId;
         this.TradeReportType = TradeReportType;

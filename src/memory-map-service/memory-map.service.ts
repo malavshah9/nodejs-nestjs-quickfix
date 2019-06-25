@@ -1,6 +1,6 @@
 import { TCR_class } from './../DTO/TCR_class.dto';
 import { Injectable } from '@nestjs/common';
-import { DatabaseServiceService } from 'dist/src/database-connection/database-service/database-service.service';
+import { DatabaseServiceService } from '../database-connection/database-service/database-service.service';
 var HashMap = require('hashmap');
 @Injectable()
 export class MemoryMapService {
