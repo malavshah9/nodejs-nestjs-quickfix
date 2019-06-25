@@ -52,6 +52,10 @@ var fixClient = new initiator(
       var mess=obj.convertToField(message);
       mess.submitToDatabase(new Date().toString(),1);
     }
+    else if(message.header["35"]=="AE")
+    {
+      
+    }
   }
 }, options);
 module.exports={
