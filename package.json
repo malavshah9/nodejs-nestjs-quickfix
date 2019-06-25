@@ -27,6 +27,7 @@
     "dateformat": "^3.0.3",
     "fast-xml-parser": "^3.12.16",
     "graceful-fs": "^4.1.15",
+    "hashmap": "^2.3.0",
     "he": "^1.2.0",
     "mysql": "^2.17.1",
     "nan": "^2.14.0",

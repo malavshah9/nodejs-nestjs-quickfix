@@ -50,7 +50,7 @@ var fixClient = new initiator(
     if(message.header["35"]=="AR"){
       var obj=new TCRAck.TradeCaptureReportAck();
       var mess=obj.convertToField(message);
-      mess.submitToDatabase(new Date().toString(),1);
+      obj.addToMap(mess)
     }
   }
 }, options);

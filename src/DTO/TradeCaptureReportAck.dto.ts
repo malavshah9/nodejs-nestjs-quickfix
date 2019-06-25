@@ -1,8 +1,10 @@
+import { MemoryMapService } from './../memory-map-service/memory-map.service';
 import { AppService } from './../app.service';
 import { of } from "rxjs";
 import { HeaderServiceService } from "../common-services/header-service/header-service.service";
 import { DatabaseServiceService } from "../database-connection/database-service/database-service.service";
 import {  getConnection } from "typeorm";
+import { Inject } from '@nestjs/common';
 
 export class TradeCaptureReportAck
 {
@@ -16,7 +18,7 @@ export class TradeCaptureReportAck
     WarningText : string;
     TCRHeaderService:HeaderServiceService=null;
     DatabaseService:DatabaseServiceService=null;
-    constructor(){
+    constructor( @Inject('MemoryMapService') private readonly memoryMapService: MemoryMapService){
         if(this.TCRHeaderService==null)
         this.TCRHeaderService=new HeaderServiceService();
         if(this.DatabaseService==null)
@@ -96,5 +98,8 @@ export class TradeCaptureReportAck
             this.SecondaryTradeID,
             this.TrdRptStatus,
             time,time_type,null,this.TradeReportRejectReason,this.RejectText,this.WarningText,"",0,"");
+    }
+    addToMap(obj:TradeCaptureReportAck){
+        this.memoryMapService.UpdateMap(obj);
     }
 }

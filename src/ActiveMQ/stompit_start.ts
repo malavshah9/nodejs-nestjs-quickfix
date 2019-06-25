@@ -1,3 +1,4 @@
+import { MemoryMapService } from './../memory-map-service/memory-map.service';
 import { HeaderServiceService } from './../common-services/header-service/header-service.service';
 import { RootParties } from './../DTO/RootParties.dto';
 import { Parties } from './../DTO/Parties.dto';
@@ -5,6 +6,7 @@ import { TrdCapRptSideGrp } from './../DTO/TrdCapRptSideGrp.dto';
 import { instrument } from './../DTO/Instrument.dto';
 import { TCR_class } from './../DTO/TCR_class.dto';
 import { stompit, connectParams, reconnectOptions } from './stompit_server';
+import { Inject } from '@nestjs/common';
 
 var dateformat = require('dateformat');
 var parser = require('fast-xml-parser');
@@ -14,6 +16,9 @@ var path = require('path');
 
 export class stomp_it {
     readonly connectionManager: any = new stompit.ConnectFailover([connectParams], reconnectOptions);
+    constructor( @Inject('MemoryMapService') private readonly memoryMapService: MemoryMapService ){
+
+    }
     /*
         startConnectionStompit() function will start the stompit server
         set the callback method which will be called when content in the topic were added.
@@ -76,6 +81,7 @@ export class stomp_it {
                         msg.tags["48"] = "0X1213";
                         msg.tags["55"] = "BAC";
                         console.log(" TCR Report ", msg);
+                        this.memoryMapService.UpdateMap(msg);
                         quickfix_client.send(msg, async (msg) => {
                             console.log(" TCR Report Sent ", msg);
                         });
