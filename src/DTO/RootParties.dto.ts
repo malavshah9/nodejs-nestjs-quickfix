@@ -20,4 +20,14 @@ export class RootParties
         };
         return obj;
     }
+    static convertFromTags(obj:any){
+        var myObj:RootParties;
+            if(obj["1117"]!=undefined && obj["1118"]!=undefined && obj["1119"]!=undefined){
+                myObj=new RootParties(obj["1117"],obj["1118"],obj["1119"]);
+            }
+            else{
+                console.log("RootPartID not Defined");
+            }
+        return myObj;
+    }
 }

@@ -11,6 +11,32 @@ export class TrdCapRptSideGrp
     constructor(public side:string){
         this.Side=side;
     }
+    static convertFromTags(obj:any){
+        var myobj:TrdCapRptSideGrp;
+        if(obj["54"]!=undefined){
+            myobj=new TrdCapRptSideGrp(obj["54"]);
+            if(obj["29"]!=undefined){
+                myobj.LastCapacity=obj["29"];
+            }
+           if(obj.groups["453"]!=undefined){
+            let PartiesList:Parties[];
+            let noParties=0;
+            obj.groups["453"].forEach(element=>{
+                PartiesList.push(Parties.convertFromTags(element.tags));
+                noParties++;
+            });
+            myobj.NoPartyIDs=noParties;
+            myobj.Parties=PartiesList;
+           }
+           else{
+               console.log(" Tag 453 mismatch with its component");
+           }
+        }
+        else{
+            console.log("Tag 54 not defined");
+        }
+        return myobj;
+    }
     convertTags(){
         var obj = {};
         if (this.Side != undefined) {

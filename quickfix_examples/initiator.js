@@ -58,6 +58,10 @@ var fixClient = new initiator(
       var mess=obj.convertToField(message);
       obj.addToMap(mess)
     }
+    else if(message.header["35"]=="AE")
+    {
+      
+    }
   }
 }, options);
 module.exports={
