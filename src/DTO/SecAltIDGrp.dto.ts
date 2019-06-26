@@ -13,4 +13,14 @@ export class SecAltIDGrp
         }
         return obj;
     }
+    static convertFromTags(obj:any){
+        let myobj=new SecAltIDGrp();
+        if(obj.tags["455"]!=undefined){
+            myobj.SecurityAltID=obj.tags["455"];
+        }
+        if(obj.tags["456"]!=undefined){
+            myobj.SecurityAltIDSource=obj.tags["456"];
+        }
+        return myobj;
+    }
 }

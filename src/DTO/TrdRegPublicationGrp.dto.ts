@@ -13,4 +13,14 @@ export class TrdRegPublicationGrp
         }
         return obj;
     }
+    static convertFromTags(obj:any){
+        let myobj=new TrdRegPublicationGrp();
+        if(obj.tags["2669"]!=undefined){
+            myobj.TrdRegPublicationType=obj.tags["2669"];
+        }
+        if(obj.tags["2670"]!=undefined){
+            myobj.TrdRegPublicationReason=obj.tags["2670"];
+        }
+        return myobj;
+    }
 }

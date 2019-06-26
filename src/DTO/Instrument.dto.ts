@@ -129,6 +129,9 @@ export class instrument {
         }
         return obj_t;
     }
+    convertFromTags(){
+        
+    }
     // convertToTags()
     // {
     //     var obj={
