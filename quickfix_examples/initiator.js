@@ -30,38 +30,36 @@ inherits(initiator, events.EventEmitter);
 var fixClient = new initiator(
 {
   onCreate: function(sessionID) {
-    console.log(" Session created ",sessionID);
+    // console.log(" Session created ",sessionID);
   },
   onLogon: function(sessionID) {
-    console.log(" Logged IN ",sessionID);
+    // console.log(" Logged IN ",sessionID);
   },
   onLogout: function(sessionID) {
-    console.log(" LoggedOut ",sessionID);
+    // console.log(" LoggedOut ",sessionID);
   },
   onLogonAttempt: function(message, sessionID) {
-    console.log(" message with sequence number ",message.header["34"]," attempted logged in on session ",sessionID);
+    // console.log(" message with sequence number ",message.header["34"]," attempted logged in on session ",sessionID);
   },
   toAdmin: function(message, sessionID) {
-    console.log(" message with sequence number ",message.header["34"]," sending message to admin on session ",sessionID);
+    // console.log(" message with sequence number ",message.header["34"]," sending message to admin on session ",sessionID);
   },
   fromAdmin: function(message, sessionID) {
-    console.log(" message with sequence number ",message.header["34"]," sending message from admin on session ",sessionID);
+    // console.log(" message with sequence number ",message.header["34"]," sending message from admin on session ",sessionID);
   },
   fromApp: function(message, sessionID) {
-    console.log(" message with sequence number ",message.header["34"]," received message on session ",sessionID);
+    // console.log(" message with sequence number ",message.header["34"]," received message on session ",sessionID);
     if(message.header["35"]=="AR"){
-      var obj=new TCRAck.TradeCaptureReportAck();
-      var mess=obj.convertToField(message);
-      // obj.addToMap(mess)
+      let obj=new TCRAck.TradeCaptureReportAck();
+      let mess=obj.convertToField(message);
+      let memoryMapService=new memoryService.MemoryMapService();
+      memoryMapService.UpdateMap(hashMap.TCR_Map,mess,true);
     }
     else if(message.header["35"]=="AE"){
-      var obj=new TCR_Class.TCR_class();
-      var mess=obj.convertToField(message);
-      // var memServiceObj=new memoryService.MemoryMapService(getConnection('default'))
-      var memoryMapService=new memoryService.MemoryMapService();
-      console.log("memoryMapService ",memoryMapService);
-      memoryMapService.UpdateMap(hashMap.TCR_Map,mess,false);
-      console.log(" Message converted from Tags ",mess);
+      let obj=new TCR_Class.TCR_class();
+      let mess=obj.convertToField(message);
+      let memoryMapService=new memoryService.MemoryMapService();
+      memoryMapService.UpdateMap(hashMap.TCR_Map,mess,true);
     }
   }
 }, options);

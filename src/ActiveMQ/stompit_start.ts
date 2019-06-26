@@ -8,6 +8,7 @@ import { TCR_class } from './../DTO/TCR_class.dto';
 import { stompit, connectParams, reconnectOptions } from './stompit_server';
 import { Inject } from '@nestjs/common';
 
+var hashMap = require('../memory-map-service/memory-store.js');
 var dateformat = require('dateformat');
 var parser = require('fast-xml-parser');
 var he = require('he');
@@ -16,8 +17,6 @@ var path = require('path');
 
 export class stomp_it {
     readonly connectionManager: any = new stompit.ConnectFailover([connectParams], reconnectOptions);
-    @Inject('MemoryMapService')
-    private readonly memoryMapService: MemoryMapService;
     constructor() { }
     /*
         startConnectionStompit() function will start the stompit server
@@ -80,10 +79,13 @@ export class stomp_it {
                         msg.tags["22"] = '4';
                         msg.tags["48"] = "0X1213";
                         msg.tags["55"] = "BAC";
-                        console.log(" TCR Report made with XML parsing ", msg);
+                        // console.log(" TCR Report made with XML parsing ", msg);
+                        var memoryMapService = new MemoryMapService();
+                        console.log("This message has been sent ",msg);
+                        memoryMapService.UpdateMap(hashMap.TCR_Map, tcr_obj, false);
                         // this.memoryMapService.UpdateMap(msg, false);
                         quickfix_client.send(msg, async (msg) => {
-                            console.log(" TCR Report Sent ", msg);
+                            // console.log(" TCR Report Sent ", msg);
                         });
                     }
                     message.ack();

@@ -1,5 +1,5 @@
 import {Parties} from "./Parties.dto";
-import {groups} from "./groups.dto";
+// import {groups} from "./groups.dto";
 import {listenerCount} from "cluster";
 
 export class TrdCapRptSideGrp

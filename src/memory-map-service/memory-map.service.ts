@@ -6,14 +6,10 @@ import { DatabaseServiceService } from '../database-connection/database-service/
 import { getConnection } from 'typeorm';
 import { TCRAllFields } from '../DTO/TCRAllFields.dto';
 const util = require('util')
-// var TCR_Map=require('./memory-store');
 @Injectable()
 export class MemoryMapService {
-    // TCR_Map:any;
-    // moduleRef:ModuleRef;
-    databaseService:DatabaseServiceService;
-    // moduleRef:ModuleRef;
-    constructor(private readonly moduleRef:ModuleRef){ }
+    databaseService=null;
+    constructor(){ }
     merge(TCR_new:TCRAllFields,TCR_old:TCRAllFields){
         for (const key in TCR_new) {
             if(key!=undefined && TCR_old[key]==undefined){
@@ -32,6 +28,7 @@ export class MemoryMapService {
                                 3.update TCR to Memory Map
             */
     UpdateMap(TCR_Map:any,TCR:any,isDatabaseUpdationNeeded:boolean=true){
+        if(this.databaseService==null)
         this.databaseService=new  DatabaseServiceService(getConnection('default'),new HeaderServiceService());
         if(!TCR_Map.has(TCR.TradeID)){
             //TCR DoestNotExist in Map than add that TCR to Map
@@ -52,9 +49,8 @@ export class MemoryMapService {
     }
     DisplayMap(TCR_Map:any){
         TCR_Map.entries().forEach(element => {
+            console.log("new entry");
             console.log(util.inspect(element, false, null, true /* enable colors */))
-            console.log(element);
         });
     }
-
 }

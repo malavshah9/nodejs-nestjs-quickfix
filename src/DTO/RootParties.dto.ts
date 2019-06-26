@@ -5,14 +5,12 @@ export class RootParties
     RootPartyIDSource:string;
     RootPartyRole:number;
 
-    constructor(RootPartyID:number,RootPartyIDSource:string,RootPartyRole:number,)
-    {
+    constructor(RootPartyID:number,RootPartyIDSource:string,RootPartyRole:number){
         this.RootPartyID=RootPartyID;
         this.RootPartyIDSource=RootPartyIDSource;
         this.RootPartyRole=RootPartyRole;
     }
-    convertToTags()
-    {
+    convertToTags(){
         var obj={
                 "1117":this.RootPartyID,
                 "1118":this.RootPartyIDSource,

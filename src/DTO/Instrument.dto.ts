@@ -129,36 +129,58 @@ export class instrument {
         }
         return obj_t;
     }
-    convertFromTags(){
-        
+    static convertFromTags(obj:any):instrument{
+        let instrument_obj:instrument;
+        if(obj.tags["55"]!=undefined && obj.tags["48"]!=undefined && obj.tags["22"]!=undefined){
+            instrument_obj=new instrument(obj.tags["55"],obj.tags["48"],obj.tags["22"]);
+            if(obj.tags["541"]!=undefined){
+            instrument_obj.MaturityDate=obj.tags["541"];
+            }
+            if(obj.tags["1938"]!=undefined){
+                instrument_obj.AssetClass=obj.tags["1938"];
+            }
+            if(obj.tags["231"]!=undefined){
+                instrument_obj.ContractMultiplier=obj.tags["231"];
+            }
+            if(obj.tags["996"]!=undefined){
+                instrument_obj.UnitOfMeasure=obj.tags["996"];
+            }
+            if(obj.tags["1147"]!=undefined){
+                instrument_obj.UnitOfMeasureQty=obj.tags["1147"];
+            }
+            if(obj.tags["1716"]!=undefined){
+                instrument_obj.UnitOfMeasureCurrency=obj.tags["1716"];
+            }
+            if(obj.tags["40054"]!=undefined){
+                instrument_obj.StreamGrp.StreamNotional=obj.tags["40054"];
+            }
+            if(obj.tags["40055"]!=undefined){
+                instrument_obj.StreamGrp.StreamCurrency=obj.tags["40055"];
+            }
+            if(obj.groups!=undefined){
+                if(obj.groups["454"]!=undefined){
+                    let count=0;
+                    let SecAltIDList:SecAltIDGrp[]=[];    
+                    obj.groups["454"].forEach(element => {
+                        SecAltIDList.push(SecAltIDGrp.convertFromTags(element));
+                        count++;
+                    });
+                    instrument_obj.NoSecurityAltID=count;
+                    instrument_obj.SecAltIDGrp=SecAltIDList;
+                }
+                if(obj.groups["1976"]!=undefined){
+                    let count=0;
+                    let secondaryAssetGrpList:SecondaryAssetGrp[]=[];
+                    obj.groups["1976"].forEach(element => {
+                        secondaryAssetGrpList.push(SecondaryAssetGrp.convertFromTags(element));
+                        count++;
+                    });
+                    instrument_obj.NoSecondaryAssetClasses=count;
+                    instrument_obj.SecondaryAssetGrp=secondaryAssetGrpList;
+                }
+            }
+            // if()
+        }
+        return instrument_obj;
     }
-    // convertToTags()
-    // {
-    //     var obj={
-    //         tags:{
-    //             "55":this.Symbol,
-    //             "48":this.SecurityID,
-    //             "22":this.SecurityIDSource,
-    //             "454":this.SecAltIDGrp.NoSecurityAltID,
-    //             "455":this.SecAltIDGrp.SecurityAltID,
-    //             "456":this.SecAltIDGrp.SecurityAltIDSource,
-    //             "541":this.MaturityDate,
-    //             "1938":this.AssetClass,
-    //             "1939":this.AssetSubClass,
-    //             "1940":this.AssetType,
-    //             "1976":this.SecondaryAssetGrp.NoSecondaryAssetClasses,
-    //             "1977":this.SecondaryAssetGrp.SecondaryAssetClass,
-    //             "1978":this.SecondaryAssetGrp.SecondaryAssetSubClass,
-    //             "1979":this.SecondaryAssetGrp.SecondaryAssetType,
-    //             "231":this.ContractMultiplier,
-    //             "996":this.UnitOfMeasure,
-    //             "1147":this.UnitOfMeasureQty,
-    //             "1716":this.UnitOfMeasureCurrency,
-    //             "201":this.PutOrCall, 
-    //             "40054":this.StreamGrp.StreamNotional,
-    //             "40055":this.StreamGrp.StreamCurrency
-    //         }
-    //     };
-    //     return obj;
-    // }
 }

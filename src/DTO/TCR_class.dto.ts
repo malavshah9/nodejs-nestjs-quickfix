@@ -4,7 +4,6 @@ import { instrument } from "./Instrument.dto";
 import { TrdRegTimestamps } from "./TrdRegTimestamps.dto";
 import { TrdCapRptSideGrp } from "./TrdCapRptSideGrp.dto";
 import { TrdRegPublicationGrp } from "./TrdRegPublicationGrp.dto";
-import { groups } from "./groups.dto";
 import { Inject } from "@nestjs/common";
 import { MemoryMapService } from "../memory-map-service/memory-map.service";
 import { TradePriceConditionGrp } from "./TradePriceConditionGrp.dto";
@@ -47,8 +46,6 @@ export class TCR_class {
     TradePublishIndicator: number
     tagObj: any;
     tagGrp: any[] = [];
-    @Inject('MemoryMapService')
-    public memoryMapService: MemoryMapService;
     constructor(TradeId: string, TradeReportType: number, PriceType: string, NoRootPartyIDs: number, RootParties: RootParties[], instrument: instrument, LastQty: number, LastPx: number, Currency: any, LastMkt: string, TradeDate: string, TransactTime: string, NoSides: number, TrdCapRptSideGrp: TrdCapRptSideGrp[], ClearingIntention: number, RegulatoryReportType: number,
         SecondaryTradeID?: string, PackageID?: string, TradeNumber?: number, TrdRptStatus?: number, TrdType?: number,
         TrdSubType?: number, SecondaryTrdType?: number, TradePriceConditionGrp?: TradePriceConditionGrp[],
@@ -528,7 +525,15 @@ export class TCR_class {
                 noTrdRegPublication++;
             });
         } 
-        let noSecalt=0;
+        
+        obj=new TCR_class(message.tags["1003"],message.tags["856"],message.tags["423"],noRootPartyIDs,RootPartiesList,instrument.convertFromTags(message),message.tags["32"],message.tags["31"],message.tags["15"],message.tags["30"],message.tags["75"],message.tags["60"],noSide,TrdCapRptSideGrpList,message.tags["1924"],message.tags["1934"],message.tags["1040"],message.tags["2489"],message.tags["2490"],message.tags["939"],message.tags["828"],message.tags["829"],message.tags["855"],TradePriceConditionGrpList,noTradePriceConditions,message.tags["748"],message.tags["1430"],message.tags["854"],TrdRegTimestampsList,noTrdRegTimestamp,TrdRegPublicationGrpList,noTrdRegPublication);
+        return obj;
+    }
+}
+
+/*
+
+ let noSecalt=0;
         let SecAltIDGrpList:SecAltIDGrp[];
         if(message.groups["454"]!=undefined){
             message.group["454"].forEach(element => {
@@ -544,11 +549,6 @@ export class TCR_class {
                 noSecondaryAssetClasse++;
             });
         }
-        obj=new TCR_class(message.tags["1003"],message.tags["856"],message.tags["423"],noRootPartyIDs,RootPartiesList,new instrument(message.tags["55"],message.tags["48"],message.tags["22"]),message.tags["32"],message.tags["31"],message.tags["15"],message.tags["30"],message.tags["75"],message.tags["60"],noSide,TrdCapRptSideGrpList,message.tags["1924"],message.tags["1934"]);
-        return obj;
-    }
-    // addToMap(obj:TCR_class){
-    //     obj.memoryMapService.UpdateMap(obj);
-    //     // this.memoryMapService.UpdateMap(obj);
-    // }
-}
+
+
+*/

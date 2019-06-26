@@ -23,7 +23,7 @@ inherits(fixAcceptor, events.EventEmitter);
 var tradeID = 0;
 var fixServer = new fixAcceptor({
   onCreate: function (sessionID) {
-    console.log(" Session created ", sessionID);
+    // console.log(" Session created ", sessionID);
   },
   onLogon: function (sessionID) {
     let TCR={
@@ -54,34 +54,69 @@ var fixServer = new fixAcceptor({
           54: '2'
         }] } ] 
     };
-    setInterval(() => {
-      fixServer.send(TCR, function () {
-        console.log("TCR sent");
-      });
-    }, 10000);
-    console.log(" Logged IN ", sessionID);
+    // setInterval(() => {
+    //   fixServer.send(TCR, function () {
+    //     console.log("TCR sent");
+    //   });
+    // }, 10000);
+    // console.log(" Logged IN ", sessionID);
   },
   onLogout: function (sessionID) {
-    console.log(" LoggedOut ", sessionID);
+    // console.log(" LoggedOut ", sessionID);
   },
   onLogonAttempt: function (message, sessionID) {
-    console.log(" message with sequence number ", message.header["34"], " attempted logged in on session ", sessionID);
+    // console.log(" message with sequence number ", message.header["34"], " attempted logged in on session ", sessionID);
   },
   toAdmin: function (message, sessionID) {
-    console.log(" message with sequence number ", message.header["34"], " sending message to admin on sessionID ", sessionID);
+    // console.log(" message with sequence number ", message.header["34"], " sending message to admin on sessionID ", sessionID);
   },
   fromAdmin: function (message, sessionID) {
-    console.log(" message with sequence number ", message.header["34"], " sending message from admin on session ", sessionID);
+    // console.log(" message with sequence number ", message.header["34"], " sending message from admin on session ", sessionID);
   },
   fromApp: function (message, sessionID) {
-    console.log(util.inspect(message, false, null, true /* enable colors */ ))
+    // console.log(util.inspect(message, false, null, true /* enable colors */ ))
     console.log(" message with sequence number ", message.header["34"], " received message on session ", sessionID);
-    if (message.groups != undefined) {
-      for (element in message.groups) {
-        console.log(" Group name: ", element);
-        console.log(" Object: ", message.groups[element]);
-      }
-    }
+    var TCR={ header:
+      { '8': 'FIXT.1.1',
+        '35': 'AE',
+        '49': 'ACCEPTOR',
+        '56': 'INITIATOR' },
+     tags:
+      { '15': 'CNY',
+        '22': '4',
+        '30': 'SINT',
+        '31': 455,
+        '32': -2600,
+        '48': '0X1213',
+        '55': 'BAC',
+        '60': '20180104-14:07:31.000',
+        '75': '20180104',
+        '423': '2',
+        '552': 1,
+        '856': 5,
+        '1003': '7102448',
+        '1040': '420',
+        '1116': 1,
+        '1924': 1,
+        '1934': 11 },
+     groups:
+      [ { index: 552, delim: 54, entries: [{
+        '54':'3'
+      }] },
+        { index: 1116, delim: 1117, entries: [{
+          '1117':15,
+          '1118':'G',
+          '1119':3
+        }] } ] };
+        fixServer.send(TCR,(TCR)=>{
+          console.log("Message from Server sent ",TCR);
+        });
+    // if (message.groups != undefined) {
+    //   for (element in message.groups) {
+    //     console.log(" Group name: ", element);
+    //     console.log(" Object: ", message.groups[element]);
+    //   }
+    // }
   }
 }, {
   logonProvider: logonProvider,

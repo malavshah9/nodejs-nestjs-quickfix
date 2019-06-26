@@ -9,7 +9,7 @@ import { HeaderServiceService } from '../../common-services/header-service/heade
 import { TrdCapRptSideGrp } from '../../DTO/TrdCapRptSideGrp.dto';
 import { MemoryMapService } from 'src/memory-map-service/memory-map.service';
 var dateformat = require('dateformat');
-
+var hashMap = require('../../memory-map-service/memory-store.js');
 /*
         This controller is used to define following methods
         1.GET SERVICE : http://localhost:3000/submitTradeToNex
@@ -43,7 +43,7 @@ export class DatabaseConnectionController {
                     msg.tags["48"] = "0X1213";
                     msg.tags["55"] = "BAC";
                     console.log(" TCR Report made with Database ", msg);
-                    // this.memoryMapService.UpdateMap(msg, false);
+                    this.memoryMapService.UpdateMap(hashMap.TCR_Map, obj, false);
                     await this.appService.getQuickfixClient().then(async (quickfixClient) => {
                         await quickfixClient.send(msg, () => {
                             console.log("TCR sent ...", msg);
