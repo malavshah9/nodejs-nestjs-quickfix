@@ -3,10 +3,11 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseConnectionModule } from './database-connection/database-connection.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { HeaderServiceService } from '../src/common-services/header-service/header-service.service';
 
 @Module({
   imports: [DatabaseConnectionModule, TypeOrmModule.forRoot()],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService,HeaderServiceService],
 })
 export class AppModule {}

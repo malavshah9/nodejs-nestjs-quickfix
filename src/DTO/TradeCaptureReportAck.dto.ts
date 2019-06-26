@@ -18,7 +18,9 @@ export class TradeCaptureReportAck
     WarningText : string;
     TCRHeaderService:HeaderServiceService=null;
     DatabaseService:DatabaseServiceService=null;
-    constructor( @Inject('MemoryMapService') private readonly memoryMapService: MemoryMapService){
+    @Inject('MemoryMapService')
+    private readonly memoryMapService:MemoryMapService;
+    constructor(){
         if(this.TCRHeaderService==null)
         this.TCRHeaderService=new HeaderServiceService();
         if(this.DatabaseService==null)

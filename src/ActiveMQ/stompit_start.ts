@@ -16,9 +16,9 @@ var path = require('path');
 
 export class stomp_it {
     readonly connectionManager: any = new stompit.ConnectFailover([connectParams], reconnectOptions);
-    constructor(@Inject('MemoryMapService') private readonly memoryMapService: MemoryMapService) {
-
-    }
+    @Inject('MemoryMapService')
+    private readonly memoryMapService: MemoryMapService;
+    constructor() { }
     /*
         startConnectionStompit() function will start the stompit server
         set the callback method which will be called when content in the topic were added.

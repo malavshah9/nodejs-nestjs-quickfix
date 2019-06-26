@@ -3,6 +3,7 @@ var path = require('path');
 var common = require('./common');
 var quickfix = require('../index');
 var fixAcceptor = quickfix.acceptor;
+const util = require('util')
 
 var logonProvider = new quickfix.logonProvider(function (logonResponse, msg, sessionId) {
   if (msg.tags[553] == 'USERNAME' && msg.tags[554] == 'PASSWORD') {
@@ -62,6 +63,7 @@ var fixServer = new fixAcceptor({
     console.log(" message with sequence number ", message.header["34"], " sending message from admin on session ", sessionID);
   },
   fromApp: function (message, sessionID) {
+    console.log(util.inspect(message, false, null, true /* enable colors */))
     console.log(" message with sequence number ", message.header["34"], " received message on session ", sessionID);
     if (message.groups != undefined) {
       for (element in message.groups) {

@@ -4,10 +4,11 @@ import { DatabaseConnectionController } from './database-connection/database-con
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { HeaderServiceService } from '../common-services/header-service/header-service.service';
 import { AppService } from '../app.service';
+import { MemoryMapService } from '../memory-map-service/memory-map.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature()],
-  providers: [DatabaseServiceService, HeaderServiceService, AppService],
+  providers: [DatabaseServiceService, HeaderServiceService, AppService,MemoryMapService],
   controllers: [DatabaseConnectionController],
 })
 export class DatabaseConnectionModule { }
