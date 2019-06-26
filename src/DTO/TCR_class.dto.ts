@@ -1,4 +1,4 @@
-import { TradePriceConditionGrp } from "./TradePriceConditionGrp.dto";
+
 import { RootParties } from "./RootParties.dto";
 import { instrument } from "./Instrument.dto";
 import { TrdRegTimestamps } from "./TrdRegTimestamps.dto";
@@ -7,6 +7,9 @@ import { TrdRegPublicationGrp } from "./TrdRegPublicationGrp.dto";
 import { groups } from "./groups.dto";
 import { Inject } from "@nestjs/common";
 import { MemoryMapService } from "src/memory-map-service/memory-map.service";
+import { TradePriceConditionGrp } from "./TradePriceConditionGrp.dto";
+import { SecAltIDGrp } from "./SecAltIDGrp.dto";
+import { SecondaryAssetGrp } from "./SecondaryAssetGrp.dto";
 
 export class TCR_class {
     TradeID: string;
@@ -499,7 +502,47 @@ export class TCR_class {
                 noRootPartyIDs++;
             });
         }
+        let noTradePriceConditions=0;
+        let TradePriceConditionGrpList:TradePriceConditionGrp[];
+        if(message.groups["1838"]!=undefined){
+            message.groups["1838"].forEach(element => {
+                TradePriceConditionGrpList.push(TradePriceConditionGrp.convertFromTags(element.tags));
+                noTradePriceConditions++;
+            });
+        }
 
+        let noTrdRegTimestamp=0
+        let TrdRegTimestampsList:TrdRegTimestamps[];
+        if(message.groups["768"]!=undefined){
+            message.groups["768"].forEach(element => {
+                TrdRegTimestampsList.push(TrdRegTimestamps.convertFromTags(element.tags));
+                noTrdRegTimestamp++;
+            });
+        }
+        let noTrdRegPublication=0;
+        let TrdRegPublicationGrpList:TrdRegPublicationGrp[];
+        if(message.groups["2668"]!=undefined){
+            message.group["2668"].forEach(element => {
+                TrdRegPublicationGrpList.push(TrdRegPublicationGrp.convertFromTags(element.tags));
+                noTrdRegPublication++;
+            });
+        } 
+        let noSecalt=0;
+        let SecAltIDGrpList:SecAltIDGrp[];
+        if(message.groups["454"]!=undefined){
+            message.group["454"].forEach(element => {
+                SecAltIDGrpList.push(SecAltIDGrp.convertFromTags(element.tags));
+                noSecalt++;
+            });
+        }
+        let noSecondaryAssetClasse=0;
+        let SecondaryAssetGrpList:SecondaryAssetGrp[];
+        if(message.groups["1976"]!=undefined){
+            message.groups["1976"].forEach(element => {
+                SecondaryAssetGrpList.push(SecondaryAssetGrp.convertFromTags(element.tags));
+                noSecondaryAssetClasse++;
+            });
+        }
         obj=new TCR_class(message.tags["1003"],message.tags["856"],message.tags["423"],noRootPartyIDs,RootPartiesList,new instrument(message.tags["55"],message.tags["48"],message.tags["22"]),message.tags["32"],message.tags["31"],message.tags["15"],message.tags["30"],message.tags["75"],message.tags["60"],noSide,TrdCapRptSideGrpList,message.tags["1924"],message.tags["1934"]);
         return obj;
     }

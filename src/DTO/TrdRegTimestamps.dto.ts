@@ -13,4 +13,14 @@ export class TrdRegTimestamps
         }
         return obj;
     }
+    static convertFromTags(obj:any){
+        let myobj=new TrdRegTimestamps();
+        if(obj.tags["769"]!=undefined){
+            myobj.TrdRegTimestamp=obj.tags["769"];
+        }
+        if(obj.tags["770"]!=undefined){
+            myobj.TrdRegTimestampType=obj.tags["770"];
+        }
+        return myobj;
+    }
 }
