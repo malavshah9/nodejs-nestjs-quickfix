@@ -81,7 +81,7 @@ export class stomp_it {
                         msg.tags["48"] = "0X1213";
                         msg.tags["55"] = "BAC";
                         console.log(" TCR Report made with XML parsing ", msg);
-                        this.memoryMapService.UpdateMap(msg, false);
+                        // this.memoryMapService.UpdateMap(msg, false);
                         quickfix_client.send(msg, async (msg) => {
                             console.log(" TCR Report Sent ", msg);
                         });

@@ -6,7 +6,7 @@ import { TrdCapRptSideGrp } from "./TrdCapRptSideGrp.dto";
 import { TrdRegPublicationGrp } from "./TrdRegPublicationGrp.dto";
 import { groups } from "./groups.dto";
 import { Inject } from "@nestjs/common";
-import { MemoryMapService } from "src/memory-map-service/memory-map.service";
+import { MemoryMapService } from "../memory-map-service/memory-map.service";
 
 export class TCR_class {
     TradeID: string;
@@ -45,110 +45,110 @@ export class TCR_class {
     tagObj: any;
     tagGrp: any[] = [];
     @Inject('MemoryMapService')
-    private readonly memoryMapService:MemoryMapService;
-    constructor(TradeId: string, TradeReportType: number, PriceType: string, NoRootPartyIDs: number, RootParties: RootParties[], instrument: instrument, LastQty: number, LastPx: number, Currency: any, LastMkt: string, TradeDate: string, TransactTime: string, NoSides: number, TrdCapRptSideGrp: TrdCapRptSideGrp[], ClearingIntention: number, RegulatoryReportType: number, 
-        SecondaryTradeID?: string,PackageID?: string,TradeNumber?: number,TrdRptStatus?: number,TrdType?: number,
-        TrdSubType?: number,SecondaryTrdType?: number, TradePriceConditionGrp?: TradePriceConditionGrp[],
-        NoTradePriceConditions?: number,TotNumTradeReports?: number,VenueType?: string,QtyType?: number, 
-        TrdRegTimestamps?: TrdRegTimestamps[],NoTrdRegTimestamps?: number, 
-        TrdRegPublicationGrp?: TrdRegPublicationGrp[],NoTrdRegPublications?: number) {
+    public memoryMapService: MemoryMapService;
+    constructor(TradeId: string, TradeReportType: number, PriceType: string, NoRootPartyIDs: number, RootParties: RootParties[], instrument: instrument, LastQty: number, LastPx: number, Currency: any, LastMkt: string, TradeDate: string, TransactTime: string, NoSides: number, TrdCapRptSideGrp: TrdCapRptSideGrp[], ClearingIntention: number, RegulatoryReportType: number,
+        SecondaryTradeID?: string, PackageID?: string, TradeNumber?: number, TrdRptStatus?: number, TrdType?: number,
+        TrdSubType?: number, SecondaryTrdType?: number, TradePriceConditionGrp?: TradePriceConditionGrp[],
+        NoTradePriceConditions?: number, TotNumTradeReports?: number, VenueType?: string, QtyType?: number,
+        TrdRegTimestamps?: TrdRegTimestamps[], NoTrdRegTimestamps?: number,
+        TrdRegPublicationGrp?: TrdRegPublicationGrp[], NoTrdRegPublications?: number) {
 
-        if(TradeId!=undefined){
+        if (TradeId != undefined) {
             this.TradeID = TradeId;
         }
-        if(TradeReportType!=undefined){
+        if (TradeReportType != undefined) {
             this.TradeReportType = TradeReportType;
         }
-        if(PriceType!=undefined){
+        if (PriceType != undefined) {
             this.PriceType = PriceType;
         }
-        if(RootParties!=undefined){
+        if (RootParties != undefined) {
             this.RootParties = RootParties;
         }
-        if(NoRootPartyIDs!=undefined){
+        if (NoRootPartyIDs != undefined) {
             this.NoRootPartyIDs = NoRootPartyIDs;
         }
-        if(VenueType!=undefined){
+        if (VenueType != undefined) {
             this.VenueType = VenueType;
         }
-        if(instrument!=undefined){
+        if (instrument != undefined) {
             this.instrument = instrument;
         }
-        if(LastQty!=undefined){
+        if (LastQty != undefined) {
             this.LastQty = LastQty;
         }
-        if(LastPx!=undefined){
+        if (LastPx != undefined) {
             this.LastPx = LastPx;
         }
-        if(Currency!=undefined){
+        if (Currency != undefined) {
             this.Currency = Currency;
         }
-        if(LastMkt!=undefined){
+        if (LastMkt != undefined) {
             this.LastMkt = LastMkt;
         }
-        if(TradeDate!=undefined){
+        if (TradeDate != undefined) {
             this.TradeDate = TradeDate;
         }
-        if(TransactTime!=undefined){
+        if (TransactTime != undefined) {
             this.TransactTime = TransactTime;
         }
-        if(TrdCapRptSideGrp!=undefined){
+        if (TrdCapRptSideGrp != undefined) {
             this.TrdCapRptSideGrp = TrdCapRptSideGrp;
         }
-        if(NoSides!=undefined){
+        if (NoSides != undefined) {
             this.NoSides = NoSides;
         }
-        if(ClearingIntention!=undefined){
+        if (ClearingIntention != undefined) {
             this.ClearingIntention = ClearingIntention;
         }
-        if(RegulatoryReportType!=undefined){
+        if (RegulatoryReportType != undefined) {
             this.RegulatoryReportType = RegulatoryReportType;
         }
-        if(SecondaryTradeID!=undefined){
-            this.SecondaryTradeID=SecondaryTradeID;
+        if (SecondaryTradeID != undefined) {
+            this.SecondaryTradeID = SecondaryTradeID;
         }
-        if(PackageID!=undefined){
-            this.PackageID=PackageID;
+        if (PackageID != undefined) {
+            this.PackageID = PackageID;
         }
-        
-        if(TradeNumber!=undefined){
-            this.TradeNumber=TradeNumber;
+
+        if (TradeNumber != undefined) {
+            this.TradeNumber = TradeNumber;
         }
-        if(TrdRptStatus!=undefined){
-            this.TrdRptStatus=TrdRptStatus;
+        if (TrdRptStatus != undefined) {
+            this.TrdRptStatus = TrdRptStatus;
         }
-        if(TrdType!=undefined){
-            this.TrdType=TrdType;
+        if (TrdType != undefined) {
+            this.TrdType = TrdType;
         }
-        if(TrdSubType!=undefined){
-            this.TrdSubType=TrdSubType;
+        if (TrdSubType != undefined) {
+            this.TrdSubType = TrdSubType;
         }
-        if(SecondaryTrdType!=undefined){
-            this.SecondaryTrdType=SecondaryTrdType;
+        if (SecondaryTrdType != undefined) {
+            this.SecondaryTrdType = SecondaryTrdType;
         }
-        if(TradePriceConditionGrp!=undefined){
-            this.TradePriceConditionGrp=TradePriceConditionGrp;
+        if (TradePriceConditionGrp != undefined) {
+            this.TradePriceConditionGrp = TradePriceConditionGrp;
         }
-        if(NoTradePriceConditions!=undefined){
-            this.NoTradePriceConditions=NoTradePriceConditions;
+        if (NoTradePriceConditions != undefined) {
+            this.NoTradePriceConditions = NoTradePriceConditions;
         }
-        if(TotNumTradeReports!=undefined){
-            this.TotNumTradeReports=TotNumTradeReports;
+        if (TotNumTradeReports != undefined) {
+            this.TotNumTradeReports = TotNumTradeReports;
         }
-        if(QtyType!=undefined){
-            this.QtyType=QtyType;
+        if (QtyType != undefined) {
+            this.QtyType = QtyType;
         }
-        if(TrdRegTimestamps!=undefined){
-            this.TrdRegTimestamps=TrdRegTimestamps;
+        if (TrdRegTimestamps != undefined) {
+            this.TrdRegTimestamps = TrdRegTimestamps;
         }
-        if(NoTrdRegTimestamps!=undefined){
-            this.NoTrdRegTimestamps=NoTrdRegTimestamps;
+        if (NoTrdRegTimestamps != undefined) {
+            this.NoTrdRegTimestamps = NoTrdRegTimestamps;
         }
-        if(TrdRegPublicationGrp!=undefined){
-            this.TrdRegPublicationGrp=TrdRegPublicationGrp;
+        if (TrdRegPublicationGrp != undefined) {
+            this.TrdRegPublicationGrp = TrdRegPublicationGrp;
         }
-        if(NoTrdRegPublications!=undefined){
-            this.NoTrdRegPublications=NoTrdRegPublications;
+        if (NoTrdRegPublications != undefined) {
+            this.NoTrdRegPublications = NoTrdRegPublications;
         }
     }
     getGroups() {
@@ -327,8 +327,8 @@ export class TCR_class {
         if (this.TradeNumber != undefined) {
             obj["2490"] = this.TradeNumber;
         }
-        if (this.TrdRptStatus!=undefined){
-            obj["939"]=this.TrdRptStatus;
+        if (this.TrdRptStatus != undefined) {
+            obj["939"] = this.TrdRptStatus;
         }
         if (this.TradeReportType != undefined) {
             obj["856"] = this.TradeReportType;
@@ -443,8 +443,8 @@ export class TCR_class {
         if (this.TransactTime != undefined) {
             obj["60"] = this.TransactTime;
         }
-        if(this.QtyType!=undefined){
-            obj["854"]=this.QtyType;
+        if (this.QtyType != undefined) {
+            obj["854"] = this.QtyType;
         }
         if (this.TrdRegTimestamps != undefined && this.NoTrdRegTimestamps != undefined) {
             if (this.NoRootPartyIDs == this.TrdRegTimestamps.length) {
@@ -481,29 +481,30 @@ export class TCR_class {
         this.tagObj = obj;
         return obj;
     }
-    convertToField(message){
-        var obj:TCR_class;
-        let noSide=0;
-        let TrdCapRptSideGrpList:TrdCapRptSideGrp[];
-        if(message.groups["552"]!=undefined){
+    convertToField(message) {
+        var obj: TCR_class;
+        let noSide = 0;
+        let TrdCapRptSideGrpList: TrdCapRptSideGrp[] = [];
+        if (message.groups["552"] != undefined) {
             message.groups["552"].forEach(element => {
                 TrdCapRptSideGrpList.push(TrdCapRptSideGrp.convertFromTags(element.tags));
                 noSide++;
             });
         }
-        let noRootPartyIDs=0;
-        let RootPartiesList:RootParties[];
-        if(message.groups["1116"]!=undefined){
-            message.groups["1116"].forEach(element=>{
+        let noRootPartyIDs = 0;
+        let RootPartiesList: RootParties[] = [];
+        if (message.groups["1116"] != undefined) {
+            message.groups["1116"].forEach(element => {
                 RootPartiesList.push(RootParties.convertFromTags(element.tags));
                 noRootPartyIDs++;
             });
         }
 
-        obj=new TCR_class(message.tags["1003"],message.tags["856"],message.tags["423"],noRootPartyIDs,RootPartiesList,new instrument(message.tags["55"],message.tags["48"],message.tags["22"]),message.tags["32"],message.tags["31"],message.tags["15"],message.tags["30"],message.tags["75"],message.tags["60"],noSide,TrdCapRptSideGrpList,message.tags["1924"],message.tags["1934"]);
+        obj = new TCR_class(message.tags["1003"], message.tags["856"], message.tags["423"], noRootPartyIDs, RootPartiesList, new instrument(message.tags["55"], message.tags["48"], message.tags["22"]), message.tags["32"], message.tags["31"], message.tags["15"], message.tags["30"], message.tags["75"], message.tags["60"], noSide, TrdCapRptSideGrpList, message.tags["1924"], message.tags["1934"]);
         return obj;
     }
-    addToMap(obj:TCR_class){
-        this.memoryMapService.UpdateMap(obj);
-    }
+    // addToMap(obj:TCR_class){
+    //     obj.memoryMapService.UpdateMap(obj);
+    //     // this.memoryMapService.UpdateMap(obj);
+    // }
 }

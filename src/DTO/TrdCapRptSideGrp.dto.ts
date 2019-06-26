@@ -18,8 +18,9 @@ export class TrdCapRptSideGrp
             if(obj["29"]!=undefined){
                 myobj.LastCapacity=obj["29"];
             }
+            if(obj.groups!=undefined)
            if(obj.groups["453"]!=undefined){
-            let PartiesList:Parties[];
+            let PartiesList:Parties[]=[];
             let noParties=0;
             obj.groups["453"].forEach(element=>{
                 PartiesList.push(Parties.convertFromTags(element.tags));

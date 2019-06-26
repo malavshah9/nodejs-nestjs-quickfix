@@ -1,17 +1,26 @@
+import { HeaderServiceService } from 'src/common-services/header-service/header-service.service';
 import { TCR_class } from './../DTO/TCR_class.dto';
 import { Injectable } from '@nestjs/common';
+import { ModuleRef } from '@nestjs/core';
 import { DatabaseServiceService } from '../database-connection/database-service/database-service.service';
-var HashMap = require('hashmap');
+import { getConnection } from 'typeorm';
+import { TCRAllFields } from '../DTO/TCRAllFields.dto';
+const util = require('util')
+// var TCR_Map=require('./memory-store');
 @Injectable()
 export class MemoryMapService {
-    TCR_Map:any;
-    constructor(protected databaseService:DatabaseServiceService){
-        this.TCR_Map=new HashMap();
-    }
-    merge(TCR1:any,TCR2:any){
-        var obj;
-        
-        return obj;
+    // TCR_Map:any;
+    // moduleRef:ModuleRef;
+    databaseService:DatabaseServiceService;
+    // moduleRef:ModuleRef;
+    constructor(private readonly moduleRef:ModuleRef){ }
+    merge(TCR_new:TCRAllFields,TCR_old:TCRAllFields){
+        for (const key in TCR_new) {
+            if(key!=undefined && TCR_old[key]==undefined){
+                    TCR_old[key]=TCR_new[key];
+            }
+        }
+        return TCR_old;
     }
        // 1.Update value in TCR
             /* check whether 1390 == 3
@@ -22,22 +31,30 @@ export class MemoryMapService {
                                 2.update TCR
                                 3.update TCR to Memory Map
             */
-    UpdateMap(TCR:any,isDatabaseUpdationNeeded:boolean=true){
-        if(!this.TCR_Map.has(TCR.TradeID)){
+    UpdateMap(TCR_Map:any,TCR:any,isDatabaseUpdationNeeded:boolean=true){
+        this.databaseService=new  DatabaseServiceService(getConnection('default'),new HeaderServiceService());
+        if(!TCR_Map.has(TCR.TradeID)){
             //TCR DoestNotExist in Map than add that TCR to Map
-            this.TCR_Map.set(TCR.TradeID,TCR);
+            TCR_Map.set(TCR.TradeID,TCR);
         }
         else{
-            var newMergedTCR:any=this.merge(TCR,this.TCR_Map.get(TCR.TradeID));
+            var newMergedTCR:any=this.merge(TCR,TCR_Map.get(TCR.TradeID));
             if(isDatabaseUpdationNeeded)
             this.databaseService.insertTCRAck(newMergedTCR.TradeID,newMergedTCR.SecondaryTradeID,newMergedTCR.TrdRptStatus,new Date().getTime().toString(),2,newMergedTCR.TradePublishIndicator,newMergedTCR.TradeReportRejectReason,newMergedTCR.RejectText,newMergedTCR.WarningText,"",0,"");
             if(newMergedTCR.TradePublishIndicator===3){
-                this.TCR_Map.remove(TCR.TradeID);
+                TCR_Map.remove(TCR.TradeID);
             }
             else{
-                this.TCR_Map.set(TCR.TradeID,newMergedTCR);
+                TCR_Map.set(TCR.TradeID,newMergedTCR);
             }
         }
+        this.DisplayMap(TCR_Map);
+    }
+    DisplayMap(TCR_Map:any){
+        TCR_Map.entries().forEach(element => {
+            console.log(util.inspect(element, false, null, true /* enable colors */))
+            console.log(element);
+        });
     }
 
 }

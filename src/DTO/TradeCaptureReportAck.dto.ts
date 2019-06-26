@@ -101,7 +101,7 @@ export class TradeCaptureReportAck
             this.TrdRptStatus,
             time,time_type,null,this.TradeReportRejectReason,this.RejectText,this.WarningText,"",0,"");
     }
-    addToMap(obj:TradeCaptureReportAck){
-        this.memoryMapService.UpdateMap(obj);
-    }
+    // addToMap(obj:TradeCaptureReportAck){
+    //     this.memoryMapService.UpdateMap(obj);
+    // }
 }

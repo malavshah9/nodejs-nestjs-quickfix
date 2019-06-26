@@ -7,7 +7,8 @@ var TCRAck=require('../src/DTO/TradeCaptureReportAck.dto')
 var TCR_Class=require('../src/DTO/TCR_class.dto');
 var initiator = quickfix.initiator;
 var util=require('util');
-
+var hashMap=require('../src/memory-map-service/memory-store');
+var memoryService=require('../src/memory-map-service/memory-map.service');
 var options = {
   credentials: {
     username: "USERNAME",
@@ -51,16 +52,16 @@ var fixClient = new initiator(
     if(message.header["35"]=="AR"){
       var obj=new TCRAck.TradeCaptureReportAck();
       var mess=obj.convertToField(message);
-      obj.addToMap(mess)
+      // obj.addToMap(mess)
     }
     else if(message.header["35"]=="AE"){
       var obj=new TCR_Class.TCR_class();
       var mess=obj.convertToField(message);
-      obj.addToMap(mess)
-    }
-    else if(message.header["35"]=="AE")
-    {
-      
+      // var memServiceObj=new memoryService.MemoryMapService(getConnection('default'))
+      var memoryMapService=new memoryService.MemoryMapService();
+      console.log("memoryMapService ",memoryMapService);
+      memoryMapService.UpdateMap(hashMap.TCR_Map,mess,false);
+      console.log(" Message converted from Tags ",mess);
     }
   }
 }, options);

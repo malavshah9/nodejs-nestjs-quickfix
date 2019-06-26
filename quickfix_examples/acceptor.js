@@ -26,28 +26,39 @@ var fixServer = new fixAcceptor({
     console.log(" Session created ", sessionID);
   },
   onLogon: function (sessionID) {
-    // setInterval(() => {
-    //   let obj = {
-    //     header: {
-    //       8: 'FIXT.1.1',
-    //       35: 'AR',
-    //       49: "ACCEPTOR",
-    //       56: "INITIATOR"
-    //     },
-    //     tags: {
-    //       1003: tradeID++,
-    //       1040: 12,
-    //       856: 0,
-    //       939: 3,
-    //       828: 0,
-    //       // 1328: 'Nothing',
-    //       2520: 'Warning',
-    //     }
-    //   };
-    //   fixServer.send(obj, function () {
-    //     console.log("TCRAck sent");
-    //   });
-    // }, 10000);
+    let TCR={
+      header:
+        { 8: 'FIXT.1.1',
+          35: 'AE',
+          49: 'ACCEPTOR',
+          56: 'INITIATOR' },
+       tags:
+        { 15: 'CNY',
+          22: '4',
+          30: 'MIC',
+          31: 4500,
+          32: 120,
+          48: '0X1213',
+          55: 'BAC',
+          60: '20190625-18:55:51.579',
+          75: '20190625',
+          423: '1',
+          552: 1,
+          856: 0,
+          1003: '1234',
+          1116: 0,
+          1924: 0,
+          1934: 11 },
+       groups:
+        [ { index: 552, delim: 54, entries: [{
+          54: '2'
+        }] } ] 
+    };
+    setInterval(() => {
+      fixServer.send(TCR, function () {
+        console.log("TCR sent");
+      });
+    }, 10000);
     console.log(" Logged IN ", sessionID);
   },
   onLogout: function (sessionID) {
@@ -63,7 +74,7 @@ var fixServer = new fixAcceptor({
     console.log(" message with sequence number ", message.header["34"], " sending message from admin on session ", sessionID);
   },
   fromApp: function (message, sessionID) {
-    console.log(util.inspect(message, false, null, true /* enable colors */))
+    console.log(util.inspect(message, false, null, true /* enable colors */ ))
     console.log(" message with sequence number ", message.header["34"], " received message on session ", sessionID);
     if (message.groups != undefined) {
       for (element in message.groups) {

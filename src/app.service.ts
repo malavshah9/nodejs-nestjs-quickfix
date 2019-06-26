@@ -9,7 +9,7 @@ import { RootParties } from '../src/DTO/RootParties.dto';
 import { instrument } from '../src/DTO/Instrument.dto';
 import { TrdCapRptSideGrp } from '../src/DTO/TrdCapRptSideGrp.dto';
 import { HeaderServiceService } from './common-services/header-service/header-service.service';
-const util = require('util')
+const util = require('util');
 var dateformat = require('dateformat');
 
 @Injectable()
@@ -38,7 +38,7 @@ export class AppService {
     this.quickfix_client = obj;
     this.quickfix_client.send(msg,()=>{
       console.log(util.inspect(msg, false, null, true /* enable colors */))
-        console.log(" TCR SENT ",msg);
+        // console.log(" TCR SENT ",msg);
     });
     let stom=new stomp_it();
    // stom.startConnectionStompit(this.quickfix_client);    

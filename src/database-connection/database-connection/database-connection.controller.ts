@@ -43,7 +43,7 @@ export class DatabaseConnectionController {
                     msg.tags["48"] = "0X1213";
                     msg.tags["55"] = "BAC";
                     console.log(" TCR Report made with Database ", msg);
-                    this.memoryMapService.UpdateMap(msg, false);
+                    // this.memoryMapService.UpdateMap(msg, false);
                     await this.appService.getQuickfixClient().then(async (quickfixClient) => {
                         await quickfixClient.send(msg, () => {
                             console.log("TCR sent ...", msg);
