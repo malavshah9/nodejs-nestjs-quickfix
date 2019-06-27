@@ -3,8 +3,9 @@
 */
 import { HeaderServiceService } from './../../common-services/header-service/header-service.service';
 import { Injectable } from '@nestjs/common';
-import { EntityManager, getManager, Connection } from 'typeorm';
+import { EntityManager, getManager, Connection, QueryFailedError } from 'typeorm';
 import { TCR_class } from 'src/DTO/TCR_class.dto';
+import { throwError } from 'rxjs';
 @Injectable()
 export class DatabaseServiceService {
     private readonly manager: EntityManager;
@@ -44,11 +45,39 @@ export class DatabaseServiceService {
         businessRejectText: string
     ) {
         try {
+            if(tradeId===undefined){
+                throwError(QueryFailedError);
+            }
+            else{
+                if(secondaryTradeId===undefined)
+                secondaryTradeId="";
+                if(trdRptStatus===undefined)
+                trdRptStatus=0;
+                if(time===undefined)
+                time="";
+                if(timeType===undefined)
+                timeType=0;
+                if(trdPublishIndicatore===undefined)
+                trdPublishIndicatore=0;
+                if(trdReportRejectionReason===undefined)
+                trdReportRejectionReason=0;
+                if(rejectText===undefined)
+                rejectText="";
+                if(warningText===undefined)
+                warningText="";
+                if(businessRejectRefId===undefined)
+                businessRejectRefId="";
+                if(businessRejectReason===undefined)
+                businessRejectReason=0;
+                if(businessRejectText===undefined)
+                businessRejectText="";
+            }
+            console.log('CALL proc_tcr_nex_submit (?,?,?,?,?,?,?,?,?,?,?,?)', [tradeId, secondaryTradeId, trdRptStatus, time, timeType, trdPublishIndicatore, trdReportRejectionReason, rejectText, warningText, businessRejectRefId, businessRejectReason, businessRejectText]);
             const res = await this.manager.query('CALL proc_tcr_nex_submit (?,?,?,?,?,?,?,?,?,?,?,?)', [tradeId, secondaryTradeId, trdRptStatus, time, timeType, trdPublishIndicatore, trdReportRejectionReason, rejectText, warningText, businessRejectRefId, businessRejectReason, businessRejectText]);
             return res;
         }
         catch (QueryFailedError) {
-            console.log("Call to proc_tcr_nex_submit() failed because of duplication of primary key.")
+            console.log("Call to proc_tcr_nex_submit() failed because of duplication of primary key. ",QueryFailedError);
         }
     }
     /*

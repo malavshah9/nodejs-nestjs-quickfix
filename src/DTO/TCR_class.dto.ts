@@ -506,6 +506,7 @@ export class TCR_class {
                 TradePriceConditionGrpList.push(TradePriceConditionGrp.convertFromTags(element.tags));
                 noTradePriceConditions++;
             });
+            console.log(" NoTradePriceConditionGrpList ",TradePriceConditionGrpList);
         }
 
         // obj = new TCR_class(message.tags["1003"], message.tags["856"], message.tags["423"], noRootPartyIDs, RootPartiesList, new instrument(message.tags["55"], message.tags["48"], message.tags["22"]), message.tags["32"], message.tags["31"], message.tags["15"], message.tags["30"], message.tags["75"], message.tags["60"], noSide, TrdCapRptSideGrpList, message.tags["1924"], message.tags["1934"]);

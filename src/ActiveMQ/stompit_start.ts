@@ -63,7 +63,6 @@ export class stomp_it {
                         xml_message += chunk.toString();
                         // process.stdout.write(chunk);
                     }
-                    console.log(" quickfix_client ", quickfix_client);
                     if (parser.validate(xml_message) === true) {
                         //optional (it'll return an object in case it's not valid)
                         var jsonObj = parser.parse(xml_message, options);

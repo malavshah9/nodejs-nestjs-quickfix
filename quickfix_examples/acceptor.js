@@ -4,6 +4,7 @@ var common = require('./common');
 var quickfix = require('../index');
 var fixAcceptor = quickfix.acceptor;
 const util = require('util')
+var testTCRArr=require('./testing_examples');
 
 var logonProvider = new quickfix.logonProvider(function (logonResponse, msg, sessionId) {
   if (msg.tags[553] == 'USERNAME' && msg.tags[554] == 'PASSWORD') {
@@ -26,6 +27,7 @@ var fixServer = new fixAcceptor({
     // console.log(" Session created ", sessionID);
   },
   onLogon: function (sessionID) {
+    let cnt=0;
     let TCR={
       header:
         { 8: 'FIXT.1.1',
@@ -54,12 +56,16 @@ var fixServer = new fixAcceptor({
           54: '2'
         }] } ] 
     };
-    // setInterval(() => {
-    //   fixServer.send(TCR, function () {
-    //     console.log("TCR sent");
-    //   });
-    // }, 10000);
-    // console.log(" Logged IN ", sessionID);
+    setInterval(() => {
+      if(cnt>=5){
+        cnt=0;
+      }
+      fixServer.send(testTCRArr.TestArr[cnt], function () {
+        console.log("TCR sent",testTCRArr.TestArr[cnt]);
+        cnt++;
+      });
+    }, 10000);
+    console.log(" Logged IN ", sessionID);
   },
   onLogout: function (sessionID) {
     // console.log(" LoggedOut ", sessionID);
