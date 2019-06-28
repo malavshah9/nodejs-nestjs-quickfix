@@ -7,48 +7,33 @@ import { getConnection } from 'typeorm';
 import { TCRAllFields } from '../DTO/TCRAllFields.dto';
 
 const util = require('util')
-var observableDiff = require('deep-diff').observableDiff;
-var applyChange = require('deep-diff').applyChange;
+var mixing = require("mixing");
+mixing.setSettings({ overwrite: true, oneSource: true, recursive: true, mixFromArray: true, mixToArray: true });
 
 @Injectable()
 export class MemoryMapService {
     databaseService = null;
     constructor() { }
     merge(TCR_new: TCRAllFields, TCR_old: TCRAllFields) {
-        observableDiff(TCR_old, TCR_new, function () {
-                applyChange(TCR_old, TCR_new);
-        });
-        // observableDiff(TCR_old,TCR_new);
+        mixing(TCR_old, TCR_new);
+        console.log(" TCR_new ",TCR_new);
         return TCR_old;
     }
-    // 1.Update value in TCR
-    /* check whether 1390 == 3
-            if yes than,
-                        2.update Database,
-                        3.remove from memorymap
-            else,
-                        2.update TCR
-                        3.update TCR to Memory Map
-    */
     UpdateMap(TCR_Map: any, TCR: any, isDatabaseUpdationNeeded: boolean = true) {
+        let newMergedTCR;
         if (this.databaseService == null)
             this.databaseService = new DatabaseServiceService(getConnection('default'), new HeaderServiceService());
-        var newMergedTCR;
         if (!TCR_Map.has(TCR.TradeID)) {
-            //TCR DoestNotExist in Map than add that TCR to Map
             TCR_Map.set(TCR.TradeID, TCR);
-            newMergedTCR = TCR;
         }
         else {
             newMergedTCR = this.merge(TCR, TCR_Map.get(TCR.TradeID));
-            if (newMergedTCR.TradePublishIndicator === 3) {
+            if (newMergedTCR.TradePublishIndicator === '2') {
                 TCR_Map.remove(TCR.TradeID);
             }
             else {
                 TCR_Map.set(TCR.TradeID, newMergedTCR);
             }
-        }
-        if (isDatabaseUpdationNeeded) {
             var d = new Date();
             var dformat = [d.getFullYear(),
             d.getMonth() + 1,
@@ -58,6 +43,16 @@ export class MemoryMapService {
                 d.getSeconds()].join(':');
             this.databaseService.insertTCRAck(newMergedTCR.TradeID, newMergedTCR.SecondaryTradeID, newMergedTCR.TrdRptStatus, dformat, 2, newMergedTCR.TradePublishIndicator, newMergedTCR.TradeReportRejectReason, newMergedTCR.RejectText, newMergedTCR.WarningText, "", 0, "");
         }
+        // if (isDatabaseUpdationNeeded) {
+        //     var d = new Date();
+        //     var dformat = [d.getFullYear(),
+        //     d.getMonth() + 1,
+        //     d.getDate()].join('-') + ' ' +
+        //         [d.getHours(),
+        //         d.getMinutes(),
+        //         d.getSeconds()].join(':');
+        //     this.databaseService.insertTCRAck(newMergedTCR.TradeID, newMergedTCR.SecondaryTradeID, newMergedTCR.TrdRptStatus, dformat, 2, newMergedTCR.TradePublishIndicator, newMergedTCR.TradeReportRejectReason, newMergedTCR.RejectText, newMergedTCR.WarningText, "", 0, "");
+        // }
         this.DisplayMap(TCR_Map);
     }
     DisplayMap(TCR_Map: any) {

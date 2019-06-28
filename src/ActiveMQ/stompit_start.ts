@@ -80,12 +80,8 @@ export class stomp_it {
                         msg.tags["55"] = "BAC";
                         // console.log(" TCR Report made with XML parsing ", msg);
                         var memoryMapService = new MemoryMapService();
-                        console.log("This message has been sent ",msg);
                         memoryMapService.UpdateMap(hashMap.TCR_Map, tcr_obj, false);
-                        // this.memoryMapService.UpdateMap(msg, false);
-                        quickfix_client.send(msg, async (msg) => {
-                            // console.log(" TCR Report Sent ", msg);
-                        });
+                        quickfix_client.send(msg, async (msg) => { });
                     }
                     message.ack();
                 };

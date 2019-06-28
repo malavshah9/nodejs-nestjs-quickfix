@@ -1,6 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
 import { DatabaseServiceService } from '../database-service/database-service.service';
-import { Timestamp } from 'typeorm';
 import { TCR_class } from '../../DTO/TCR_class.dto';
 import { RootParties } from '../../DTO/RootParties.dto';
 import { instrument } from '../../DTO/Instrument.dto';

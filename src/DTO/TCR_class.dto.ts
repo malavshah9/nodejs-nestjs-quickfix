@@ -51,8 +51,10 @@ export class TCR_class {
         TrdSubType?: number, SecondaryTrdType?: number, TradePriceConditionGrp?: TradePriceConditionGrp[],
         NoTradePriceConditions?: number, TotNumTradeReports?: number, VenueType?: string, QtyType?: number,
         TrdRegTimestamps?: TrdRegTimestamps[], NoTrdRegTimestamps?: number,
-        TrdRegPublicationGrp?: TrdRegPublicationGrp[], NoTrdRegPublications?: number) {
-
+        TrdRegPublicationGrp?: TrdRegPublicationGrp[], NoTrdRegPublications?: number, TradePublishIndicator?: number) {
+        if (TradePublishIndicator != undefined) {
+            this.TradePublishIndicator = TradePublishIndicator;
+        }
         if (TradeId != undefined) {
             this.TradeID = TradeId;
         }
@@ -499,35 +501,35 @@ export class TCR_class {
                 noRootPartyIDs++;
             });
         }
-        let noTradePriceConditions=0;
-        let TradePriceConditionGrpList:TradePriceConditionGrp[];
-        if(message.groups["1838"]!=undefined){
+        let noTradePriceConditions = 0;
+        let TradePriceConditionGrpList: TradePriceConditionGrp[];
+        if (message.groups["1838"] != undefined) {
             message.groups["1838"].forEach(element => {
                 TradePriceConditionGrpList.push(TradePriceConditionGrp.convertFromTags(element.tags));
                 noTradePriceConditions++;
             });
-            console.log(" NoTradePriceConditionGrpList ",TradePriceConditionGrpList);
+            console.log(" NoTradePriceConditionGrpList ", TradePriceConditionGrpList);
         }
 
         // obj = new TCR_class(message.tags["1003"], message.tags["856"], message.tags["423"], noRootPartyIDs, RootPartiesList, new instrument(message.tags["55"], message.tags["48"], message.tags["22"]), message.tags["32"], message.tags["31"], message.tags["15"], message.tags["30"], message.tags["75"], message.tags["60"], noSide, TrdCapRptSideGrpList, message.tags["1924"], message.tags["1934"]);
-        let noTrdRegTimestamp=0
-        let TrdRegTimestampsList:TrdRegTimestamps[];
-        if(message.groups["768"]!=undefined){
+        let noTrdRegTimestamp = 0
+        let TrdRegTimestampsList: TrdRegTimestamps[];
+        if (message.groups["768"] != undefined) {
             message.groups["768"].forEach(element => {
                 TrdRegTimestampsList.push(TrdRegTimestamps.convertFromTags(element.tags));
                 noTrdRegTimestamp++;
             });
         }
-        let noTrdRegPublication=0;
-        let TrdRegPublicationGrpList:TrdRegPublicationGrp[];
-        if(message.groups["2668"]!=undefined){
+        let noTrdRegPublication = 0;
+        let TrdRegPublicationGrpList: TrdRegPublicationGrp[];
+        if (message.groups["2668"] != undefined) {
             message.group["2668"].forEach(element => {
                 TrdRegPublicationGrpList.push(TrdRegPublicationGrp.convertFromTags(element.tags));
                 noTrdRegPublication++;
             });
-        } 
-        
-        obj=new TCR_class(message.tags["1003"],message.tags["856"],message.tags["423"],noRootPartyIDs,RootPartiesList,instrument.convertFromTags(message),message.tags["32"],message.tags["31"],message.tags["15"],message.tags["30"],message.tags["75"],message.tags["60"],noSide,TrdCapRptSideGrpList,message.tags["1924"],message.tags["1934"],message.tags["1040"],message.tags["2489"],message.tags["2490"],message.tags["939"],message.tags["828"],message.tags["829"],message.tags["855"],TradePriceConditionGrpList,noTradePriceConditions,message.tags["748"],message.tags["1430"],message.tags["854"],TrdRegTimestampsList,noTrdRegTimestamp,TrdRegPublicationGrpList,noTrdRegPublication);
+        }
+
+        obj = new TCR_class(message.tags["1003"], message.tags["856"], message.tags["423"], noRootPartyIDs, RootPartiesList, instrument.convertFromTags(message), message.tags["32"], message.tags["31"], message.tags["15"], message.tags["30"], message.tags["75"], message.tags["60"], noSide, TrdCapRptSideGrpList, message.tags["1924"], message.tags["1934"], message.tags["1040"], message.tags["2489"], message.tags["2490"], message.tags["939"], message.tags["828"], message.tags["829"], message.tags["855"], TradePriceConditionGrpList, noTradePriceConditions, message.tags["748"], message.tags["1430"], message.tags["854"], TrdRegTimestampsList, noTrdRegTimestamp, TrdRegPublicationGrpList, noTrdRegPublication,message.tags["1390"]);
         return obj;
     }
 }

@@ -3,6 +3,8 @@ var quickfix = require('../index');
 var common = require('./common');
 var path = require('path');
 var initiator = quickfix.initiator;
+const util = require('util');
+
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { fixClient } from '../quickfix_examples/initiator';
@@ -10,6 +12,8 @@ import { AppService } from './app.service';
 import { TradePriceConditionGrp } from './DTO/TradePriceConditionGrp.dto';
 import { TCR_class } from './DTO/TCR_class.dto';
 import { StandardHeader } from './DTO/StandardHeader.dto';
+
+var hashMap = require('../src/memory-map-service/memory-store.js');
 
 async function startFixClient() {
   fixClient.start(() => {
@@ -25,6 +29,10 @@ async function bootstrap() {
     appService.setQuickfixClient(fixClient);
     process.stdin.resume();
   });
+  process.stdin.on('data', function (data) {
+    console.log(util.inspect(hashMap, false, null, true ));
+  });
+  
   await app.listen(3000);
 }
 

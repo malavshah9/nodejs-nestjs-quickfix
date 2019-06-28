@@ -21,10 +21,10 @@ export class TradeCaptureReportAck
     @Inject('MemoryMapService')
     private readonly memoryMapService:MemoryMapService;
     constructor(){
-        if(this.TCRHeaderService==null)
-        this.TCRHeaderService=new HeaderServiceService();
-        if(this.DatabaseService==null)
-        this.DatabaseService=new DatabaseServiceService(getConnection('default'),this.TCRHeaderService);
+        // if(this.TCRHeaderService==null)
+        // this.TCRHeaderService=new HeaderServiceService();
+        // if(this.DatabaseService==null)
+        // this.DatabaseService=new DatabaseServiceService(getConnection('default'),this.TCRHeaderService);
     }
     converter()
     {
@@ -96,10 +96,10 @@ export class TradeCaptureReportAck
     }
     submitToDatabase(time:any,time_type:number){
         // let databaseService=new DatabaseServiceService();
-        this.DatabaseService.insertTCRAck(this.TradeID,
-            this.SecondaryTradeID,
-            this.TrdRptStatus,
-            time,time_type,null,this.TradeReportRejectReason,this.RejectText,this.WarningText,"",0,"");
+        // this.DatabaseService.insertTCRAck(this.TradeID,
+        //     this.SecondaryTradeID,
+        //     this.TrdRptStatus,
+        //     time,time_type,null,this.TradeReportRejectReason,this.RejectText,this.WarningText,"",0,"");
     }
     // addToMap(obj:TradeCaptureReportAck){
     //     this.memoryMapService.UpdateMap(obj);
