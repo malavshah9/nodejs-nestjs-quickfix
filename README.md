@@ -6,8 +6,11 @@ Three parts of this project.
 1. Incoming Message:
     
     1. [ActiveMQ](http://activemq.apache.org):  I have used stompit npm package to subscribe the topic on activeMQ.I have written XML Parsing which parses the XML file received from topic in ActiveMQ and than makes the TCR Message.
+    
+    2. TCR/TCRAck by quickfix enginee from NEX: This message will be handled inside initiator.js which is located inside 
+    quickfix_examples directory.
 
-    2. Database: Data which are not yet submitted to NEX server which will be activated when following api called after starting all server whose TrdRptStatus(939) is 1 or null which means Trade Rejected or not yet submitted.
+    3. Database: Data which are not yet submitted to NEX server which will be activated when following api called after starting all server whose TrdRptStatus(939) is 1 or null which means Trade Rejected or not yet submitted.
     
         [GET] http://localhost:3000/submitTradeToNex
 
@@ -43,7 +46,22 @@ After clonning this repository run following commnad from root directory.
 $ npm install
 ```
 
+
+
 ## Running the app
+
+To start the quickfix server run following command inside quickfix_examples/
+
+```bash
+$ node acceptor.js
+```
+
+To start the gateway run following command in root directory.
+```bash
+$ npm run start
+```
+
+Follwing commands can be run for extra usage.
 
 ```bash
 # development
