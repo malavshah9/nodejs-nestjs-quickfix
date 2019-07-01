@@ -1,32 +1,67 @@
-  
-<p align="center">A progressive <a href="http://nodejs.org" target="blank">Node.js</a> framework for building efficient and scalable server-side applications, heavily inspired by <a href="https://angular.io" target="blank">Angular</a>.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/dm/@nestjs/core.svg" alt="NPM Downloads" /></a>
-<a href="https://travis-ci.org/nestjs/nest"><img src="https://api.travis-ci.org/nestjs/nest.svg?branch=master" alt="Travis" /></a>
-<a href="https://travis-ci.org/nestjs/nest"><img src="https://img.shields.io/travis/nestjs/nest/master.svg?label=linux" alt="Linux" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#5" alt="Coverage" /></a>
-<a href="https://gitter.im/nestjs/nestjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge"><img src="https://badges.gitter.im/nestjs/nestjs.svg" alt="Gitter" /></a>
-<a href="https://opencollective.com/nest#backer"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec"><img src="https://img.shields.io/badge/Donate-PayPal-dc3d53.svg"/></a>
-  <a href="https://twitter.com/nestframework"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This project is developed for receiving and sending TCR and TCRAck message of [FIX](https://www.onixs.biz) Protocol.
+
+Three parts of this project are:
+1. Incoming Message:
+    
+    1. [ActiveMQ](http://activemq.apache.org):  I have used stompit npm package to subscribe the topic on activeMQ.I have parsed XML file received from topic in ActiveMQ converting it into the TCR Message.
+    
+    2. TCR/TCRAck by quickfix enginee from NEX: This message will be handled inside initiator.js which is located inside 
+    quickfix_examples directory.
+
+    3. Database: Data which are not yet submitted to NEX server will be activated when following api is called after starting all servers whose TrdRptStatus(939) is 1 or null which means Trade Rejected or not yet submitted.
+    
+        [GET] http://localhost:3000/submitTradeToNex
+
+2. Internal Processing:
+    
+    1. TCR Message will be made by calling TCRClass constructor.
+    
+    2. Hashmap will be maintained when TCR/TCRAck are received and sent till we get TradePublishIndicator(1390) as 3 which means Trade is published.
+    
+3. Outgoing Message:
+
+    1. TCR message will be sent after internal processing to NEX server by QuickFix Client using preconfigured parameters. 
+
+
+
+## Framework and Tools Used
+
+1. [Node.js](https://nodejs.org/en/) JavaScript run-time environment that executes JavaScript code outside of a browser.
+
+2. [Nest](https://github.com/nestjs/nest) Typescript Framework for Node.js project.
+
+3. [QuickFIX Node.js Wrapper](https://github.com/Trumid/node-quickfix) For quickfix enginee support.
+
+4. [ActiveMQ Messaging Server](http://activemq.apache.org/) ActiveMQ server for stompit subscription.
+
 
 ## Installation
+
+Install the above mentioned tools and clone this repository.
+After clonning this repository run following commnad from root directory.
 
 ```bash
 $ npm install
 ```
 
+
+
 ## Running the app
+
+To start the quickfix server run following command inside quickfix_examples/
+
+```bash
+$ node acceptor.js
+```
+
+To start the gateway run following command in root directory.
+```bash
+$ npm run start
+```
+
+Follwing commands can be run for extra usage.
 
 ```bash
 # development
@@ -51,17 +86,3 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-  Nest is [MIT licensed](LICENSE).
