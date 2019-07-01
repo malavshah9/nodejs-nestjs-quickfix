@@ -2,7 +2,7 @@ export class TrdRegPublicationGrp
 {
     TrdRegPublicationType?: number;
     TrdRegPublicationReason?: number;
-    convertToTags()
+    async convertToTags()
     {
         var obj = {};
         if (this.TrdRegPublicationType != undefined) {
@@ -13,7 +13,7 @@ export class TrdRegPublicationGrp
         }
         return obj;
     }
-    static convertFromTags(obj:any){
+    static async convertFromTags(obj:any){
         let myobj=new TrdRegPublicationGrp();
         if(obj.tags["2669"]!=undefined){
             myobj.TrdRegPublicationType=obj.tags["2669"];

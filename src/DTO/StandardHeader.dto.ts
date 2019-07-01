@@ -12,10 +12,8 @@ export class StandardHeader
     PreviouslyReported?:boolean;
     PossResend?:boolean;
     SendingTime:string;
-    constructor(){
-         
-    }
-    converter() {
+    constructor(){}
+    async converter() {
         var obj = {};
         if (this.BeginString != undefined) {
             obj["8"] = this.BeginString;

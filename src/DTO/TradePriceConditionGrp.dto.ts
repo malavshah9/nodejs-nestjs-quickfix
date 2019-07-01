@@ -1,7 +1,7 @@
 export class TradePriceConditionGrp
 {
         TradePriceCondition?:number;
-        convertToTags(){
+        async convertToTags(){
                 if(this.TradePriceCondition!=undefined)
                 {
                     var obj={
@@ -10,7 +10,7 @@ export class TradePriceConditionGrp
                      return obj;
                 }
         }  
-        static convertFromTags(obj:any){
+        static async convertFromTags(obj:any){
                 let myobj=new TradePriceConditionGrp();
                 if(obj.tags["1839"]!=undefined)
                 {

@@ -11,7 +11,7 @@ export class TrdCapRptSideGrp
     constructor(public side:string){
         this.Side=side;
     }
-    static convertFromTags(obj:any){
+    static async convertFromTags(obj:any){
         var myobj:TrdCapRptSideGrp;
         if(obj["54"]!=undefined){
             myobj=new TrdCapRptSideGrp(obj["54"]);
@@ -22,8 +22,8 @@ export class TrdCapRptSideGrp
            if(obj.groups["453"]!=undefined){
             let PartiesList:Parties[]=[];
             let noParties=0;
-            obj.groups["453"].forEach(element=>{
-                PartiesList.push(Parties.convertFromTags(element.tags));
+            obj.groups["453"].forEach(async element=>{
+                PartiesList.push(await Parties.convertFromTags(element.tags));
                 noParties++;
             });
             myobj.NoPartyIDs=noParties;
@@ -38,7 +38,7 @@ export class TrdCapRptSideGrp
         }
         return myobj;
     }
-    convertTags(){
+    async convertTags(){
         var obj = {};
         if (this.Side != undefined) {
             obj["54"] = this.Side;
@@ -49,7 +49,6 @@ export class TrdCapRptSideGrp
         if (this.NoPartyIDs != undefined && this.Parties!=undefined) {
             if(this.NoPartyIDs==this.Parties.length)
             {
-                console.log("inside if of this.NoPartIDs ",this.NoPartyIDs);
                 obj["453"] = this.NoPartyIDs;
             }
             else{
@@ -58,7 +57,7 @@ export class TrdCapRptSideGrp
         }
         return obj;
     }
-    convertGroups(){
+    async convertGroups(){
         var obj_t:any[]=[];
         if (this.NoPartyIDs != undefined && this.Parties!=undefined) {
             if(this.NoPartyIDs==this.Parties.length)
@@ -67,8 +66,8 @@ export class TrdCapRptSideGrp
                 element_grp["index"]=453;
                 element_grp["delim"]=447;
                 var parties_list=[];
-                this.Parties.forEach(element => {
-                    parties_list.push(element.convertToTags());
+                this.Parties.forEach(async element => {
+                    parties_list.push(await element.convertToTags());
                 });
                 element_grp["entries"]=parties_list;
                 obj_t.push(element_grp);
@@ -79,10 +78,10 @@ export class TrdCapRptSideGrp
         }
         return obj_t;
     }
-    convertToTags() {
+    async convertToTags() {
             var obj_final={
-                tags:this.convertTags(),
-                groups:this.convertGroups()
+                tags:await this.convertTags(),
+                groups:await this.convertGroups()
             };
             return obj_final;
         }

@@ -1,8 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { StandardHeader } from '../../DTO/StandardHeader.dto';
 var PropertiesReader = require('properties-reader');
-
-
 @Injectable()
 export class HeaderServiceService {
     msgSeqNumTCR: number = 0;
@@ -21,7 +19,7 @@ export class HeaderServiceService {
         1.AE:TradeCaptureREPORT
         2.AR:TradeCaptureReportAck
     */
-    getHeader(MessageType: string) {
+    async getHeader(MessageType: string) {
         if (MessageType == "AE") {
             if (this.ObjTradeCaptureReportHeader == null) {
                 this.ObjTradeCaptureReportHeader = new StandardHeader();
@@ -29,7 +27,6 @@ export class HeaderServiceService {
                 this.ObjTradeCaptureReportHeader.MsgType = "AE";
                 this.ObjTradeCaptureReportHeader.SenderCompID = this.propertiesFile.get('SESSION.SenderCompID');
                 this.ObjTradeCaptureReportHeader.TargetCompID = this.propertiesFile.get('SESSION.TargetCompID');
-                // this.ObjTradeCaptureReportHeader.MsgSeqNum = this.msgSeqNumTCR++;
             }
             else {
                 this.ObjTradeCaptureReportHeader.MsgSeqNum = this.msgSeqNumTCR++;
@@ -43,7 +40,6 @@ export class HeaderServiceService {
                 this.ObjTradeCaptureReportAckHeader.MsgType = "AR";
                 this.ObjTradeCaptureReportAckHeader.SenderCompID = this.propertiesFile.get('SESSION.TargetCompID');
                 this.ObjTradeCaptureReportAckHeader.TargetCompID = this.propertiesFile.get('SESSION.SenderCompID');
-                // this.ObjTradeCaptureReportAckHeader.MsgSeqNum = this.msgSeqNumTCRAck++;
             }
             else {
                 this.ObjTradeCaptureReportAckHeader.MsgSeqNum = this.msgSeqNumTCRAck++;

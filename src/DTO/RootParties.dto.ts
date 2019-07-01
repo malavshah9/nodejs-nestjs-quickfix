@@ -10,7 +10,7 @@ export class RootParties
         this.RootPartyIDSource=RootPartyIDSource;
         this.RootPartyRole=RootPartyRole;
     }
-    convertToTags(){
+    async convertToTags(){
         var obj={
                 "1117":this.RootPartyID,
                 "1118":this.RootPartyIDSource,
@@ -18,7 +18,7 @@ export class RootParties
         };
         return obj;
     }
-    static convertFromTags(obj:any){
+    static async convertFromTags(obj:any){
         var myObj:RootParties;
             if(obj["1117"]!=undefined && obj["1118"]!=undefined && obj["1119"]!=undefined){
                 myObj=new RootParties(obj["1117"],obj["1118"],obj["1119"]);

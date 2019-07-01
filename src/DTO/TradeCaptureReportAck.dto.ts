@@ -6,8 +6,7 @@ import { DatabaseServiceService } from "../database-connection/database-service/
 import {  getConnection } from "typeorm";
 import { Inject } from '@nestjs/common';
 
-export class TradeCaptureReportAck
-{
+export class TradeCaptureReportAck{
     TradeID : number;
     SecondaryTradeID : string;
     TradeReportType : number;
@@ -26,7 +25,7 @@ export class TradeCaptureReportAck
         // if(this.DatabaseService==null)
         // this.DatabaseService=new DatabaseServiceService(getConnection('default'),this.TCRHeaderService);
     }
-    converter()
+    async converter()
     {
         var obj = {
             tags: {}
@@ -57,14 +56,14 @@ export class TradeCaptureReportAck
         }
         return obj;
     }
-    convertJSON(){
+    async convertJSON(){
         var obj={
             header:this.TCRHeaderService.getHeader("AR"),
             tags:this.converter()
         };
         return obj;
     }
-    convertToField(message:any)
+    async convertToField(message:any)
     {
         var obj:TradeCaptureReportAck;
         obj=new TradeCaptureReportAck();
@@ -94,14 +93,4 @@ export class TradeCaptureReportAck
         }
         return obj;
     }
-    submitToDatabase(time:any,time_type:number){
-        // let databaseService=new DatabaseServiceService();
-        // this.DatabaseService.insertTCRAck(this.TradeID,
-        //     this.SecondaryTradeID,
-        //     this.TrdRptStatus,
-        //     time,time_type,null,this.TradeReportRejectReason,this.RejectText,this.WarningText,"",0,"");
-    }
-    // addToMap(obj:TradeCaptureReportAck){
-    //     this.memoryMapService.UpdateMap(obj);
-    // }
 }

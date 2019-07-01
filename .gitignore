@@ -1,6 +1,15 @@
 # compiled output
 /dist
 /node_modules
+/Cache
+/CachedData
+/CachedExtensions
+/GPUCache
+/Backups
+languagepacks.json
+machineid
+Network Persistent State
+temp
 
 # Logs
 logs

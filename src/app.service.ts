@@ -1,4 +1,3 @@
-import { TCR_class } from 'src/DTO/TCR_class.dto';
 /*
     In this app service basic quickfix client object will be stored for state maintainace
     and session synchronization
@@ -23,10 +22,10 @@ export class AppService {
   //This Method will do following tasks.
   // 1. this method will store quickfix client to object of service
   // 2. Start listening on ActiveMQ
-  setQuickfixClient(obj: any): void {
+  async setQuickfixClient(obj: any): Promise<void> {
     this.quickfix_client = obj;
     let stom = new stomp_it();
-    stom.startConnectionStompit(this.quickfix_client);
+    await stom.startConnectionStompit(this.quickfix_client);
   }
   // this method will be used to give the stored object of quickfix client
   async getQuickfixClient() {

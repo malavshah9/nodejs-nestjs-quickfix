@@ -2,7 +2,7 @@ export class SecAltIDGrp
 {
     SecurityAltID?: string;
     SecurityAltIDSource?: string;
-    convertToTags()
+    async convertToTags()
     {
         var obj = {};
         if (this.SecurityAltID != undefined) {
@@ -13,7 +13,7 @@ export class SecAltIDGrp
         }
         return obj;
     }
-    static convertFromTags(obj:any){
+    static async convertFromTags(obj:any){
         let myobj=new SecAltIDGrp();
         if(obj.tags["455"]!=undefined){
             myobj.SecurityAltID=obj.tags["455"];

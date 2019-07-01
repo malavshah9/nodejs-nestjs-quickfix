@@ -19,8 +19,8 @@ var hashMap = require('../../memory-map-service/memory-store.js');
 export class DatabaseConnectionController {
     constructor(private dbServer: DatabaseServiceService, private appService: AppService, private headerService: HeaderServiceService, private memoryMapService: MemoryMapService) { }
     @Get()
-    getAll(): any {
-        this.getDataSendMessage();
+    async getAll():Promise<any> {
+        await this.getDataSendMessage();
         return this.dbServer.getAll_iress_trade_left_TCR_NEX();
     }
     async getDataSendMessage() {
@@ -32,20 +32,19 @@ export class DatabaseConnectionController {
                         dateformat(new Date(element.trade_date_time), "yyyymmdd")
                         , dateformat(new Date(element.trade_date_time_GMT), "yyyymmdd-HH:MM:ss.l")
                         , 1, [new TrdCapRptSideGrp("3")], 1, 11);
-                    let tcrheader = this.headerService.getHeader("AE");
+                    let tcrheader = await this.headerService.getHeader("AE");
                     var msg = {
-                        header: tcrheader.converter(),
-                        tags: obj.getTags(),
-                        groups: obj.getGroups()
+                        header: await tcrheader.converter(),
+                        tags: await obj.getTags(),
+                        groups: await obj.getGroups()
                     };
                     msg.tags["22"] = '4';
                     msg.tags["48"] = "0X1213";
                     msg.tags["55"] = "BAC";
-                    console.log(" TCR Report made with Database ", msg);
                     this.memoryMapService.UpdateMap(hashMap.TCR_Map, obj, false);
                     await this.appService.getQuickfixClient().then(async (quickfixClient) => {
                         await quickfixClient.send(msg, () => {
-                            console.log("TCR sent ...", msg);
+                            // console.log("TCR sent ...", msg);
                         });
                     });
                 }

@@ -20,13 +20,13 @@ export class stomp_it {
     constructor() { }
     /*
         startConnectionStompit() function will start the stompit server
-        set the callback method which will be called when content in the topic were added.
+        set the callback method which will be called when content in the topic are added.
     */
     async startConnectionStompit(quickfix_client: any) {
         //  start activemq server and visit
         //  http://localhost:8161/admin/
         //  this.quickfix_client=await new AppService().getQuickfixClient();
-        this.connectionManager.connect(function (err, client, reconnect) {
+        await this.connectionManager.connect(async function (err, client, reconnect) {
             if (err) {
                 console.log("Error in connecting to ActiveMQ server", err);
             }
@@ -35,7 +35,7 @@ export class stomp_it {
                 'ack': 'auto',
                 'persistent': true
             };
-            client.subscribe(Params, function (err, message) {
+            client.subscribe(Params, async function (err, message) {
                 var options = {
                     attributeNamePrefix: "@_",
                     attrNodeName: "attr", //default is 'false'
@@ -69,9 +69,9 @@ export class stomp_it {
                         let tcr_obj = new TCR_class(jsonObj.trade_number + "", 5, "2", 1, [new RootParties(15, "G", 3)], new instrument("0", jsonObj.security_id, "4"), parseInt(jsonObj.trade_volume), parseInt(jsonObj.trade_price), jsonObj.source_currency, "SINT", dateformat(new Date(jsonObj.trade_date_time), "yyyymmdd"), dateformat(new Date(jsonObj.trade_date_time_gmt), "yyyymmdd-HH:MM:ss.l"), 1, [new TrdCapRptSideGrp("3")], 1, 11);
                         // console.log(" tcr_obj made is ",tcr_obj);
                         let headerService = new HeaderServiceService();
-                        let tcrheader = headerService.getHeader("AE");
+                        let tcrheader = await headerService.getHeader("AE");
                         var msg = {
-                            header: tcrheader.converter(),
+                            header: await tcrheader.converter(),
                             tags: tcr_obj.getTags(),
                             groups: tcr_obj.getGroups()
                         };
@@ -88,7 +88,7 @@ export class stomp_it {
                 message.on('readable', read);
             });
         });
-        this.stompConnectionXML();
+        await this.stompConnectionXML();
     }
     /*
         This function will read the XML file in the same folder named  "demo_xml.xml" and send to server.

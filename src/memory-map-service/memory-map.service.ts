@@ -14,12 +14,20 @@ mixing.setSettings({ overwrite: true, oneSource: true, recursive: true, mixFromA
 export class MemoryMapService {
     databaseService = null;
     constructor() { }
-    merge(TCR_new: TCRAllFields, TCR_old: TCRAllFields) {
-        mixing(TCR_old, TCR_new);
-        console.log(" TCR_new ",TCR_new);
+    /*
+        This method will update the existing TCR by getting the value from TCRACK/TCR that we get from NEX.
+    */
+    async merge(TCR_new: TCRAllFields, TCR_old: TCRAllFields) {
+        await mixing(TCR_old, TCR_new);
         return TCR_old;
     }
-    UpdateMap(TCR_Map: any, TCR: any, isDatabaseUpdationNeeded: boolean = true) {
+    /*
+        This method does the following task:
+            1. If TCR does not present than add that TCR to Map
+            2. If TCR exist in the Map than update the value by calling merge() method.
+            3. Update the Database Values.
+    */
+    async UpdateMap(TCR_Map: any, TCR: any, isDatabaseUpdationNeeded: boolean = true) {
         let newMergedTCR;
         if (this.databaseService == null)
             this.databaseService = new DatabaseServiceService(getConnection('default'), new HeaderServiceService());
@@ -27,7 +35,7 @@ export class MemoryMapService {
             TCR_Map.set(TCR.TradeID, TCR);
         }
         else {
-            newMergedTCR = this.merge(TCR, TCR_Map.get(TCR.TradeID));
+            newMergedTCR = await this.merge(TCR, TCR_Map.get(TCR.TradeID));
             if (newMergedTCR.TradePublishIndicator === '2') {
                 TCR_Map.remove(TCR.TradeID);
             }
@@ -41,21 +49,10 @@ export class MemoryMapService {
                 [d.getHours(),
                 d.getMinutes(),
                 d.getSeconds()].join(':');
-            this.databaseService.insertTCRAck(newMergedTCR.TradeID, newMergedTCR.SecondaryTradeID, newMergedTCR.TrdRptStatus, dformat, 2, newMergedTCR.TradePublishIndicator, newMergedTCR.TradeReportRejectReason, newMergedTCR.RejectText, newMergedTCR.WarningText, "", 0, "");
+            await this.databaseService.insertTCRAck(newMergedTCR.TradeID, newMergedTCR.SecondaryTradeID, newMergedTCR.TrdRptStatus, dformat, 2, newMergedTCR.TradePublishIndicator, newMergedTCR.TradeReportRejectReason, newMergedTCR.RejectText, newMergedTCR.WarningText, "", 0, "");
         }
-        // if (isDatabaseUpdationNeeded) {
-        //     var d = new Date();
-        //     var dformat = [d.getFullYear(),
-        //     d.getMonth() + 1,
-        //     d.getDate()].join('-') + ' ' +
-        //         [d.getHours(),
-        //         d.getMinutes(),
-        //         d.getSeconds()].join(':');
-        //     this.databaseService.insertTCRAck(newMergedTCR.TradeID, newMergedTCR.SecondaryTradeID, newMergedTCR.TrdRptStatus, dformat, 2, newMergedTCR.TradePublishIndicator, newMergedTCR.TradeReportRejectReason, newMergedTCR.RejectText, newMergedTCR.WarningText, "", 0, "");
-        // }
-        this.DisplayMap(TCR_Map);
     }
-    DisplayMap(TCR_Map: any) {
+    async DisplayMap(TCR_Map: any) {
         TCR_Map.entries().forEach(element => {
             console.log("new entry");
             console.log(util.inspect(element, false, null, true /* enable colors */))

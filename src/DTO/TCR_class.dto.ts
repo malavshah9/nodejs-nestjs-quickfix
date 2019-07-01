@@ -153,15 +153,15 @@ export class TCR_class {
             this.NoTrdRegPublications = NoTrdRegPublications;
         }
     }
-    getGroups() {
+    async getGroups() {
         if (this.NoSides != undefined && this.TrdCapRptSideGrp != undefined) {
             if (this.NoSides == this.TrdCapRptSideGrp.length) {
                 // let obj:groups; obj.index=552; obj.delim=54;
                 let TrdCapRptSideGrpList = [];
                 this
                     .TrdCapRptSideGrp
-                    .forEach(element => {
-                        TrdCapRptSideGrpList.push(element.convertToTags());
+                    .forEach(async element => {
+                        TrdCapRptSideGrpList.push(await element.convertToTags());
                     });
                 // obj.entries=TrdCapRptSideGrpList;
                 var temp = {
@@ -183,8 +183,8 @@ export class TCR_class {
                 let TrdRegTimestampsList = [];
                 this
                     .TrdRegTimestamps
-                    .forEach(element => {
-                        TrdRegTimestampsList.push(element.convertToTags());
+                    .forEach(async element => {
+                        TrdRegTimestampsList.push(await element.convertToTags());
                     });
                 // obj.entries=TrdRegTimestampsList;
                 var temp = {
@@ -206,8 +206,8 @@ export class TCR_class {
                 let RootPartiesList = [];
                 this
                     .RootParties
-                    .forEach(element => {
-                        RootPartiesList.push(element.convertToTags());
+                    .forEach(async element => {
+                        RootPartiesList.push(await element.convertToTags());
                     });
                 // obj.entries=RootPartiesList;
                 var temp = {
@@ -230,8 +230,8 @@ export class TCR_class {
                 let TradePriceConditionGrpList = [];
                 this
                     .TradePriceConditionGrp
-                    .forEach(element => {
-                        TradePriceConditionGrpList.push(element.convertToTags());
+                    .forEach(async element => {
+                        TradePriceConditionGrpList.push(await element.convertToTags());
                     });
                 // obj.entries=TradePriceConditionGrpList;
                 var temp = {
@@ -252,8 +252,8 @@ export class TCR_class {
                 let TrdRegPublicationGrpList = [];
                 this
                     .TrdRegPublicationGrp
-                    .forEach(element => {
-                        TrdRegPublicationGrpList.push(element.convertToTags());
+                    .forEach(async element => {
+                        TrdRegPublicationGrpList.push(await element.convertToTags());
                     });
                 // obj.entries=TrdRegPublicationGrpList;
                 var temp = {
@@ -275,8 +275,8 @@ export class TCR_class {
                     this
                         .instrument
                         .SecAltIDGrp
-                        .forEach(element => {
-                            SecAlt_list.push(element.convertToTags());
+                        .forEach(async element => {
+                            SecAlt_list.push(await element.convertToTags());
                         });
                     // element_grp["entries"] = SecAlt_list;
                     var temp = {
@@ -297,8 +297,8 @@ export class TCR_class {
                     this
                         .instrument
                         .SecondaryAssetGrp
-                        .forEach(element => {
-                            SecondaryAsset_list.push(element.convertToTags());
+                        .forEach(async element => {
+                            SecondaryAsset_list.push(await element.convertToTags());
                         });
                     var temp = {
                         index: 1976,
@@ -315,7 +315,7 @@ export class TCR_class {
         }
         return this.tagGrp;
     }
-    getTags() {
+    async getTags() {
         var obj = {};
         if (this.TradeID != undefined) {
             obj["1003"] = this.TradeID;
@@ -483,29 +483,29 @@ export class TCR_class {
         this.tagObj = obj;
         return obj;
     }
-    convertToField(message) {
+    async convertToField(message) {
         var obj: TCR_class;
         let noSide = 0;
         let TrdCapRptSideGrpList: TrdCapRptSideGrp[] = [];
         if (message.groups["552"] != undefined) {
-            message.groups["552"].forEach(element => {
-                TrdCapRptSideGrpList.push(TrdCapRptSideGrp.convertFromTags(element.tags));
+            message.groups["552"].forEach(async element => {
+                TrdCapRptSideGrpList.push(await TrdCapRptSideGrp.convertFromTags(element.tags));
                 noSide++;
             });
         }
         let noRootPartyIDs = 0;
         let RootPartiesList: RootParties[] = [];
         if (message.groups["1116"] != undefined) {
-            message.groups["1116"].forEach(element => {
-                RootPartiesList.push(RootParties.convertFromTags(element.tags));
+            message.groups["1116"].forEach(async element => {
+                RootPartiesList.push(await RootParties.convertFromTags(element.tags));
                 noRootPartyIDs++;
             });
         }
         let noTradePriceConditions = 0;
         let TradePriceConditionGrpList: TradePriceConditionGrp[];
         if (message.groups["1838"] != undefined) {
-            message.groups["1838"].forEach(element => {
-                TradePriceConditionGrpList.push(TradePriceConditionGrp.convertFromTags(element.tags));
+            message.groups["1838"].forEach(async element => {
+                TradePriceConditionGrpList.push(await TradePriceConditionGrp.convertFromTags(element.tags));
                 noTradePriceConditions++;
             });
             console.log(" NoTradePriceConditionGrpList ", TradePriceConditionGrpList);
@@ -515,21 +515,21 @@ export class TCR_class {
         let noTrdRegTimestamp = 0
         let TrdRegTimestampsList: TrdRegTimestamps[];
         if (message.groups["768"] != undefined) {
-            message.groups["768"].forEach(element => {
-                TrdRegTimestampsList.push(TrdRegTimestamps.convertFromTags(element.tags));
+            message.groups["768"].forEach(async element => {
+                TrdRegTimestampsList.push(await TrdRegTimestamps.convertFromTags(element.tags));
                 noTrdRegTimestamp++;
             });
         }
         let noTrdRegPublication = 0;
         let TrdRegPublicationGrpList: TrdRegPublicationGrp[];
         if (message.groups["2668"] != undefined) {
-            message.group["2668"].forEach(element => {
-                TrdRegPublicationGrpList.push(TrdRegPublicationGrp.convertFromTags(element.tags));
+            message.group["2668"].forEach(async element => {
+                TrdRegPublicationGrpList.push(await TrdRegPublicationGrp.convertFromTags(element.tags));
                 noTrdRegPublication++;
             });
         }
 
-        obj = new TCR_class(message.tags["1003"], message.tags["856"], message.tags["423"], noRootPartyIDs, RootPartiesList, instrument.convertFromTags(message), message.tags["32"], message.tags["31"], message.tags["15"], message.tags["30"], message.tags["75"], message.tags["60"], noSide, TrdCapRptSideGrpList, message.tags["1924"], message.tags["1934"], message.tags["1040"], message.tags["2489"], message.tags["2490"], message.tags["939"], message.tags["828"], message.tags["829"], message.tags["855"], TradePriceConditionGrpList, noTradePriceConditions, message.tags["748"], message.tags["1430"], message.tags["854"], TrdRegTimestampsList, noTrdRegTimestamp, TrdRegPublicationGrpList, noTrdRegPublication,message.tags["1390"]);
+        obj = new TCR_class(message.tags["1003"], message.tags["856"], message.tags["423"], noRootPartyIDs, RootPartiesList, await instrument.convertFromTags(message), message.tags["32"], message.tags["31"], message.tags["15"], message.tags["30"], message.tags["75"], message.tags["60"], noSide, TrdCapRptSideGrpList, message.tags["1924"], message.tags["1934"], message.tags["1040"], message.tags["2489"], message.tags["2490"], message.tags["939"], message.tags["828"], message.tags["829"], message.tags["855"], TradePriceConditionGrpList, noTradePriceConditions, message.tags["748"], message.tags["1430"], message.tags["854"], TrdRegTimestampsList, noTrdRegTimestamp, TrdRegPublicationGrpList, noTrdRegPublication,message.tags["1390"]);
         return obj;
     }
 }

@@ -26,7 +26,10 @@ async function bootstrap() {
   const appService = app.get(AppService);
   let message = await startFixClient().then(async () => {
     console.log("----------Quickfix Client Started----------");
-    appService.setQuickfixClient(fixClient);
+    /*
+      below call will store the quickfixClient instance to service so that we can retreive it whenever we want
+    */
+    await appService.setQuickfixClient(fixClient);
     process.stdin.resume();
   });
   process.stdin.on('data', function (data) {

@@ -3,7 +3,7 @@ export class SecondaryAssetGrp
     SecondaryAssetClass?: number;
     SecondaryAssetSubClass?: number;
     SecondaryAssetType?: string;
-    convertToTags()
+    async convertToTags()
     {
         var obj = {};
         if (this.SecondaryAssetClass != undefined) {
@@ -17,7 +17,7 @@ export class SecondaryAssetGrp
         }
         return obj;
     }
-    static convertFromTags(obj:any){
+    static async convertFromTags(obj:any){
         let myobj=new SecondaryAssetGrp();
         if(obj.tags["1977"]!=undefined){
             myobj.SecondaryAssetClass=obj.tags["1977"];

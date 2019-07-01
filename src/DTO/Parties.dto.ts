@@ -4,7 +4,7 @@ export class Parties
     PartyIDSource?: string;
     PartyRole?: number;
 
-    convertToTags()
+    async convertToTags()
     {
         let obj = {};
         if (this.PartyID != undefined) {
@@ -18,7 +18,7 @@ export class Parties
         }
         return obj;
     }
-    static convertFromTags(objs:any){
+    static async convertFromTags(objs:any){
         let obj = new Parties();
         if ( objs["448"] != undefined) {
             obj.PartyID= objs["448"];

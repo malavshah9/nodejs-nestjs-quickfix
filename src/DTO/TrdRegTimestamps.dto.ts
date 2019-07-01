@@ -2,7 +2,7 @@ export class TrdRegTimestamps
 {
     TrdRegTimestamp?: string;
     TrdRegTimestampType?: number;
-    convertToTags()
+    async convertToTags()
     {
         var obj : {};
         if (this.TrdRegTimestamp != undefined) {
@@ -13,7 +13,7 @@ export class TrdRegTimestamps
         }
         return obj;
     }
-    static convertFromTags(obj:any){
+    static async convertFromTags(obj:any){
         let myobj=new TrdRegTimestamps();
         if(obj.tags["769"]!=undefined){
             myobj.TrdRegTimestamp=obj.tags["769"];

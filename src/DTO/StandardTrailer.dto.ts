@@ -1,8 +1,7 @@
 export class StandardTrailer
 {
     CheckSum : string;
-    converter()
-    {
+    async converter(){
         var obj = {
             tags: {}
         };

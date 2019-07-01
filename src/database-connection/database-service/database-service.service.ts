@@ -73,19 +73,24 @@ export class DatabaseServiceService {
                     businessRejectText = "";
             }
             const res = await this.manager.query('CALL proc_tcr_nex_submit (?,?,?,?,?,?,?,?,?,?,?,?)', [tradeId, secondaryTradeId, trdRptStatus, time, timeType, trdPublishIndicatore, trdReportRejectionReason, rejectText, warningText, businessRejectRefId, businessRejectReason, businessRejectText]);
+            // throw QueryFailedError;
             return res;
         }
+        // QueryFailedError
         catch (QueryFailedError) {
             console.log("Call to proc_tcr_nex_submit() failed because of duplication of primary key. ", QueryFailedError);
         }
+        // catch (Error){
+
+        // }
     }
     /*
         This function used make whole message from content of TCR class.
     */
     async makeTCRReport(obj: TCR_class) {
-        let tcrheader = this.headerService.getHeader("AE");
+        let tcrheader = await this.headerService.getHeader("AE");
         var msg = {
-            header: tcrheader.converter(),
+            header: await tcrheader.converter(),
             tags: obj.getTags(),
             groups: obj.getGroups()
         };

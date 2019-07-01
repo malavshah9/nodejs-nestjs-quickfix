@@ -2,9 +2,7 @@ export class StreamGrp
 {
     StreamNotional?: number;
     StreamCurrency?: number;
-
-    convertToTags()
-    {
+    async convertToTags(){
         var obj = {};
         if (this.StreamNotional != undefined) {
             obj["40054"] = this.StreamNotional;
