@@ -2,15 +2,15 @@
 
 This project is developed for receiving and sending TCR and TCRAck message of [FIX](https://www.onixs.biz) Protocol.
 
-Three parts of this project.
+Three parts of this project are:
 1. Incoming Message:
     
-    1. [ActiveMQ](http://activemq.apache.org):  I have used stompit npm package to subscribe the topic on activeMQ.I have written XML Parsing which parses the XML file received from topic in ActiveMQ and than makes the TCR Message.
+    1. [ActiveMQ](http://activemq.apache.org):  I have used stompit npm package to subscribe the topic on activeMQ.I have parsed XML file received from topic in ActiveMQ converting it into the TCR Message.
     
     2. TCR/TCRAck by quickfix enginee from NEX: This message will be handled inside initiator.js which is located inside 
     quickfix_examples directory.
 
-    3. Database: Data which are not yet submitted to NEX server which will be activated when following api called after starting all server whose TrdRptStatus(939) is 1 or null which means Trade Rejected or not yet submitted.
+    3. Database: Data which are not yet submitted to NEX server will be activated when following api is called after starting all servers whose TrdRptStatus(939) is 1 or null which means Trade Rejected or not yet submitted.
     
         [GET] http://localhost:3000/submitTradeToNex
 
@@ -30,11 +30,11 @@ Three parts of this project.
 
 1. [Node.js](https://nodejs.org/en/) JavaScript run-time environment that executes JavaScript code outside of a browser.
 
-2. [Nest](https://github.com/nestjs/nest) Framework TypeScript for Node.js project.
+2. [Nest](https://github.com/nestjs/nest) Typescript Framework for Node.js project.
 
 3. [QuickFIX Node.js Wrapper](https://github.com/Trumid/node-quickfix) For quickfix enginee support.
 
-4. [ActiveMQ Messaging Server](http://activemq.apache.org/) ActiveMQ server for Stompit subscription.
+4. [ActiveMQ Messaging Server](http://activemq.apache.org/) ActiveMQ server for stompit subscription.
 
 
 ## Installation
