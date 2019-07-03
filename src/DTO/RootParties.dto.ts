@@ -1,11 +1,11 @@
 export class RootParties
 {
   
-    RootPartyID:number;
+    RootPartyID:string;
     RootPartyIDSource:string;
     RootPartyRole:number;
 
-    constructor(RootPartyID:number,RootPartyIDSource:string,RootPartyRole:number){
+    constructor(RootPartyID:string,RootPartyIDSource:string,RootPartyRole:number){
         this.RootPartyID=RootPartyID;
         this.RootPartyIDSource=RootPartyIDSource;
         this.RootPartyRole=RootPartyRole;

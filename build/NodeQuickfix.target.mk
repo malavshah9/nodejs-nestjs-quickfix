@@ -36,13 +36,13 @@ CFLAGS_CC_Debug := \
 	-fexceptions
 
 INCS_Debug := \
-	-I/home/development/.node-gyp/10.15.3/include/node \
-	-I/home/development/.node-gyp/10.15.3/src \
-	-I/home/development/.node-gyp/10.15.3/deps/openssl/config \
-	-I/home/development/.node-gyp/10.15.3/deps/openssl/openssl/include \
-	-I/home/development/.node-gyp/10.15.3/deps/uv/include \
-	-I/home/development/.node-gyp/10.15.3/deps/zlib \
-	-I/home/development/.node-gyp/10.15.3/deps/v8/include \
+	-I/home/malav/.node-gyp/10.16.0/include/node \
+	-I/home/malav/.node-gyp/10.16.0/src \
+	-I/home/malav/.node-gyp/10.16.0/deps/openssl/config \
+	-I/home/malav/.node-gyp/10.16.0/deps/openssl/openssl/include \
+	-I/home/malav/.node-gyp/10.16.0/deps/uv/include \
+	-I/home/malav/.node-gyp/10.16.0/deps/zlib \
+	-I/home/malav/.node-gyp/10.16.0/deps/v8/include \
 	-I$(srcdir)/node_modules/nan \
 	-I/usr/local/include \
 	-I/usr/local/include/quickfix
@@ -78,13 +78,13 @@ CFLAGS_CC_Release := \
 	-fexceptions
 
 INCS_Release := \
-	-I/home/development/.node-gyp/10.15.3/include/node \
-	-I/home/development/.node-gyp/10.15.3/src \
-	-I/home/development/.node-gyp/10.15.3/deps/openssl/config \
-	-I/home/development/.node-gyp/10.15.3/deps/openssl/openssl/include \
-	-I/home/development/.node-gyp/10.15.3/deps/uv/include \
-	-I/home/development/.node-gyp/10.15.3/deps/zlib \
-	-I/home/development/.node-gyp/10.15.3/deps/v8/include \
+	-I/home/malav/.node-gyp/10.16.0/include/node \
+	-I/home/malav/.node-gyp/10.16.0/src \
+	-I/home/malav/.node-gyp/10.16.0/deps/openssl/config \
+	-I/home/malav/.node-gyp/10.16.0/deps/openssl/openssl/include \
+	-I/home/malav/.node-gyp/10.16.0/deps/uv/include \
+	-I/home/malav/.node-gyp/10.16.0/deps/zlib \
+	-I/home/malav/.node-gyp/10.16.0/deps/v8/include \
 	-I$(srcdir)/node_modules/nan \
 	-I/usr/local/include \
 	-I/usr/local/include/quickfix

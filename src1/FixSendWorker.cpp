@@ -23,7 +23,7 @@ using namespace node;
 void FixSendWorker::Execute () {
 	try {
 		FIX::Session::sendToTarget(*message);
-		// std::cout<<(*message)<<std::endl;
+		std::cout<<(*message)<<std::endl;
 	} catch(FIX::SessionNotFound& e) {
 		std::cout << "*** Session not found!" << std::endl;
 	}

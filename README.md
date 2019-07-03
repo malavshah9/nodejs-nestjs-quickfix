@@ -22,7 +22,9 @@ Three parts of this project are:
     
 3. Outgoing Message:
 
-    1. TCR message will be sent after internal processing to NEX server by QuickFix Client using preconfigured parameters. 
+    1. TCR message will be sent after internal processing to Stunnel server by QuickFix Client using preconfigured parameters. 
+
+    2. Stunnel will send this TCR Message to NEX in encrypted form via SSL certificate to NEX.
 
 
 
@@ -36,6 +38,9 @@ Three parts of this project are:
 
 4. [ActiveMQ Messaging Server](http://activemq.apache.org/) ActiveMQ server for stompit subscription.
 
+5. [Stunnel](https://www.stunnel.org/) Stunnel Server for SSL connection to NEX
+
+6. [Redis](https://redis.io/) Data structure server for receiving messages
 
 ## Installation
 
@@ -50,11 +55,26 @@ $ npm install
 
 ## Running the app
 
+1. Starting Stunnel Server:
+
+Before all step you have to start the stunnel server by following command in stunnel`s installation directory.
+
+```bash
+$ sudo stunnel
+```
+
+2. Start Redis Server
+
+3. Start ActiveMQ Server
+
+4. Start quickfix server for testing purpose
+
 To start the quickfix server run following command inside quickfix_examples/
 
 ```bash
 $ node acceptor.js
 ```
+5. Start nodejs server and quickfix client
 
 To start the gateway run following command in root directory.
 ```bash

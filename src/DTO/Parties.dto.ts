@@ -16,7 +16,9 @@ export class Parties
         if (this.PartyRole != undefined) {
             obj["452"] = this.PartyRole;
         }
+        // console.log(" inside Parties ",obj);
         return obj;
+
     }
     static async convertFromTags(objs:any){
         let obj = new Parties();

@@ -157,12 +157,15 @@ export class TCR_class {
         if (this.NoSides != undefined && this.TrdCapRptSideGrp != undefined) {
             if (this.NoSides == this.TrdCapRptSideGrp.length) {
                 // let obj:groups; obj.index=552; obj.delim=54;
+                // console.log("NoSides TrdCapRptSide Called ",this.TrdCapRptSideGrp);
                 let TrdCapRptSideGrpList = [];
-                this
+                await this
                     .TrdCapRptSideGrp
                     .forEach(async element => {
                         TrdCapRptSideGrpList.push(await element.convertToTags());
+                        console.log(" element ",element);
                     });
+                    await console.log(" TrdCapRptSideGrpList ",TrdCapRptSideGrpList);
                 // obj.entries=TrdCapRptSideGrpList;
                 var temp = {
                     index: 552,

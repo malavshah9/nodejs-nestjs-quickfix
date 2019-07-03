@@ -41,9 +41,17 @@ var fixClient = new initiator(
     console.log(" message with sequence number ",message.header["34"]," attempted logged in on session ",sessionID);
   },
   toAdmin: function(message, sessionID) {
+    console.log(" toAdmin ", message);
+    if(message!=undefined && message.header["35"]=="A"){
+        message.tags["98"]=0;
+        message.tags["108"]=20;
+        message.tags["1137"]="FIX50SP2";
+        message.tags["1407"]=222;
+    }
     console.log(" message with sequence number ",message.header["34"]," sending message to admin on session ",sessionID);
   },
   fromAdmin: function(message, sessionID) {
+    console.log(" fromAdmin ", message);
     console.log(" message with sequence number ",message.header["34"]," sending message from admin on session ",sessionID);
   },
   fromApp: function(message, sessionID) {

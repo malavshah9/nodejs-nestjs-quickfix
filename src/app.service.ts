@@ -25,7 +25,7 @@ export class AppService {
   async setQuickfixClient(obj: any): Promise<void> {
     this.quickfix_client = obj;
     let stom = new stomp_it();
-    await stom.startConnectionStompit(this.quickfix_client);
+    // await stom.startConnectionStompit(this.quickfix_client);
   }
   // this method will be used to give the stored object of quickfix client
   async getQuickfixClient() {
