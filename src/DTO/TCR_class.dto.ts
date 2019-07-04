@@ -163,9 +163,7 @@ export class TCR_class {
                     .TrdCapRptSideGrp
                     .forEach(async element => {
                         TrdCapRptSideGrpList.push(await element.convertToTags());
-                        console.log(" element ",element);
                     });
-                    await console.log(" TrdCapRptSideGrpList ",TrdCapRptSideGrpList);
                 // obj.entries=TrdCapRptSideGrpList;
                 var temp = {
                     index: 552,

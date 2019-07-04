@@ -78,7 +78,7 @@ export class DatabaseServiceService {
         }
         // QueryFailedError
         catch (QueryFailedError) {
-            console.log("Call to proc_tcr_nex_submit() failed because of duplication of primary key. ", QueryFailedError);
+            console.log("Call to proc_tcr_nex_submit() failed because of duplication of primary key.");
         }
         // catch (Error){
 

@@ -19,7 +19,7 @@ export class HeaderServiceService {
         1.AE:TradeCaptureREPORT
         2.AR:TradeCaptureReportAck
     */
-    async getHeader(MessageType: string) {
+    getHeader(MessageType: string) {
         if (MessageType == "AE") {
             if (this.ObjTradeCaptureReportHeader == null) {
                 this.ObjTradeCaptureReportHeader = new StandardHeader();

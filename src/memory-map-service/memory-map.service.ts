@@ -1,3 +1,4 @@
+import { TradeCaptureReportAck } from './../DTO/TradeCaptureReportAck.dto';
 import { HeaderServiceService } from 'src/common-services/header-service/header-service.service';
 import { TCR_class } from './../DTO/TCR_class.dto';
 import { Injectable } from '@nestjs/common';
@@ -28,29 +29,34 @@ export class MemoryMapService {
             3. Update the Database Values.
     */
     async UpdateMap(TCR_Map: any, TCR: any, isDatabaseUpdationNeeded: boolean = true) {
-        let newMergedTCR;
-        if (this.databaseService == null)
-            this.databaseService = new DatabaseServiceService(getConnection('default'), new HeaderServiceService());
-        if (!TCR_Map.has(TCR.TradeID)) {
-            TCR_Map.set(TCR.TradeID, TCR);
-        }
-        else {
-            newMergedTCR = await this.merge(TCR, TCR_Map.get(TCR.TradeID));
-            if (newMergedTCR.TradePublishIndicator === '2') {
-                TCR_Map.remove(TCR.TradeID);
+        let tcr = Promise.resolve(TCR);
+        tcr.then(async function (value) {
+            let newMergedTCR = value;
+            let databaseService = new DatabaseServiceService(getConnection('default'), new HeaderServiceService());
+            var d = new Date();
+            if (!TCR_Map.has(value.TradeID)) {
+                TCR_Map.set(value.TradeID, value);
             }
             else {
-                TCR_Map.set(TCR.TradeID, newMergedTCR);
+                let newMergedTCR = mixing(TCR_Map.get(value.TradeID), value);
+                if (newMergedTCR.TradePublishIndicator === '2') {
+                    TCR_Map.remove(value.TradeID);
+                }
+                else {
+                    TCR_Map.set(value.TradeID, newMergedTCR);
+                }
             }
-            var d = new Date();
-            var dformat = [d.getFullYear(),
-            d.getMonth() + 1,
-            d.getDate()].join('-') + ' ' +
-                [d.getHours(),
-                d.getMinutes(),
-                d.getSeconds()].join(':');
-            await this.databaseService.insertTCRAck(newMergedTCR.TradeID, newMergedTCR.SecondaryTradeID, newMergedTCR.TrdRptStatus, dformat, 2, newMergedTCR.TradePublishIndicator, newMergedTCR.TradeReportRejectReason, newMergedTCR.RejectText, newMergedTCR.WarningText, "", 0, "");
-        }
+            if(isDatabaseUpdationNeeded){
+                var d = new Date();
+                var dformat = [d.getFullYear(),
+                d.getMonth() + 1,
+                d.getDate()].join('-') + ' ' +
+                    [d.getHours(),
+                    d.getMinutes(),
+                    d.getSeconds()].join(':');
+                await databaseService.insertTCRAck(newMergedTCR.TradeID, newMergedTCR.SecondaryTradeID, newMergedTCR.TrdRptStatus, dformat, 2, newMergedTCR.TradePublishIndicator, newMergedTCR.TradeReportRejectReason, newMergedTCR.RejectText, newMergedTCR.WarningText, "", 0, "");
+            }
+        });
     }
     async DisplayMap(TCR_Map: any) {
         TCR_Map.entries().forEach(element => {

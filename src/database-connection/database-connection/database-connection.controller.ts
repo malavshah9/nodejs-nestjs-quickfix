@@ -26,90 +26,6 @@ export class DatabaseConnectionController {
         return this.dbServer.getAll_iress_trade_left_TCR_NEX();
     }
     async getDataSendMessage() {
-
-
-        let msg = {
-            header:
-            {
-                '8': 'FIXT.1.1',
-                '34': 0,
-                '35': 'AE',
-                '49': 'DINOSAUR',
-                '56': 'NEX'
-            },
-            tags:
-            {
-                '15': 'CNY',
-                '22': '4',
-                '30': 'SINT',
-                '31': 455,
-                '32': 2600,
-                '48': 'EZTP571VT5Z7',
-                '55': '[N/A]',
-                '60': '20180104-14:07:31.000',
-                '75': '20180104',
-                '423': '2',
-                '552': 1,
-                '856': 0,
-                '1003': '2',
-                '1116': 1,
-                '1924': 1,
-                '1934': 11
-            },
-            groups:
-                [{
-                    index: 552, delim: 54, entries: [
-                        {
-                            '54': "1",
-                            '453': "3",
-                            groups: [{
-                                index: 453,
-                                delim: 448,
-                                entries: [
-                                    {
-                                        '448': "GC1",
-                                        '447': "N",
-                                        '452': 56
-                                    },
-                                    {
-                                        '448': "GC2",
-                                        '447': "N",
-                                        '452': 56
-                                    },
-                                    {
-                                        '448': "GC3",
-                                        '447': "N",
-                                        '452': 56
-                                    }
-                                ]
-                            }]
-                        }
-                    ]
-                },
-                {
-                    index: 1116, delim: 1117, entries: [{
-                        '1117': "15",
-                        '1118': "G",
-                        '1119': 3
-                    }]
-                }]
-        };
-        await this.appService.getQuickfixClient().then(async (quickfixClient) => {
-            await quickfixClient.send(msg, () => {
-                console.log("TCR sent ...", msg);
-                console.log(" after sending msg ")
-                msg.groups.forEach(element => {
-                    element.entries.forEach(ele => {
-                        console.log(" entr ", ele);
-                        if (ele.groups != undefined) {
-                            ele.groups.forEach(et => {
-                                console.log(et.entries);
-                            });
-                        }
-                    });
-                });
-            });
-        });
         await this.dbServer.getAll_iress_trade_left_TCR_NEX().then(async (data: any[]) => {
             let mydata: any[] = data[0];
             for (const element of mydata) {
@@ -143,50 +59,9 @@ export class DatabaseConnectionController {
                         tags: await obj.getTags(),
                         groups: await obj.getGroups()
                     };
-                    // msg.tags["22"] = '4';
-                    // msg.tags["48"] = "0X1213";
-                    // msg.tags["55"] = "BAC";
-                    // console.log("------------");
-                    // await console.log(" after sending msg ")
-                    // await msg.groups.forEach(async element => {
-                    //     await element.entries.forEach(async ele => {
-                    //         await console.log(" entr ", ele);
-                    //         if (ele.groups != undefined) {
-                    //             await ele.groups.forEach(async et => {
-                    //                 await console.log(et.entries);
-                    //             });
-                    //         }
-                    //     });
-                    // });
-                    // // console.log(util.inspect(msg, false, 5, true /* enable colors */));
-                    // // console.log(" mess ", msg);1
-                    // console.log("------------");
-                    // msg["552"]=2;
-                    // msg.groups.push({
-                    //     index:552,
-                    //     delim:54,
-                    //     entries:[{
-                    //         '54':1,
-                    //         '453':1,
-                    //         '448':"NEX",
-                    //         '447':"G",
-                    //         '452':56
-                    //     },
-                    //     {
-                    //     '54':1,
-                    //     '453':2,
-                    //     '448':"NEX",
-                    //     '447':"G",
-                    //     '452':56
-                    // }]
-                    // });
-                    // console.log(util.inspect(msg, false, null, true /* enable colors */))
-                    await this.memoryMapService.UpdateMap(hashMap.TCR_Map, obj, false);
-                    await console.log("sending message ", msg);
+                    await this.memoryMapService.UpdateMap(hashMap.TCR_Map, obj, true);
                     await this.appService.getQuickfixClient().then(async (quickfixClient) => {
-                        await quickfixClient.send(msg, () => {
-                            // console.log("TCR sent ...", msg);
-                           
+                        await quickfixClient.send(msg, () => { 
                         });
                     });
                 }
@@ -194,3 +69,87 @@ export class DatabaseConnectionController {
         });
     }
 }
+
+
+// let msg = {
+//     header:
+//     {
+//         '8': 'FIXT.1.1',
+//         '34': 0,
+//         '35': 'AE',
+//         '49': 'DINOSAUR',
+//         '56': 'NEX'
+//     },
+//     tags:
+//     {
+//         '15': 'CNY',
+//         '22': '4',
+//         '30': 'SINT',
+//         '31': 455,
+//         '32': 2600,
+//         '48': 'EZTP571VT5Z7',
+//         '55': '[N/A]',
+//         '60': '20180104-14:07:31.000',
+//         '75': '20180104',
+//         '423': '2',
+//         '552': 1,
+//         '856': 0,
+//         '1003': '2',
+//         '1116': 1,
+//         '1924': 1,
+//         '1934': 11
+//     },
+//     groups:
+//         [{
+//             index: 552, delim: 54, entries: [
+//                 {
+//                     '54': "1",
+//                     '453': "3",
+//                     groups: [{
+//                         index: 453,
+//                         delim: 448,
+//                         entries: [
+//                             {
+//                                 '448': "GC1",
+//                                 '447': "N",
+//                                 '452': 56
+//                             },
+//                             {
+//                                 '448': "GC2",
+//                                 '447': "N",
+//                                 '452': 56
+//                             },
+//                             {
+//                                 '448': "GC3",
+//                                 '447': "N",
+//                                 '452': 56
+//                             }
+//                         ]
+//                     }]
+//                 }
+//             ]
+//         },
+//         {
+//             index: 1116, delim: 1117, entries: [{
+//                 '1117': "15",
+//                 '1118': "G",
+//                 '1119': 3
+//             }]
+//         }]
+// };
+// await this.appService.getQuickfixClient().then(async (quickfixClient) => {
+//     await quickfixClient.send(msg, () => {
+//         console.log("TCR sent ...", msg);
+//         console.log(" after sending msg ")
+//         msg.groups.forEach(element => {
+//             element.entries.forEach(ele => {
+//                 console.log(" entr ", ele);
+//                 if (ele.groups != undefined) {
+//                     ele.groups.forEach(et => {
+//                         console.log(et.entries);
+//                     });
+//                 }
+//             });
+//         });
+//     });
+// });

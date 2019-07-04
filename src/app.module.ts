@@ -9,6 +9,7 @@ import { RedisDataService } from './redis-data/redis-data.service';
 @Module({
   imports: [DatabaseConnectionModule, TypeOrmModule.forRoot()],
   controllers: [AppController],
-  providers: [AppService,HeaderServiceService],
+  providers: [AppService,HeaderServiceService,RedisDataService],
+  exports:[RedisDataService]
 })
 export class AppModule {}

@@ -9,7 +9,7 @@ export interface TCRAllFields{
     TradeReportRejectReason?: number;
     RejectText?: string;
     WarningText? : string;
-    TradeID?: string;
+    TradeID?: number;
     SecondaryTradeID?: string;
     PackageID?: string;
     TradeNumber?: number;

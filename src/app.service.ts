@@ -8,6 +8,7 @@ import { RootParties } from '../src/DTO/RootParties.dto';
 import { instrument } from '../src/DTO/Instrument.dto';
 import { TrdCapRptSideGrp } from '../src/DTO/TrdCapRptSideGrp.dto';
 import { HeaderServiceService } from './common-services/header-service/header-service.service';
+import { RedisDataService } from './redis-data/redis-data.service';
 const util = require('util');
 var dateformat = require('dateformat');
 
@@ -24,11 +25,12 @@ export class AppService {
   // 2. Start listening on ActiveMQ
   async setQuickfixClient(obj: any): Promise<void> {
     this.quickfix_client = obj;
-    let stom = new stomp_it();
+    // let stom = new stomp_it();
     // await stom.startConnectionStompit(this.quickfix_client);
   }
   // this method will be used to give the stored object of quickfix client
   async getQuickfixClient() {
+    console.log(" getQuickfixClient called() ",this.quickfix_client);
     return await this.quickfix_client;
   }
 }
