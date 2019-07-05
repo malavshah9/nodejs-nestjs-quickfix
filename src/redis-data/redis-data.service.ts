@@ -52,7 +52,7 @@ export class RedisDataService {
     configureRedis(quickfix_client: any) {
         this.client.on('message', async function (channel, message) {
             var jsonObj = parser.parse(message);
-            let tcr_obj = new TCR_class(jsonObj.trade_number + "", 5, "2", 1, [new RootParties("15", "G", 3)], new instrument("0", jsonObj.security_id, "4"), Math.abs(parseInt(jsonObj.trade_volume)), parseInt(jsonObj.trade_price), jsonObj.source_currency, "SINT", dateformat(new Date(jsonObj.trade_date_time), "yyyymmdd"), dateformat(new Date(jsonObj.trade_date_time_gmt), "yyyymmdd-HH:MM:ss.l"), 1, [new TrdCapRptSideGrp("3")], 1, 11);
+            let tcr_obj = new TCR_class(jsonObj.trade_number + "", 6, "2", 1, [new RootParties("15", "G", 3)], new instrument("0", jsonObj.security_id, "4"), Math.abs(parseInt(jsonObj.trade_volume)), parseInt(jsonObj.trade_price), jsonObj.source_currency, "SINT", dateformat(new Date(jsonObj.trade_date_time), "yyyymmdd"), dateformat(new Date(jsonObj.trade_date_time_gmt), "yyyymmdd-HH:MM:ss.l"), 1, [new TrdCapRptSideGrp("3")], 1, 11);
             let headerService = new HeaderServiceService();
             let tcrheader = await headerService.getHeader("AE");
             var msg = {};
@@ -72,9 +72,9 @@ export class RedisDataService {
 
 
         });
-        setTimeout(()=>{
+        setTimeout(() => {
             this.setXMLFile();
-        },10000)
+        }, 10000)
         // this.setXMLFile();
     }
     setXMLFile() {

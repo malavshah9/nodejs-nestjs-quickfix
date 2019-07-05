@@ -53,7 +53,10 @@ var fixClient = new initiator(
     console.log(" message with sequence number ",message.header["34"]," sending message from admin on session ",sessionID);
   },
   fromApp: async function(message, sessionID) {
+    console.log(" message ",message);
     console.log(" message with sequence number ",message.header["34"]," received message on session ",sessionID);
+    message.tags["939"]="1";
+    // delete message.tags["1328"];
     if(message.header["35"]=="AR"){
       let obj=new TCRAck.TradeCaptureReportAck();
       let mess=obj.convertToField(message);
@@ -62,6 +65,7 @@ var fixClient = new initiator(
     }
     else if(message.header["35"]=="AE"){
       let obj=new TCR_Class.TCR_class();
+      message.tags["1390"]=1;
       let mess=obj.convertToField(message);
       let memoryMapService=new memoryService.MemoryMapService();
       await memoryMapService.UpdateMap(hashMap.TCR_Map,mess,true);

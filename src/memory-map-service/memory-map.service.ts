@@ -39,14 +39,15 @@ export class MemoryMapService {
             }
             else {
                 let newMergedTCR = mixing(TCR_Map.get(value.TradeID), value);
-                if (newMergedTCR.TradePublishIndicator === '2') {
+                TCR.SecondaryTradeID=newMergedTCR.SecondaryTradeID;
+                if (newMergedTCR.TradePublishIndicator === 2) {
                     TCR_Map.remove(value.TradeID);
                 }
                 else {
                     TCR_Map.set(value.TradeID, newMergedTCR);
                 }
             }
-            if(isDatabaseUpdationNeeded){
+            if (isDatabaseUpdationNeeded) {
                 var d = new Date();
                 var dformat = [d.getFullYear(),
                 d.getMonth() + 1,

@@ -30,7 +30,6 @@ export class AppService {
   }
   // this method will be used to give the stored object of quickfix client
   async getQuickfixClient() {
-    console.log(" getQuickfixClient called() ",this.quickfix_client);
     return await this.quickfix_client;
   }
 }

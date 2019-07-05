@@ -10,7 +10,7 @@ export class TradeCaptureReportAck{
     TradeID : number;
     SecondaryTradeID : string;
     TradeReportType : number;
-    TrdRptStatus : number;
+    TrdRptStatus : string;
     TrdType?: number;
     TradeReportRejectReason?: number;
     RejectText?: string;

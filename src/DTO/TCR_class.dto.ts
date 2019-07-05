@@ -16,7 +16,7 @@ export class TCR_class {
     PackageID?: string;
     TradeNumber?: number;
     TradeReportType: number;
-    TrdRptStatus?: number;
+    TrdRptStatus?: string;
     TrdType?: number;
     TrdSubType?: number;
     SecondaryTrdType?: number;
@@ -47,7 +47,7 @@ export class TCR_class {
     tagObj: any;
     tagGrp: any[] = [];
     constructor(TradeId: string, TradeReportType: number, PriceType: string, NoRootPartyIDs: number, RootParties: RootParties[], instrument: instrument, LastQty: number, LastPx: number, Currency: any, LastMkt: string, TradeDate: string, TransactTime: string, NoSides: number, TrdCapRptSideGrp: TrdCapRptSideGrp[], ClearingIntention: number, RegulatoryReportType: number,
-        SecondaryTradeID?: string, PackageID?: string, TradeNumber?: number, TrdRptStatus?: number, TrdType?: number,
+        SecondaryTradeID?: string, PackageID?: string, TradeNumber?: number, TrdRptStatus?: string, TrdType?: number,
         TrdSubType?: number, SecondaryTrdType?: number, TradePriceConditionGrp?: TradePriceConditionGrp[],
         NoTradePriceConditions?: number, TotNumTradeReports?: number, VenueType?: string, QtyType?: number,
         TrdRegTimestamps?: TrdRegTimestamps[], NoTrdRegTimestamps?: number,

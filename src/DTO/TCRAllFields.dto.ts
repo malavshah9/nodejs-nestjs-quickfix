@@ -14,7 +14,7 @@ export interface TCRAllFields{
     PackageID?: string;
     TradeNumber?: number;
     TradeReportType: number;
-    TrdRptStatus?: number;
+    TrdRptStatus?: string;
     TrdType?: number;
     TrdSubType?: number;
     SecondaryTrdType?: number;

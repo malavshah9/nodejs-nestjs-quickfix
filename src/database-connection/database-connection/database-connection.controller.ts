@@ -33,17 +33,17 @@ export class DatabaseConnectionController {
                     let trdCapGrp = new TrdCapRptSideGrp("1");
                     trdCapGrp.NoPartyIDs = "2";
                     var part1 = new Parties();
-                    part1.PartyID = "NEX";
+                    part1.PartyID = "NEX1";
                     part1.PartyIDSource = "N";
                     part1.PartyRole = 56;
                     var part2 = new Parties();
-                    part2.PartyID = "NEX";
+                    part2.PartyID = "NEX2";
                     part2.PartyIDSource = "G";
                     part2.PartyRole = 56;
                     trdCapGrp.Parties = [part1, part2];
-                    let obj = new TCR_class(element.t_id, 0, "2", 1, [new RootParties("15", "G", 3)],
+                    let obj = new TCR_class(element.t_id, 6, "2", 1, [new RootParties("15", "G", 3)],
                         new instrument("[N/A]", "EZTP571VT5Z7", "4"),
-                        2600,
+                        Math.abs(parseInt(element.trade_volume)),
                         parseInt(element.trade_price),
                         "CNY",
                         "SINT",
@@ -59,10 +59,14 @@ export class DatabaseConnectionController {
                         tags: await obj.getTags(),
                         groups: await obj.getGroups()
                     };
+                    if (hashMap.TCR_Map.has(obj.TradeID)) {
+                        let mapObj = hashMap.get(obj.TradeID);
+                        if (mapObj.SecondaryTradeID != undefined)
+                            msg.tags["1040"] = mapObj.SecondaryTradeID;
+                    }
                     await this.memoryMapService.UpdateMap(hashMap.TCR_Map, obj, true);
                     await this.appService.getQuickfixClient().then(async (quickfixClient) => {
-                        await quickfixClient.send(msg, () => { 
-                        });
+                        await quickfixClient.send(msg, () => { });
                     });
                 }
             }
