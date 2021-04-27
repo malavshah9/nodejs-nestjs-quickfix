@@ -34,7 +34,7 @@
     "nan": "^2.14.0",
     "properties-reader": "0.0.16",
     "quickfix": "^1.0.4",
-    "redis": "^2.8.0",
+    "redis": "^3.1.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^2.6.2",
     "rxjs": "^6.5.2",
